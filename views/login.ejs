@@ -1,0 +1,126 @@
+<%- include('partials/head'); %> 
+
+
+<nav class="navbar navbar-expand-lg fixed-top navbar-light bg-white shadow">
+  <div class="container">
+    <a class="navbar-brand mr-auto mr-lg-0" href="/"></a>
+    <button
+      id="nav-icon0"
+      class="navbar-toggler mt-2 p-0 border-0"
+      type="button"
+      data-toggle="offcanvas"
+    >
+      <span></span>
+      <span></span>
+      <span></span>
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
+
+    <div
+      class="navbar-collapse offcanvas-collapse"
+      id="navbarsExampleDefault"
+    >
+      <ul class="navbar-nav ml-auto">
+        <li class="nav-item">
+          <a class="nav-link" href="/">Home</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">About Us</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link">Courses</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/contact">Contact Us</a>
+        </li>
+        <!-- <li class="nav-item dropdown">
+          <a
+            class="nav-link dropdown-toggle"
+            id="dropdown01"
+            data-toggle="dropdown"
+            aria-haspopup="true"
+            aria-expanded="false"
+            style="cursor: pointer;"
+            >Settings</a
+          >
+          <div class="dropdown-menu border-0" aria-labelledby="dropdown01">
+            <a class="dropdown-item" href="#">Action</a>
+            <a class="dropdown-item" href="#">Another action</a>
+            <a class="dropdown-item" href="#">Something else here</a>
+          </div>
+        </li> -->
+      </ul>
+
+      <ul class="navbar-nav ml-auto">
+        <li class="nav-item">
+          <a href="/login/" class="btn btn-md btn-succ">
+            Log In
+          </a>
+        </li>
+        <li class="nav-item">
+          <a href="/register/" class="btn btn-md btn-succ-border">
+            Register
+          </a>
+        </li>
+      </ul>
+
+    </div>
+  </div>
+</nav>
+
+
+
+<section>
+  <div class="jumbotron jumbotron-fluid jumbotron-top">
+    <div class="jumbo-text text-center">
+      <h1>Log In</h1>
+    </div>
+  </div>
+</section>
+
+<div class="form-border">
+  <div class="row">
+    <div class="col-md-12 mx-auto">
+      <form action="/login/" method="post">
+        <div class="row">
+
+          <div class="col-12 col-md-10 mx-auto">
+            <div class="form-group">
+              <input type="email" name="student_email" class="form-control my-input" placeholder="Enter Your Email" />
+            </div>
+          </div>
+
+          <div class="col-12 col-md-10 mx-auto">
+            <div class="form-group">
+              <input type="password" name="student_password" class="form-control my-input" placeholder="Enter Your Password" />
+            </div>
+          </div>
+
+          <div class="col-12 col-md-10 mx-auto">   
+            <a class="text-danger ml-4">
+              <% if( msg != ''){ %>
+                <div class="alert alert-danger" role="alert"><%= msg %></div>
+                  <% } %>
+            </a>
+          </div>
+
+          <div class="col-12 col-md-10 mx-auto mb-4">
+            <input type="submit" class="btn btn-block btn-succ" value="Log In"></input>
+          </div>
+
+          <div class="col-12 col-md-10 mx-auto mb-4">
+            <h6>Don't Have an Account ? Register now !</h6>
+          </div>
+
+          <div class="col-12 col-md-10 mx-auto">
+            <a href="/register/" class="btn btn-md btn-block btn-succ-border">Create Your Account</a>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<%- include('partials/footer'); %>
