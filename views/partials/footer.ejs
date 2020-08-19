@@ -52,7 +52,29 @@
       </div>
     </div>
     </div>
+
+
+    <style>
+    .scroll-top{
+      position: fixed;
+        bottom: 20px;
+        right: 40px;
+        z-index: 99;
+        background: #598048;
+        color: #fff;
+        padding: 15px;
+        font-weight: bold;
+        line-height: normal;
+        border: none;
+    }
+    .scroll-top:hover{
+        color: white;
+    }
+    </style>
+    <a class="scroll-top shadow" href="#toTop"><i class="fa fa-arrow-up" aria-hidden="true"></i></a>
   
+
+
   </section>
     <div class="text-center text-white" style="padding: 1.5%; background-color: rgb(7, 7, 7);">
      <small class="text-muted">© 2020  7x Study - Learn, grow, achieve! All rights reserved.</small>
@@ -83,13 +105,6 @@
 <script src="https://www.jqueryscript.net/demo/JSON-Autocomplete-Fuzzy-Search-jQuery-fuzzyComplete/fuse.min.js"></script>
 <script src="https://www.jqueryscript.net/demo/JSON-Autocomplete-Fuzzy-Search-jQuery-fuzzyComplete/dist/js/fuzzycomplete.min.js"></script>
       <script src="../js/cities.js"></script>
-      <script>
-        $(document).ready(function(){
-        $("#cityPicker").fuzzyComplete(cities);
-        });
-    </script>
-
-
       <script src="../js/main.js"></script>
     </body>
   </html>

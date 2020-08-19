@@ -1,57 +1,124 @@
-var express = require('express');
+var express = require("express");
 var router = express.Router();
 
-
-var contactusModel = require('../models/contactus')
+var contactusModel = require("../models/contactus");
 
 //IMPORTING NODE LOCAL STORAGE
 if (typeof localStorage === "undefined" || localStorage === null) {
-  var LocalStorage = require('node-localstorage').LocalStorage;
-  localStorage = new LocalStorage('./scratch');
+  var LocalStorage = require("node-localstorage").LocalStorage;
+  localStorage = new LocalStorage("./scratch");
 }
 
-router.get('/', (req,res) => {
+router.get("/", (req, res) => {
+  var loginUsername = localStorage.getItem("loginUsername");
 
-    var loginUsername = localStorage.getItem('loginUsername');
+  res.render("home", {
+    loginUsername: loginUsername,
+  });
+});
 
-    res.render('home', {
-    loginUsername : loginUsername
-  })
+
+//Courses
+
+myData = require('../public/js/cources.json');
+
+router.get('/courses', (req,res)=> {
+
+  var loginUsername = localStorage.getItem("loginUsername");
+  res.render("courses", {
+    loginUsername: loginUsername,
+    jsonData : myData
+
+  });
 })
 
-router.get('/contact', (req,res) => {
-  var loginUsername = localStorage.getItem('loginUsername');
-    res.render('contact',{
-      loginUsername : loginUsername
-    })
+
+//Regular 
+
+router.get('/courses/regular', (req,res)=> {
+
+  var loginUsername = localStorage.getItem("loginUsername");
+
+  res.render('regularCoursesDetails',{
+
+    loginUsername: loginUsername,
+    jsonData : myData
+
+  } )
 })
 
 
-router.post('/contact', (req,res)=> {
-  var loginUsername = localStorage.getItem('loginUsername');
+//Fastrack 
+
+router.get('/courses/fastrack', (req,res)=> {
+
+  var loginUsername = localStorage.getItem("loginUsername");
+
+  res.render('fastrackCoursesDetails',{
+
+    loginUsername: loginUsername,
+    jsonData : myData
+
+  } )
+})
 
 
-  console.log(req.body);
 
-  var contactDetails = { name: req.body.contactus_name,
-                         phone: req.body.contactus_phone,
-                         message: req.body.contactus_yourmessage
-  }
 
-  var Date = contactusModel(contactDetails);
+router.post('/', (req,res)=> {
 
-  Date.save((err, docs)=> {
-    if (err) throw err
-    else{
-      res.render('contact',{
-        loginUsername : loginUsername
-      })
+  const MyData = {
+
+    name : req.body.contactus_name,
+    phone: req.body.contactus_phone,
+    message: req.body.contactus_yourmessage,
+
+  } 
+
+  const Data = contactusModel(MyData)
+
+  Data.save((err, docs)=> {
+    if(err){
+      console.log('ERROR ')
     }
-
-    console.log(docs)
+    else{
+      console.log(docs)
+      res.redirect('/')
+    }
   })
 
 })
 
+// router.get("/contact", (req, res) => {
+//   var loginUsername = localStorage.getItem("loginUsername");
+//   res.render("contact", {
+//     loginUsername: loginUsername,
+//   });
+// });
+
+// router.post("/contact", (req, res) => {
+//   var loginUsername = localStorage.getItem("loginUsername");
+
+//   console.log(req.body);
+
+//   var contactDetails = {
+//     name: req.body.contactus_name,
+//     phone: req.body.contactus_phone,
+//     message: req.body.contactus_yourmessage,
+//   };
+
+//   var Date = contactusModel(contactDetails);
+
+//   Date.save((err, docs) => {
+//     if (err) throw err;
+//     else {
+//       res.render("contact", {
+//         loginUsername: loginUsername,
+//       });
+//     }
+
+//     console.log(docs);
+//   });
+// });
 
 module.exports = router;

@@ -19,16 +19,17 @@ $('#nav-icon0,#nav-icon1,#nav-icon2,#nav-icon3,#nav-icon4').click(function(){
 });
 
 
+//Scrol to contact us page 
 
-var ALPHABET = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+//City json control
 
-var ID_LENGTH = 8;
+$(document).ready(function(){
+  $("#cityPicker").fuzzyComplete(cities);
+  });
 
-var generate = function() {
-  var rtn = '';
-  for (var i = 0; i < ID_LENGTH; i++) {
-    rtn += ALPHABET.charAt(Math.floor(Math.random() * ALPHABET.length));
-  }
-  return rtn;
-}
+// Optionbox
+
+$('#mySelect').on('change', function (e) {
+  $('#myTab li a').eq($(this).val()).tab('show'); 
+});
 
