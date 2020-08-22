@@ -20,49 +20,26 @@ router.get("/", (req, res) => {
 
 //Courses
 
-myData = require('../public/js/cources.json');
+jsonData = require('../public/js/courses.json');
 
 router.get('/courses', (req,res)=> {
-
   var loginUsername = localStorage.getItem("loginUsername");
   res.render("courses", {
     loginUsername: loginUsername,
-    jsonData : myData
-
+    jsonData : jsonData
   });
 })
 
 
-//Regular 
+//Details 
 
-router.get('/courses/regular', (req,res)=> {
-
+router.get('/courses/details', (req,res)=> {
   var loginUsername = localStorage.getItem("loginUsername");
-
-  res.render('regularCoursesDetails',{
-
+  res.render('coursesDetails',{
     loginUsername: loginUsername,
-    jsonData : myData
-
-  } )
+    courseData : jsonData[req.query.course_type]
+  });
 })
-
-
-//Fastrack 
-
-router.get('/courses/fastrack', (req,res)=> {
-
-  var loginUsername = localStorage.getItem("loginUsername");
-
-  res.render('fastrackCoursesDetails',{
-
-    loginUsername: loginUsername,
-    jsonData : myData
-
-  } )
-})
-
-
 
 
 router.post('/', (req,res)=> {

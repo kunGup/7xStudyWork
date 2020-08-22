@@ -25,41 +25,36 @@
 
 
 <div class="container">
-
     <div class="row ">
+      <% for(var course_type in jsonData) { %>
 
-
+        <!--  card begins -->
         <div class="col-12 col-md-12">
-
-
-          <!-- Live Session Class ! -->
-
-
             <div class="card mb-3 shadow">
 
-                <p class="card-header"> <span> <img class="img-fluid pb-1" width="60" src="/img/svgs/live.svg" alt=""></span>
-                    <%-JSON.parse(JSON.stringify(jsonData.lsr.Title))%>
+                <p class="card-header"> <span> <img class="img-fluid pb-1" width="60" src="/img/<%=jsonData[course_type].title_image_file%>" alt=""></span>
+                   <%= course_type %>
                 </p>
 
                 <div class="row no-gutters p-4">
                   <div class="col-md-3 text-center">
-                    <img src="/img/svgs/graduate.svg" width="200" class="img-fluid" alt="...">
+                    <img src="/img/<%=jsonData[course_type].image_file%>" width="200" class="img-fluid" alt="...">
                   </div>
                   <div class="col-md-9 mx-auto">
                     <div class="card-body">
                       <h5 class="card-title">
-                        <%-JSON.parse(JSON.stringify(jsonData.lsr.Description))%>
+                        <%= jsonData[course_type].description %>
                       </h5>
                       <p class="card-text">
-                        <%-JSON.parse(JSON.stringify(jsonData.lsr.ShortDescription))%>
+                        <%= jsonData[course_type].description %>
                       </p>
                       <h6 class="card-phone" >
                         <i class="fa fa-phone" aria-hidden="true"></i>
-                        <a style="color: rgb(59, 59, 59);" href=" <%-JSON.parse(JSON.stringify(jsonData.lsr.PhoneNo))%>">
-                            <%-JSON.parse(JSON.stringify(jsonData.lsr.PhoneNo))%>
+                        <a style="color: rgb(59, 59, 59);" href="tel:+916397323402">
+                            +916397323402
                         </a>                       
                       </h6>
-                      <a class="btn btn-md btn-succ" href="/courses/regular">
+                      <a class="btn btn-md btn-succ" href="/courses/details?course_type=<%=course_type%>">
                           Show Details</a>
                     </div>
                   </div>
@@ -68,186 +63,13 @@
             </div>
 
         </div>
-        <div class="col-12 col-md-12">
+        <!-- card ends -->
 
-            <div class="card mb-3 shadow">
-
-              <!-- Live Fast Track Class -->
-
-                <p class="card-header"> <span> <img class="img-fluid pb-1" width="60" src="/img/svgs/live.svg" alt=""></span>
-                    <%-JSON.parse(JSON.stringify(jsonData.lsf.Title))%>
-                </p>
-
-                <div class="row no-gutters p-4">
-                  <div class="col-md-3 text-center">
-                    <img src="/img/svgs/learning.svg" width="200" class="img-fluid" alt="...">
-                  </div>
-                  <div class="col-md-9 mx-auto">
-                    <div class="card-body">
-                      <h5 class="card-title">
-                        <%-JSON.parse(JSON.stringify(jsonData.lsf.Description))%>
-                      </h5>
-                      <p class="card-text">
-                        <%-JSON.parse(JSON.stringify(jsonData.lsf.ShortDescription))%>
-                      </p>
-                      <h6 class="card-phone" >
-                        <i class="fa fa-phone" aria-hidden="true"></i>
-                        <a style="color: rgb(59, 59, 59);" href=" <%-JSON.parse(JSON.stringify(jsonData.lsf.PhoneNo))%>">
-                            <%-JSON.parse(JSON.stringify(jsonData.lsf.PhoneNo))%>
-                        </a>                       
-                      </h6>
-                      <a class="btn btn-md btn-succ" href="/courses/fastrack">
-                          Show Details</a>
-                    </div>
-                  </div>
-                </div>
-
-            </div>
-
-
-        </div>
-        <div class="col-12 col-md-12">
-
-          <!-- Assigments And Test Series -->
-
-            <div class="card mb-3 shadow">
-
-                <p class="card-header"> <span> <img class="img-fluid pb-1" width="60" src="/img/svgs/contract.svg" alt=""></span>
-                    <%-JSON.parse(JSON.stringify(jsonData.ats.Title))%>
-                </p>
-
-                <div class="row no-gutters p-4">
-                  <div class="col-md-3 text-center">
-                    <img src="/img/svgs/elearning.svg" width="200" class="img-fluid" alt="...">
-                  </div>
-                  <div class="col-md-9 mx-auto">
-                    <div class="card-body">
-                      <h5 class="card-title">
-                        <%-JSON.parse(JSON.stringify(jsonData.ats.Description))%>
-                      </h5>
-                      <p class="card-text">
-                        <%-JSON.parse(JSON.stringify(jsonData.ats.ShortDescription))%>
-                      </p>
-                      <h6 class="card-phone" >
-                        <i class="fa fa-phone" aria-hidden="true"></i>
-                        <a style="color: rgb(59, 59, 59);" href=" <%-JSON.parse(JSON.stringify(jsonData.ats.PhoneNo))%>">
-                            <%-JSON.parse(JSON.stringify(jsonData.ats.PhoneNo))%>
-                        </a>                       
-                      </h6>
-                      <a class="btn btn-md btn-succ" href="">
-                          Show Details</a>
-                    </div>
-                  </div>
-                </div>
-
-            </div>
-
-        </div>
-        <div class="col-12 col-md-12">
-
-          <!-- Demo Class -->
-
-            <div class="card mb-3 shadow">
-
-                <p class="card-header"><i class="fa fa-television fa-2x" aria-hidden="true"></i>
-                  <%-JSON.parse(JSON.stringify(jsonData.dc.Title))%>
-                </p>
-
-                <div class="row no-gutters p-4">
-                  <div class="col-md-3 text-center">
-                    <img src="/img/svgs/demo-learning.svg" width="200" class="img-fluid" alt="...">
-                  </div>
-                  <div class="col-md-9 mx-auto">
-                    <div class="card-body">
-                      <h5 class="card-title">
-                        <%-JSON.parse(JSON.stringify(jsonData.dc.Description))%>
-                      </h5>
-                      <p class="card-text">
-                        <%-JSON.parse(JSON.stringify(jsonData.dc.ShortDescription))%>
-                      </p>
-                      <h6 class="card-phone" >
-                        <i class="fa fa-phone" aria-hidden="true"></i>
-                        <a style="color: rgb(59, 59, 59);" href=" <%-JSON.parse(JSON.stringify(jsonData.dc.PhoneNo))%>">
-                            <%-JSON.parse(JSON.stringify(jsonData.dc.PhoneNo))%>
-                        </a>                       
-                      </h6>
-                      <a class="btn btn-md btn-succ" href="">
-                          Show Details</a>
-                    </div>
-                  </div>
-                </div>
-
-            </div>
-
-
-        </div>
-        <div class="col-12 col-md-12">
-
-          <!-- Demo Assignments -->
-
-            <div class="card mb-3 shadow">
-
-                <p class="card-header"> <span> <img class="img-fluid pb-1" width="60" src="/img/svgs/contract.svg" alt=""></span>
-                    <%-JSON.parse(JSON.stringify(jsonData.da.Title))%>
-                </p>
-
-                <div class="row no-gutters p-4">
-                  <div class="col-md-3 text-center">
-                    <img src="/img/svgs/online-learning.svg" width="200" class="img-fluid" alt="...">
-                  </div>
-                  <div class="col-md-9 mx-auto">
-                    <div class="card-body">
-                      <h5 class="card-title">
-                        <%-JSON.parse(JSON.stringify(jsonData.da.Description))%>
-                      </h5>
-                      <p class="card-text">
-                        <%-JSON.parse(JSON.stringify(jsonData.da.ShortDescription))%>
-                      </p>
-                      <h6 class="card-phone" >
-                        <i class="fa fa-phone" aria-hidden="true"></i>
-                        <a style="color: rgb(59, 59, 59);" href=" <%-JSON.parse(JSON.stringify(jsonData.da.PhoneNo))%>">
-                            <%-JSON.parse(JSON.stringify(jsonData.da.PhoneNo))%>
-                        </a>                       
-                      </h6>
-                      <a class="btn btn-md btn-succ" href="">
-                          Show Details</a>
-                    </div>
-                  </div>
-                </div>
-
-            </div>
-
-
-        </div>
-
+      <% } %>
     </div>
 
 
 </div>
-
-
-<!-- <form>
-    <select id='mySelect'>
-        <option value='0'>Home</option>
-        <option value='1'>Profile</option>
-        <option value='2'>Messages</option>
-        <option value='3'>Settings</option>
-    </select>
-</form>
-<ul class="nav nav-tabs" id="myTab" style="display: none;">
-    <li class="active"><a href="#home">Home</a></li>
-    <li><a href="#profile">Profile</a></li>
-    <li><a href="#messages">Messages</a></li>
-    <li><a href="#settings">Settings</a></li>
-</ul>
-<div class="tab-content">
-    <div class="tab-pane active" id="home">Home content</div>
-    <div class="tab-pane" id="profile">Profile content</div>
-    <div class="tab-pane" id="messages">Messages content</div>
-    <div class="tab-pane" id="settings">Settings content</div>
-</div>
-<%- /* JSON.parse(JSON.stringify(jsonData.index.path_to_layout)) */ %> -->
-
 
 
 <%- include('partials/footer'); %>

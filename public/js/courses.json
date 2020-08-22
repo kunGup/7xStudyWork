@@ -1,0 +1,378 @@
+{
+	"Live Sessions - Regular" : {
+		"image_file": "svgs/graduate.svg",
+		"title_image_file": "svgs/live.svg",
+		"description": "Regular courses ensures deep understanding of the concepts",
+		"classes": {
+			"class-1": {
+				"1-on-1": {
+					"desc": "This program contains 1 teacher teaching only 1 student. Program works best for fullfilling special needs and requirements of the child.",
+					"price": {
+						"type": "per hour",
+						"amount": 320,
+						"quantity": [1, 2, 3, 4, 5],
+						"quantity-name": "English Maths Hindi"
+					}
+				},
+				"1-on-2": {
+					"desc": "This program contains 1 teacher teaching only 2 students. Program works best for fullfilling special needs and requirements of the child.",
+					"price": {
+						"type": "per hour",
+						"amount": 260,
+						"quantity": [1, 2, 3, 4, 5],
+						"quantity-name": "English Maths Hindi"
+					}
+				},
+				"Short Batch": {
+					"desc": "This program contains a batch of less than 9 students. Students are not more than 7 so that each student also receives individual attention while also has company of some other students to compete with.",
+					"price": {
+						"type": "per month per subject",
+						"amount": 1550,
+						"quantity": [1, 2, 3, 4, 5],
+						"quantity-name": "English Maths Hindi"
+					}
+				}
+			},
+			"class-2": {
+			    "1-on-1": {
+					"desc": "This program contains 1 teacher teaching only 1 student. Program works best for fullfilling special needs and requirements of the child.",
+					"price": {
+						"type": "per hour",
+						"amount": 320,
+						"quantity": [1, 2, 3, 4, 5],
+						"quantity-name": "English Maths Hindi"
+					}
+				},
+				"1-on-2": {
+					"desc": "This program contains 1 teacher teaching only 2 students. Program works best for fullfilling special needs and requirements of the child.",
+					"price": {
+						"type": "per hour",
+						"amount": 260,
+						"quantity": [1, 2, 3, 4, 5],
+						"quantity-name": "English Maths Hindi"
+					}
+				},
+				"Short Batch": {
+					"desc": "This program contains a batch of less than 9 students. Students are not more than 7 so that each student also receives individual attention while also has company of some other students to compete with.",
+					"price": {
+						"type": "per month per subject",
+						"amount": 1550,
+						"quantity": [1, 2, 3, 4, 5],
+						"quantity-name": "English Maths Hindi"
+					}
+				}
+			},
+			"class-3": {
+			    "1-on-1": {
+					"desc": "This program contains 1 teacher teaching only 1 student. Program works best for fullfilling special needs and requirements of the child.",
+					"price": {
+						"type": "per hour",
+						"amount": 320,
+						"quantity": [1, 2, 3, 4, 5],
+						"quantity-name": "English Maths Hindi EVS"
+					}
+				},
+				"1-on-2": {
+					"desc": "This program contains 1 teacher teaching only 2 students. Program works best for fullfilling special needs and requirements of the child.",
+					"price": {
+						"type": "per hour",
+						"amount": 260,
+						"quantity": [1, 2, 3, 4, 5],
+						"quantity-name": "English Maths Hindi EVS"
+					}
+				},
+				"Short Batch": {
+					"desc": "This program contains a batch of less than 9 students. Students are not more than 7 so that each student also receives individual attention while also has company of some other students to compete with.",
+					"price": {
+						"type": "per month per subject",
+						"amount": 1550,
+						"quantity": [1, 2, 3, 4, 5],
+						"quantity-name": "English Maths Hindi EVS"
+					}
+				}
+			},
+			"class-4": {
+			    "1-on-1": {
+					"desc": "This program contains 1 teacher teaching only 1 student. Program works best for fullfilling special needs and requirements of the child.",
+					"price": {
+						"type": "per hour",
+						"amount": 320,
+						"quantity": [1, 2, 3, 4, 5],
+						"quantity-name": "English Maths Hindi EVS"
+					}
+				},
+				"1-on-2": {
+					"desc": "This program contains 1 teacher teaching only 2 students. Program works best for fullfilling special needs and requirements of the child.",
+					"price": {
+						"type": "per hour",
+						"amount": 260,
+						"quantity": [1, 2, 3, 4, 5],
+						"quantity-name": "English Maths Hindi EVS"
+					}
+				},
+				"Short Batch": {
+					"desc": "This program contains a batch of less than 9 students. Students are not more than 7 so that each student also receives individual attention while also has company of some other students to compete with.",
+					"price": {
+						"type": "per month per subject",
+						"amount": 1550,
+						"quantity": [1, 2, 3, 4, 5],
+						"quantity-name": "English Maths Hindi EVS"
+					}
+				}
+			},							
+			"class-5": {
+			    "1-on-1": {
+					"desc": "This program contains 1 teacher teaching only 1 student. Program works best for fullfilling special needs and requirements of the child.",
+					"price": {
+						"type": "per hour",
+						"amount": 320,
+						"quantity": [1, 2, 3, 4, 5],
+						"quantity-name": "English Maths Hindi EVS"
+					}
+				},
+				"1-on-2": {
+					"desc": "This program contains 1 teacher teaching only 2 students. Program works best for fullfilling special needs and requirements of the child.",
+					"price": {
+						"type": "per hour",
+						"amount": 260,
+						"quantity": [1, 2, 3, 4, 5],
+						"quantity-name": "English Maths Hindi EVS"
+					}
+				},
+				"Short Batch": {
+					"desc": "This program contains a batch of less than 9 students. Students are not more than 7 so that each student also receives individual attention while also has company of some other students to compete with.",
+					"price": {
+						"type": "per month per subject",
+						"amount": 1550,
+						"quantity": [1, 2, 3, 4, 5],
+						"quantity-name": "English Maths Hindi EVS"
+					}
+				}
+			},							
+			"class-6": {
+			    "1-on-1": {
+					"desc": "This program contains 1 teacher teaching only 1 student. Program works best for fullfilling special needs and requirements of the child.",
+					"price": {
+						"type": "per hour",
+						"amount": 320,
+						"quantity": [1, 2, 3, 4, 5],
+						"quantity-name": "English Maths Hindi SST Science Sanskrit"
+					}
+				},
+				"1-on-2": {
+					"desc": "This program contains 1 teacher teaching only 2 students. Program works best for fullfilling special needs and requirements of the child.",
+					"price": {
+						"type": "per hour",
+						"amount": 260,
+						"quantity": [1, 2, 3, 4, 5],
+						"quantity-name": "English Maths Hindi SST Science Sanskrit"
+					}
+				},
+				"Short Batch": {
+					"desc": "This program contains a batch of less than 9 students. Students are not more than 7 so that each student also receives individual attention while also has company of some other students to compete with.",
+					"price": {
+						"type": "per month per subject",
+						"amount": 1550,
+						"quantity": [1, 2, 3, 4, 5],
+						"quantity-name": "English Maths Hindi SST Science Sanskrit Physics Chemistry Biology"
+					}
+				}
+			},							
+			"class-7": {
+			    "1-on-1": {
+					"desc": "This program contains 1 teacher teaching only 1 student. Program works best for fullfilling special needs and requirements of the child.",
+					"price": {
+						"type": "per hour",
+						"amount": 320,
+						"quantity": [1, 2, 3, 4, 5],
+						"quantity-name": "English Maths Hindi SST Science Sanskrit Physics Chemistry Biology"
+					}
+				},
+				"1-on-2": {
+					"desc": "This program contains 1 teacher teaching only 2 students. Program works best for fullfilling special needs and requirements of the child.",
+					"price": {
+						"type": "per hour",
+						"amount": 260,
+						"quantity": [1, 2, 3, 4, 5],
+						"quantity-name": "English Maths Hindi SST Science Sanskrit Physics Chemistry Biology"
+					}
+				},
+				"Short Batch": {
+					"desc": "This program contains a batch of less than 9 students. Students are not more than 7 so that each student also receives individual attention while also has company of some other students to compete with.",
+					"price": {
+						"type": "per month per subject",
+						"amount": 1550,
+						"quantity": [1, 2, 3, 4, 5],
+						"quantity-name": "English Maths Hindi SST Science Sanskrit Physics Chemistry Biology"
+					}
+				}
+			},
+			"class-8": {
+			    "1-on-1": {
+					"desc": "This program contains 1 teacher teaching only 1 student. Program works best for fullfilling special needs and requirements of the child.",
+					"price": {
+						"type": "per hour",
+						"amount": 320,
+						"quantity": [1, 2, 3, 4, 5],
+						"quantity-name": "English Maths Hindi SST Science Sanskrit Physics Chemistry Biology"
+					}
+				},
+				"1-on-2": {
+					"desc": "This program contains 1 teacher teaching only 2 students. Program works best for fullfilling special needs and requirements of the child.",
+					"price": {
+						"type": "per hour",
+						"amount": 260,
+						"quantity": [1, 2, 3, 4, 5],
+						"quantity-name": "English Maths Hindi SST Science Sanskrit Physics Chemistry Biology"
+					}
+				},
+				"Short Batch": {
+					"desc": "This program contains a batch of less than 9 students. Students are not more than 7 so that each student also receives individual attention while also has company of some other students to compete with.",
+					"price": {
+						"type": "per month per subject",
+						"amount": 1550,
+						"quantity": [1, 2, 3, 4, 5],
+						"quantity-name": "English Maths Hindi SST Science Sanskrit Physics Chemistry Biology"
+					}
+				}
+			},
+			"class-9": {
+			    "1-on-1": {
+					"desc": "This program contains 1 teacher teaching only 1 student. Program works best for fullfilling special needs and requirements of the child.",
+					"price": {
+						"type": "per hour",
+						"amount": 320,
+						"quantity": [1, 2, 3, 4, 5],
+						"quantity-name": "English Maths Hindi SST Science Sanskrit Physics Chemistry Biology computer"
+					}
+				},
+				"1-on-2": {
+					"desc": "This program contains 1 teacher teaching only 2 students. Program works best for fullfilling special needs and requirements of the child.",
+					"price": {
+						"type": "per hour",
+						"amount": 260,
+						"quantity": [1, 2, 3, 4, 5],
+						"quantity-name": "English Maths Hindi SST Science Sanskrit Physics Chemistry Biology computer"
+					}
+				},
+				"Short Batch": {
+					"desc": "This program contains a batch of less than 9 students. Students are not more than 7 so that each student also receives individual attention while also has company of some other students to compete with.",
+					"price": {
+						"type": "per month per subject",
+						"amount": 1550,
+						"quantity": [1, 2, 3, 4, 5],
+						"quantity-name": "English Maths Hindi SST Science Sanskrit Physics Chemistry Biology computer"
+					}
+				}
+			},
+			"class-10": {
+			    "1-on-1": {
+					"desc": "This program contains 1 teacher teaching only 1 student. Program works best for fullfilling special needs and requirements of the child.",
+					"price": {
+						"type": "per hour",
+						"amount": 320,
+						"quantity": [1, 2, 3, 4, 5],
+						"quantity-name": "English Maths Hindi SST Science Sanskrit Physics Chemistry Biology computer"
+					}
+				},
+				"1-on-2": {
+					"desc": "This program contains 1 teacher teaching only 2 students. Program works best for fullfilling special needs and requirements of the child.",
+					"price": {
+						"type": "per hour",
+						"amount": 260,
+						"quantity": [1, 2, 3, 4, 5],
+						"quantity-name": "English Maths Hindi SST Science Sanskrit Physics Chemistry Biology computer"
+					}
+				},
+				"Short Batch": {
+					"desc": "This program contains a batch of less than 9 students. Students are not more than 7 so that each student also receives individual attention while also has company of some other students to compete with.",
+					"price": {
+						"type": "per month per subject",
+						"amount": 1550,
+						"quantity": [1, 2, 3, 4, 5],
+						"quantity-name": "English Maths Hindi SST Science Sanskrit Physics Chemistry Biology Computer"
+					}
+				}
+			},
+			"class-11": {
+			    "1-on-1": {
+					"desc": "This program contains 1 teacher teaching only 1 student. Program works best for fullfilling special needs and requirements of the child.",
+					"price": {
+						"type": "per hour",
+						"amount": 320,
+						"quantity": [1, 2, 3, 4, 5],
+						"quantity-name": "English Maths Hindi SST Sanskrit Physics Chemistry Biology Commerce Arts"
+					}
+				},
+				"1-on-2": {
+					"desc": "This program contains 1 teacher teaching only 2 students. Program works best for fullfilling special needs and requirements of the child.",
+					"price": {
+						"type": "per hour",
+						"amount": 260,
+						"quantity": [1, 2, 3, 4, 5],
+						"quantity-name": "English Maths Hindi SST Sanskrit Physics Chemistry Biology Commerce Arts"
+					}
+				},
+				"Short Batch": {
+					"desc": "This program contains a batch of less than 9 students. Students are not more than 7 so that each student also receives individual attention while also has company of some other students to compete with.",
+					"price": {
+						"type": "per month per subject",
+						"amount": 1550,
+						"quantity": [1, 2, 3, 4, 5],
+						"quantity-name": "English Maths Hindi SST Sanskrit Physics Chemistry Biology Commerce Arts"
+					}
+				}
+			},
+			"class-12": {
+			    "1-on-1": {
+					"desc": "This program contains 1 teacher teaching only 1 student. Program works best for fullfilling special needs and requirements of the child.",
+					"price": {
+						"type": "per hour",
+						"amount": 520,
+						"quantity": [1, 2, 3, 4, 5],
+						"quantity-name": "English Maths Hindi SST Sanskrit Physics Chemistry Biology Commerce Arts"
+					}
+				},
+				"1-on-2": {
+					"desc": "This program contains 1 teacher teaching only 2 students. Program works best for fullfilling special needs and requirements of the child.",
+					"price": {
+						"type": "per hour",
+						"amount": 390,
+						"quantity": [1, 2, 3, 4, 5],
+						"quantity-name": "English Maths Hindi SST Sanskrit Physics Chemistry Biology Commerce Arts"
+					}
+				},
+				"Short Batch": {
+					"desc": "This program contains a batch of less than 9 students. Students are not more than 7 so that each student also receives individual attention while also has company of some other students to compete with.",
+					"price": {
+						"type": "per month per subject",
+						"amount": 1550,
+						"quantity": [1, 2, 3, 4, 5],
+						"quantity-name": "English Maths Hindi SST Sanskrit Physics Chemistry Biology Commerce Arts"
+					}
+				}
+			}												
+		}
+	},
+
+	"Live Sessions - Fasttrack" : {
+		"image_file": "svgs/learning.svg",
+		"title_image_file": "svgs/live.svg",
+		"description": "blah blah blah",
+		"classes" : {
+			"class-1": {
+				"1-on-1": {
+					"desc": "This is a very fast class... super-fast",
+					"price": {
+						"type": "per-class",
+						"amount": 490,
+						"quantity": [3, 4, 5, 6, 7, 8, 9, 10],
+						"quantity-name": "Classes"
+					}
+				}
+			},
+			"class-2" : {},
+			"class-12": {}
+		}
+	}
+}
