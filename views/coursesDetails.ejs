@@ -11,7 +11,6 @@
 </section>
 
 
-
 <style>
   .card-header {
     font-size: 1.8rem;
@@ -55,7 +54,6 @@
       </div>
     </div>
   </div>
-
 
 
   <ul class="nav nav-tabs" id="myTab" style="display: none;">
@@ -129,19 +127,18 @@
                   
                   <select class="form-control">
                     <% for( var q = 0 ; q < courseData["classes"][grade][program]["price"]["quantity"].length ; q++ ) { %>
-                    <option>
+                    <option value="  ">
                       <%=courseData["classes"][grade][program]["price"]["quantity"] [q] %>
                     </option>
                     <% } %>
                   </select>
                   
-                  <%= courseData["classes"][grade][program]["price"]["amount"] %>
+                  <%= courseData["classes"][grade][program]["price"]["amount"] * courseData["classes"][grade][program]["price"]["quantity"] [1] %>
             
                 </h4>
                               
                 <!-- / -->
                 </div>
-
 
               </div>
 
