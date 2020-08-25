@@ -3,25 +3,26 @@
 <%- include('partials/nav'); %>
 
 <section>
-    <div class="jumbotron jumbotron-fluid jumbotron-top mt-3">
-        <div class="jumbo-text text-center">
-            <h1>Courses</h1>
-        </div>
+  <div class="jumbotron jumbotron-fluid jumbotron-top mt-3">
+    <div class="jumbo-text text-center">
+      <h1>Courses</h1>
     </div>
+  </div>
 </section>
 
 
 
 <style>
   .card-header {
-      font-size: 1.8rem;
-      text-align: center;
-      font-weight: 400;
+    font-size: 1.8rem;
+    text-align: center;
+    font-weight: 400;
   }
-  .card-phone{
-      font-size: 2rem;
-      float: right;
+
+  .card-phone {
+    font-size: 2rem;
   }
+  
 </style>
 
 
@@ -31,24 +32,23 @@
   <div class="card">
     <div class="card-body">
       <div class="row">
-        <div class="col col-md-6">
+        <div class="col-12 col-md-6">
           <h2 class="text-right text-primary">Select Class</h2>
         </div>
-        <div class="col col-md-2">
+        <div class="col-12 col-md-2">
 
           <form>
             <div class="form-group">
               <select id='mySelect' class="form-control">
 
-                <option > Select Class </option>
+                <option> Select Class </option>
                 <% var i = 0 %>
                 <% for(var grade in courseData["classes"]) { %>
-                  <option value=<%=i++%>> <%=grade%> </option>
+                <option value=<%=i++%>> <%=grade%> </option>
                 <% } %>
-            </select>
+              </select>
             </div>
-        </form>
-
+          </form>
 
         </div>
 
@@ -58,17 +58,17 @@
 
 
 
-<ul class="nav nav-tabs" id="myTab" style="display: none;">
+  <ul class="nav nav-tabs" id="myTab" style="display: none;">
     <!-- <li class="active"><a href="#Class1">Class 1</a></li> -->
     <% for(var grade in courseData["classes"]) { %>
-      <li><a href="#<%=grade%>"><%=grade%></a></li>
+    <li><a href="#<%=grade%>"><%=grade%></a></li>
     <% } %>
-</ul>
+  </ul>
 
 
-<div class="tab-content">
+  <div class="tab-content">
 
-  <% for(var grade in courseData["classes"]) { %>
+    <% for(var grade in courseData["classes"]) { %>
 
     <!-- Live Session Class 1 ******************************************************************-->
 
@@ -76,57 +76,88 @@
 
       <% for(var program in courseData["classes"][grade]) { %>
 
-        <div class="card mb-3 shadow">
+      <div class="card mb-3 shadow">
 
-          <p class="card-header"> <span> <img class="img-fluid pb-1" width="60" src="/img/svgs/live.svg" alt=""></span>
-              <%=program%>
-          </p>
+        <p class="card-header"> <span> <img class="img-fluid pb-1" width="60" src="/img/svgs/live.svg" alt=""></span>
+          <%=program%>
+        </p>
 
-          <div class="row no-gutters p-4">
-            <div class="col-md-3 text-center">
-              <img src="/img/svgs/graduate.svg" width="200" class="img-fluid" alt="...">
-            </div>
-            <div class="col-md-9 mx-auto">
-              <div class="card-body">
+        <div class="row no-gutters p-4">
+          <div class="col-md-3 text-center">
+            <img src="/img/svgs/graduate.svg" width="200" class="img-fluid" alt="...">
+          </div>
+          <div class="col-md-9 mx-auto">
+            <div class="card-body">
 
-                <h5 class="card-title">
-                  <%=courseData["classes"][grade][program]["desc"]%>
-                </h5>
+              <div class="row">
 
-                <h2 class="card-title text-info">
-                  <%=courseData["classes"][grade][program]["price"]["amount"]%>
-                </h2>
 
-                <h2 class="card-title text-success">
-                  <%=courseData["classes"][grade][program]["price"]["type"]%>
-                </h2>
+                <div class="col-12 col-md-8">
+                  <!-- Description -->
+                  <h5 class="card-title">
+                    <%=courseData["classes"][grade][program]["desc"]%>
+                  </h5>
+                  <!-- / -->
 
-                <p class="card-text">
-                 
-                </p>
-                <h6 class="card-phone" >
-                  <i class="fa fa-phone" aria-hidden="true"></i>
-                  <a style="color: rgb(59, 59, 59);" href="tel:+916397323402">
+                  <!-- Phone Number -->
+                  <h6 class="card-phone">
+                    <i class="fa fa-phone" aria-hidden="true"></i>
+                    <a style="color: rgb(59, 59, 59);" href="tel:+916397323402">
                       +91 6397323402
-                  </a>                       
-                </h6>
-                <a class="btn btn-md btn-succ" href="">
-                    ADD TO CART</a>
+                    </a>
+                  </h6>
+                  <br>
+
+                  <!-- Add to Cart -->
+                  <a class="btn btn-md btn-succ" href="/cart"> ADD TO CART</a>
+
+                  <!-- / -->
+                </div>
+
+
+                <div class="col-12 col-md-4">
+                <!-- Price -->
+                <h2 class="card-title text-info">
+                  <i class="fa fa-inr" aria-hidden="true"></i>
+                  <%=courseData["classes"][grade][program]["price"]["amount"]%>               
+                </h2>
+
+                <h4 class="text-success ">
+                  <%=courseData["classes"][grade][program]["price"]["type"]%>
+                  <br>
+
+                  
+                  <select class="form-control">
+                    <% for( var q = 0 ; q < courseData["classes"][grade][program]["price"]["quantity"].length ; q++ ) { %>
+                    <option>
+                      <%=courseData["classes"][grade][program]["price"]["quantity"] [q] %>
+                    </option>
+                    <% } %>
+                  </select>
+                  
+                  <%= courseData["classes"][grade][program]["price"]["amount"] %>
+            
+                </h4>
+                              
+                <!-- / -->
+                </div>
+
+
               </div>
+
             </div>
+
           </div>
         </div>
+      </div>
 
       <% } %>
 
     </div>
 
-  <% } %>
+    <% } %>
 
-</div>
-
-
-
+  </div>
 
 </div>
 </div>

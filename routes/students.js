@@ -130,6 +130,8 @@ function checkLoginUser(req,res,next){
 
 }
 
+//Log in Register ########################################################################
+
 router.get("/login", (req, res) => {
   res.render("login", {
     msg : '',
@@ -205,6 +207,7 @@ router.get('/dashboard' , checkLoginUser ,(req, res, next) => {
   console.log(loginUsername)
 
 })
+
 
 //Profile ########################################################################
 

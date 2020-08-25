@@ -9,6 +9,12 @@ if (typeof localStorage === "undefined" || localStorage === null) {
   localStorage = new LocalStorage("./scratch");
 }
 
+////////////////////////////////////////////////////////////////////////////////////////////
+
+
+//>>>>>>>>>>>>>>>>>>>>>> ROUTES <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<//
+
+
 router.get("/", (req, res) => {
   var loginUsername = localStorage.getItem("loginUsername");
 
@@ -34,6 +40,7 @@ router.get('/courses', (req,res)=> {
 //Details 
 
 router.get('/courses/details', (req,res)=> {
+
   var loginUsername = localStorage.getItem("loginUsername");
   res.render('coursesDetails',{
     loginUsername: loginUsername,
@@ -65,6 +72,7 @@ router.post('/', (req,res)=> {
   })
 
 })
+
 
 // router.get("/contact", (req, res) => {
 //   var loginUsername = localStorage.getItem("loginUsername");

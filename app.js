@@ -19,7 +19,7 @@ app.use(bodyParser.json())
 //IMPORTING ROUTES
 var indexRoute = require('./routes/index'); 
 var studentRoute = require('./routes/students'); 
-var teacherRoute = require('./routes/teachers');
+var cartRoute = require('./routes/cart')
 
 
 //SETTING UP PUBLIC DIRECTORY
@@ -34,7 +34,7 @@ app.set('view engine', 'ejs')
 //SETTING ROUTES
 app.use('/', indexRoute);
 app.use('/', studentRoute);
-app.use('/teacher/', teacherRoute);
+app.use('/', cartRoute);
 
 //The 404 Route (ALWAYS Keep this as the last route)
 app.get('*', function(req, res){
