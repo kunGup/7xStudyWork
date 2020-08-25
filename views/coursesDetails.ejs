@@ -125,7 +125,7 @@
                   <br>
 
                   
-                  <select class="form-control">
+                  <select class="form-control country">
                     <% for( var q = 0 ; q < courseData["classes"][grade][program]["price"]["quantity"].length ; q++ ) { %>
                     <option value='<%=courseData["classes"][grade][program]["price"]["quantity"][q] %>'>
                       <%=courseData["classes"][grade][program]["price"]["quantity"][q] %>
@@ -133,7 +133,7 @@
                     <% } %>
                   </select>
                   
-                  <%= courseData["classes"][grade][program]["price"]["amount"] * courseData["classes"][grade][program]["price"]["quantity"] [1] %>
+                  <%= courseData["classes"][grade][program]["price"]["amount"] * courseData["classes"][grade][program]["price"]["quantity"] [q] %>
             
                 </h4>
                               
