@@ -36,10 +36,12 @@ $('#mySelect').on('change', function (e) {
 
 
 
-
 $(document).ready(function(){
-  $("select.country").change(function(){
-      var selectedCountry = $(this).children("option:selected").val();
-      alert("You have selected the country - " + selectedCountry);
+  $("select.product_qty_dropdown").change(function(){
+      var quantity = $(this).children("option:selected").val();
+      var product_id = $(this).attr("product_id");
+      var price_per_qty = $(this).attr("price_per_qty");
+      var subtotal_id = product_id + "_subtotal";
+      $("#"+subtotal_id).html(price_per_qty * quantity);
   });
 });

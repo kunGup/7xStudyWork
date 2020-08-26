@@ -8,6 +8,7 @@
 				"1-on-1": {
 					"desc": "This program contains 1 teacher teaching only 1 student. Program works best for fullfilling special needs and requirements of the child.",
 					"price": {
+						"product_id": "reg_live_1on1_cls_01",
 						"type": "per hour",
 						"amount": 320,
 						"quantity": [1, 2, 3, 4, 5],
@@ -17,6 +18,7 @@
 				"1-on-2": {
 					"desc": "This program contains 1 teacher teaching only 2 students. Program works best for fullfilling special needs and requirements of the child.",
 					"price": {
+						"product_id": "reg_live_1on2_cls_01",
 						"type": "per hour",
 						"amount": 260,
 						"quantity": [1, 2, 3, 4, 5],
@@ -26,6 +28,7 @@
 				"Short Batch": {
 					"desc": "This program contains a batch of less than 9 students. Students are not more than 7 so that each student also receives individual attention while also has company of some other students to compete with.",
 					"price": {
+						"product_id": "reg_live_short_cls_01",
 						"type": "per month per subject",
 						"amount": 1550,
 						"quantity": [1, 2, 3, 4, 5],
@@ -37,6 +40,7 @@
 			    "1-on-1": {
 					"desc": "This program contains 1 teacher teaching only 1 student. Program works best for fullfilling special needs and requirements of the child.",
 					"price": {
+						"product_id": "reg_live_1on1_cls_02",
 						"type": "per hour",
 						"amount": 320,
 						"quantity": [1, 2, 3, 4, 5],
@@ -46,6 +50,7 @@
 				"1-on-2": {
 					"desc": "This program contains 1 teacher teaching only 2 students. Program works best for fullfilling special needs and requirements of the child.",
 					"price": {
+						"product_id": "reg_live_1on2_cls_02",
 						"type": "per hour",
 						"amount": 260,
 						"quantity": [1, 2, 3, 4, 5],
@@ -55,6 +60,7 @@
 				"Short Batch": {
 					"desc": "This program contains a batch of less than 9 students. Students are not more than 7 so that each student also receives individual attention while also has company of some other students to compete with.",
 					"price": {
+						"product_id": "reg_live_short_cls_02",
 						"type": "per month per subject",
 						"amount": 1550,
 						"quantity": [1, 2, 3, 4, 5],
@@ -66,6 +72,7 @@
 			    "1-on-1": {
 					"desc": "This program contains 1 teacher teaching only 1 student. Program works best for fullfilling special needs and requirements of the child.",
 					"price": {
+						"product_id": "reg_live_1on1_cls_03",
 						"type": "per hour",
 						"amount": 320,
 						"quantity": [1, 2, 3, 4, 5],
@@ -75,6 +82,7 @@
 				"1-on-2": {
 					"desc": "This program contains 1 teacher teaching only 2 students. Program works best for fullfilling special needs and requirements of the child.",
 					"price": {
+						"product_id": "reg_live_1on2_cls_03",
 						"type": "per hour",
 						"amount": 260,
 						"quantity": [1, 2, 3, 4, 5],
@@ -84,6 +92,7 @@
 				"Short Batch": {
 					"desc": "This program contains a batch of less than 9 students. Students are not more than 7 so that each student also receives individual attention while also has company of some other students to compete with.",
 					"price": {
+						"product_id": "reg_live_short_cls_03",
 						"type": "per month per subject",
 						"amount": 1550,
 						"quantity": [1, 2, 3, 4, 5],
@@ -95,6 +104,7 @@
 			    "1-on-1": {
 					"desc": "This program contains 1 teacher teaching only 1 student. Program works best for fullfilling special needs and requirements of the child.",
 					"price": {
+						"product_id": "reg_live_1on1_cls_04",
 						"type": "per hour",
 						"amount": 320,
 						"quantity": [1, 2, 3, 4, 5],
@@ -104,6 +114,7 @@
 				"1-on-2": {
 					"desc": "This program contains 1 teacher teaching only 2 students. Program works best for fullfilling special needs and requirements of the child.",
 					"price": {
+						"product_id": "reg_live_1on2_cls_04",
 						"type": "per hour",
 						"amount": 260,
 						"quantity": [1, 2, 3, 4, 5],
@@ -113,6 +124,7 @@
 				"Short Batch": {
 					"desc": "This program contains a batch of less than 9 students. Students are not more than 7 so that each student also receives individual attention while also has company of some other students to compete with.",
 					"price": {
+						"product_id": "reg_live_short_cls_04",
 						"type": "per month per subject",
 						"amount": 1550,
 						"quantity": [1, 2, 3, 4, 5],
@@ -124,6 +136,7 @@
 			    "1-on-1": {
 					"desc": "This program contains 1 teacher teaching only 1 student. Program works best for fullfilling special needs and requirements of the child.",
 					"price": {
+						"product_id": "reg_live_1on1_cls_05",
 						"type": "per hour",
 						"amount": 320,
 						"quantity": [1, 2, 3, 4, 5],
@@ -133,6 +146,7 @@
 				"1-on-2": {
 					"desc": "This program contains 1 teacher teaching only 2 students. Program works best for fullfilling special needs and requirements of the child.",
 					"price": {
+						"product_id": "reg_live_1on2_cls_05",
 						"type": "per hour",
 						"amount": 260,
 						"quantity": [1, 2, 3, 4, 5],
@@ -142,6 +156,7 @@
 				"Short Batch": {
 					"desc": "This program contains a batch of less than 9 students. Students are not more than 7 so that each student also receives individual attention while also has company of some other students to compete with.",
 					"price": {
+						"product_id": "reg_live_short_cls_05",
 						"type": "per month per subject",
 						"amount": 1550,
 						"quantity": [1, 2, 3, 4, 5],
@@ -153,6 +168,7 @@
 			    "1-on-1": {
 					"desc": "This program contains 1 teacher teaching only 1 student. Program works best for fullfilling special needs and requirements of the child.",
 					"price": {
+						"product_id": "reg_live_1on1_cls_06",
 						"type": "per hour",
 						"amount": 320,
 						"quantity": [1, 2, 3, 4, 5],
@@ -162,6 +178,7 @@
 				"1-on-2": {
 					"desc": "This program contains 1 teacher teaching only 2 students. Program works best for fullfilling special needs and requirements of the child.",
 					"price": {
+						"product_id": "reg_live_1on2_cls_06",
 						"type": "per hour",
 						"amount": 260,
 						"quantity": [1, 2, 3, 4, 5],
@@ -171,6 +188,7 @@
 				"Short Batch": {
 					"desc": "This program contains a batch of less than 9 students. Students are not more than 7 so that each student also receives individual attention while also has company of some other students to compete with.",
 					"price": {
+						"product_id": "reg_live_short_cls_06",
 						"type": "per month per subject",
 						"amount": 1550,
 						"quantity": [1, 2, 3, 4, 5],
@@ -182,6 +200,7 @@
 			    "1-on-1": {
 					"desc": "This program contains 1 teacher teaching only 1 student. Program works best for fullfilling special needs and requirements of the child.",
 					"price": {
+						"product_id": "reg_live_1on1_cls_07",
 						"type": "per hour",
 						"amount": 320,
 						"quantity": [1, 2, 3, 4, 5],
@@ -191,6 +210,7 @@
 				"1-on-2": {
 					"desc": "This program contains 1 teacher teaching only 2 students. Program works best for fullfilling special needs and requirements of the child.",
 					"price": {
+						"product_id": "reg_live_1on2_cls_07",
 						"type": "per hour",
 						"amount": 260,
 						"quantity": [1, 2, 3, 4, 5],
@@ -200,6 +220,7 @@
 				"Short Batch": {
 					"desc": "This program contains a batch of less than 9 students. Students are not more than 7 so that each student also receives individual attention while also has company of some other students to compete with.",
 					"price": {
+						"product_id": "reg_live_short_cls_07",
 						"type": "per month per subject",
 						"amount": 1550,
 						"quantity": [1, 2, 3, 4, 5],
@@ -211,6 +232,7 @@
 			    "1-on-1": {
 					"desc": "This program contains 1 teacher teaching only 1 student. Program works best for fullfilling special needs and requirements of the child.",
 					"price": {
+						"product_id": "reg_live_1on1_cls_08",
 						"type": "per hour",
 						"amount": 320,
 						"quantity": [1, 2, 3, 4, 5],
@@ -220,6 +242,7 @@
 				"1-on-2": {
 					"desc": "This program contains 1 teacher teaching only 2 students. Program works best for fullfilling special needs and requirements of the child.",
 					"price": {
+						"product_id": "reg_live_1on2_cls_08",
 						"type": "per hour",
 						"amount": 260,
 						"quantity": [1, 2, 3, 4, 5],
@@ -229,6 +252,7 @@
 				"Short Batch": {
 					"desc": "This program contains a batch of less than 9 students. Students are not more than 7 so that each student also receives individual attention while also has company of some other students to compete with.",
 					"price": {
+						"product_id": "reg_live_short_cls_08",
 						"type": "per month per subject",
 						"amount": 1550,
 						"quantity": [1, 2, 3, 4, 5],
@@ -240,6 +264,7 @@
 			    "1-on-1": {
 					"desc": "This program contains 1 teacher teaching only 1 student. Program works best for fullfilling special needs and requirements of the child.",
 					"price": {
+						"product_id": "reg_live_1on1_cls_09",
 						"type": "per hour",
 						"amount": 320,
 						"quantity": [1, 2, 3, 4, 5],
@@ -249,6 +274,7 @@
 				"1-on-2": {
 					"desc": "This program contains 1 teacher teaching only 2 students. Program works best for fullfilling special needs and requirements of the child.",
 					"price": {
+						"product_id": "reg_live_1on2_cls_09",
 						"type": "per hour",
 						"amount": 260,
 						"quantity": [1, 2, 3, 4, 5],
@@ -258,6 +284,7 @@
 				"Short Batch": {
 					"desc": "This program contains a batch of less than 9 students. Students are not more than 7 so that each student also receives individual attention while also has company of some other students to compete with.",
 					"price": {
+						"product_id": "reg_live_short_cls_09",
 						"type": "per month per subject",
 						"amount": 1550,
 						"quantity": [1, 2, 3, 4, 5],
@@ -269,6 +296,7 @@
 			    "1-on-1": {
 					"desc": "This program contains 1 teacher teaching only 1 student. Program works best for fullfilling special needs and requirements of the child.",
 					"price": {
+						"product_id": "reg_live_1on1_cls_10",
 						"type": "per hour",
 						"amount": 320,
 						"quantity": [1, 2, 3, 4, 5],
@@ -278,6 +306,7 @@
 				"1-on-2": {
 					"desc": "This program contains 1 teacher teaching only 2 students. Program works best for fullfilling special needs and requirements of the child.",
 					"price": {
+						"product_id": "reg_live_1on2_cls_10",
 						"type": "per hour",
 						"amount": 260,
 						"quantity": [1, 2, 3, 4, 5],
@@ -287,6 +316,7 @@
 				"Short Batch": {
 					"desc": "This program contains a batch of less than 9 students. Students are not more than 7 so that each student also receives individual attention while also has company of some other students to compete with.",
 					"price": {
+						"product_id": "reg_live_short_cls_10",
 						"type": "per month per subject",
 						"amount": 1550,
 						"quantity": [1, 2, 3, 4, 5],
@@ -298,6 +328,7 @@
 			    "1-on-1": {
 					"desc": "This program contains 1 teacher teaching only 1 student. Program works best for fullfilling special needs and requirements of the child.",
 					"price": {
+						"product_id": "reg_live_1on1_cls_11",
 						"type": "per hour",
 						"amount": 320,
 						"quantity": [1, 2, 3, 4, 5],
@@ -307,6 +338,7 @@
 				"1-on-2": {
 					"desc": "This program contains 1 teacher teaching only 2 students. Program works best for fullfilling special needs and requirements of the child.",
 					"price": {
+						"product_id": "reg_live_1on2_cls_11",
 						"type": "per hour",
 						"amount": 260,
 						"quantity": [1, 2, 3, 4, 5],
@@ -316,6 +348,7 @@
 				"Short Batch": {
 					"desc": "This program contains a batch of less than 9 students. Students are not more than 7 so that each student also receives individual attention while also has company of some other students to compete with.",
 					"price": {
+						"product_id": "reg_live_short_cls_11",
 						"type": "per month per subject",
 						"amount": 1550,
 						"quantity": [1, 2, 3, 4, 5],
@@ -327,6 +360,7 @@
 			    "1-on-1": {
 					"desc": "This program contains 1 teacher teaching only 1 student. Program works best for fullfilling special needs and requirements of the child.",
 					"price": {
+						"product_id": "reg_live_1on1_cls_12",
 						"type": "per hour",
 						"amount": 520,
 						"quantity": [1, 2, 3, 4, 5],
@@ -336,6 +370,7 @@
 				"1-on-2": {
 					"desc": "This program contains 1 teacher teaching only 2 students. Program works best for fullfilling special needs and requirements of the child.",
 					"price": {
+						"product_id": "reg_live_1on2_cls_12",
 						"type": "per hour",
 						"amount": 390,
 						"quantity": [1, 2, 3, 4, 5],
@@ -345,6 +380,7 @@
 				"Short Batch": {
 					"desc": "This program contains a batch of less than 9 students. Students are not more than 7 so that each student also receives individual attention while also has company of some other students to compete with.",
 					"price": {
+						"product_id": "reg_live_short_cls_12",
 						"type": "per month per subject",
 						"amount": 1550,
 						"quantity": [1, 2, 3, 4, 5],
