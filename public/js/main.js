@@ -34,7 +34,7 @@ $('#mySelect').on('change', function (e) {
 });
 
 
-
+/// 
 
 $(document).ready(function(){
   $("select.product_qty_dropdown").change(function(){

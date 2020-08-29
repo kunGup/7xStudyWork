@@ -27,8 +27,7 @@
 
 <div class="container">
 
-
-  <div class="card">
+  <div class="card shadow">
     <div class="card-body">
       <div class="row">
         <div class="col-12 col-md-6">
@@ -36,7 +35,6 @@
         </div>
         <div class="col-12 col-md-2">
 
-          <form>
             <div class="form-group">
               <select id='mySelect' class="form-control">
 
@@ -47,13 +45,14 @@
                 <% } %>
               </select>
             </div>
-          </form>
 
         </div>
 
       </div>
     </div>
   </div>
+
+  <br>
 
 
   <ul class="nav nav-tabs" id="myTab" style="display: none;">
@@ -114,6 +113,10 @@
 
 
                 <div class="col-12 col-md-4">
+
+                <!-- FORM ------------------------------------------------ -->
+                <form action="/cart" method="GET">
+
                 <!-- Price -->
                 <h2 class="card-title text-info">
                   <i class="fa fa-inr" aria-hidden="true"></i>
@@ -124,9 +127,10 @@
                   <%=courseData["classes"][grade][program]["price"]["type"]%>
                   <br>
 
-                  
-                  <select class="form-control product_qty_dropdown" product_id='<%=courseData["classes"][grade][program]["price"]["product_id"]%>' price_per_qty='<%=courseData["classes"][grade][program]["price"]["amount"]%>'  >
-                    <option> Choose no. of <%=courseData["classes"][grade][program]["price"]["quantity-name"]%> to buy</option>
+                  <!-- Quantity -->
+                  <select class="form-control product_qty_dropdown" product_id='<%=courseData["classes"][grade][program]["price"]["product_id"]%>' price_per_qty='<%=courseData["classes"][grade][program]["price"]["amount"]%>'  
+                    name="quantity">
+                    <!-- <option> Choose no. of <%=courseData["classes"][grade][program]["price"]["quantity-name"]%> to buy</option> -->
                       
                     <% for( var q = 0 ; q < courseData["classes"][grade][program]["price"]["quantity"].length ; q++ ) { %>
                     <option value='<%=courseData["classes"][grade][program]["price"]["quantity"][q] %>'>
@@ -141,8 +145,19 @@
                   </div>
             
                 </h4>
-                              
+
+                <!-- TITLE -->
+                <input type="text" hidden name="course_id" value='<%=courseData["classes"][grade][program]["price"]["product_id"]%>'>
+                <!--  -->
+                <input type="text" hidden name="title" id="" value='<%=program%>'>
+                <!-- PricePerHour -->
+                <input type="text" hidden name="price" id="" value='<%=courseData["classes"][grade][program]["price"]["amount"]%>'>
+                <!-- Submit -->
+                <input type="submit" class="btn btn-md btn-succ" value="ADD TO CART">
                 <!-- / -->
+              </form>
+              <!-- FORM -------------------------------------------------------------- -->
+
                 </div>
 
               </div>
