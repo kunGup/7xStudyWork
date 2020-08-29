@@ -1,0 +1,63 @@
+<%- include('partials/head'); %>
+<%- include('partials/nav'); %>
+
+<section>
+    <div class="jumbotron jumbotron-fluid jumbotron-top">
+      <div class="jumbo-text text-center">
+        <h1>Your Cart</h1>
+      </div>
+    </div>
+</section>
+
+
+
+
+<div class="container">
+
+
+  <div class="card shadow mb-4">
+
+    <div class="card-header text-center">
+        <h4>  <span><img class="img-fluid pb-1" width="60" src="/img/svgs/live.svg" alt=""> <%=title%></span> </h4>
+    </div>
+
+    <div class="card-body">
+      <div class="row p-md-4">
+        <div class="col-12 col-md-12">
+        <div class="card bg-light ">
+
+          <div class="card-body">
+
+          <div class="row">
+            <div class="col-12 col-md-12 mb-4">
+              <h4 class="text-muted">Your Order</h4>
+            </div>
+            <div class="col-12 col-md-12 mb-4">
+              <h6>Course ID : <span><%= course_id %></span></h6>
+            </div>
+            <div class="col-12 col-md-12 mb-4">
+              <h6>No Of Hours : <span><%= quantity %></span></h6>
+            </div>
+            <div class="col-12 col-md-12 mb-4">
+              <h6>Price per Hours : <span><%= price %></span></h6>
+            </div>
+            <div class="col-12 col-md-12 mb-4">
+              <h6>Total : <span><%= total %></span></h6>
+            </div>
+          </div>
+
+        </div>
+
+        </div>
+        </div>
+
+
+      </div>
+    </div>
+
+
+  </div>
+  
+</div>
+
+<%- include('partials/footer'); %>

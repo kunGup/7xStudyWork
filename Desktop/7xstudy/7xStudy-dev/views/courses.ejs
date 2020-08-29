@@ -1,0 +1,75 @@
+<%- include('partials/head'); %>
+<%- include('partials/topNav'); %>
+<%- include('partials/nav'); %>
+
+<section>
+    <div class="jumbotron jumbotron-fluid jumbotron-top mt-3">
+        <div class="jumbo-text text-center">
+            <h1>Courses</h1>
+        </div>
+    </div>
+</section>
+
+
+<style>
+    .card-header {
+        font-size: 1.8rem;
+        text-align: center;
+        font-weight: 400;
+    }
+    .card-phone{
+        font-size: 2rem;
+        float: right;
+    }
+</style>
+
+
+<div class="container">
+    <div class="row ">
+      <% for(var course_type in jsonData) { %>
+
+        <!--  card begins -->
+        <div class="col-12 col-md-12">
+            <div class="card mb-3 shadow">
+
+                <p class="card-header"> <span> <img class="img-fluid pb-1" width="60" src="/img/<%=jsonData[course_type].title_image_file%>" alt=""></span>
+                   <%= course_type %>
+                </p>
+
+                <div class="row no-gutters p-4">
+                  <div class="col-md-3 text-center">
+                    <img src="/img/<%=jsonData[course_type].image_file%>" width="200" class="img-fluid" alt="...">
+                  </div>
+                  <div class="col-md-9 mx-auto">
+                    <div class="card-body">
+                      <h5 class="card-title">
+                        <%= jsonData[course_type].description %>
+                      </h5>
+                      <p class="card-text">
+                        <%= jsonData[course_type].description %>
+                      </p>
+                      <h6 class="card-phone" >
+                        <i class="fa fa-phone" aria-hidden="true"></i>
+                        <a style="color: rgb(59, 59, 59);" href="tel:+916397323402">
+                            +916397323402
+                        </a>                       
+                      </h6>
+                      <a class="btn btn-md btn-succ" href="/courses/details?course_type=<%=course_type%>">
+                          Show Details</a>
+                    </div>
+                  </div>
+                </div>
+
+            </div>
+
+        </div>
+        <!-- card ends -->
+
+      <% } %>
+    </div>
+
+
+</div>
+
+
+<%- include('partials/footer'); %>
