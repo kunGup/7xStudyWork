@@ -86,7 +86,7 @@ router.post('/cart/login', (req,res) => {
       //redirect after login
 
       var loginUsername = localStorage.getItem('loginUsername');
-      res.redirect('/cart')
+      res.redirect('/courses')
       }
 
       else{
@@ -108,15 +108,10 @@ router.get('/cart', checkLoginUserCart, (req,res)=> {
 
   var loginUsername = localStorage.getItem('loginUsername');
 
-  console.log(req.query)
+  console.log(localStorage.getItem('products'));
 
-  var title = req.query.title;
-  var course_id = req.query.course_id;
-  var price = req.query.price;
-  var quantity = req.query.quantity;
-
-  var total = price * quantity
-  
+  //console.log(localStorage.getItem())
+ // var loginUsername = localStorage.getItem('loginUsername');
 
   studentModel.find({email: loginUsername}, (err, docs)=> {
 
@@ -128,15 +123,8 @@ router.get('/cart', checkLoginUserCart, (req,res)=> {
 
       res.render('cart', {
         loginUsername: loginUsername,
-        docs: docs,
-        title: title,
-        course_id: course_id,
-        price: price,
-        quantity: quantity,
-        total : total
+        docs: docs
       })
-
-      console.log(docs)
 
     }
   })

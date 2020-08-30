@@ -18,7 +18,7 @@
   <div class="card shadow mb-4">
 
     <div class="card-header text-center">
-        <h4>  <span><img class="img-fluid pb-1" width="60" src="/img/svgs/live.svg" alt=""> <%=title%></span> </h4>
+        <h4 class="text-center"> Cart </h4>
     </div>
 
     <div class="card-body">
@@ -32,31 +32,41 @@
             <div class="col-12 col-md-12 mb-4">
               <h4 class="text-muted">Your Order</h4>
             </div>
-            <div class="col-12 col-md-12 mb-4">
-              <h6>Course ID : <span><%= course_id %></span></h6>
-            </div>
-            <div class="col-12 col-md-12 mb-4">
-              <h6>No Of Hours : <span><%= quantity %></span></h6>
-            </div>
-            <div class="col-12 col-md-12 mb-4">
-              <h6>Price per Hours : <span><%= price %></span></h6>
-            </div>
-            <div class="col-12 col-md-12 mb-4">
-              <h6>Total : <span><%= total %></span></h6>
-            </div>
+
+            <table class="table" id="cart" style="visibility:hidden; width:100%">
+              <thead>
+                   <tr>
+                       <th>Product</th>
+                       <th>Price</th>
+                       <th>Qty</th>
+                       <th>Total</th>
+                       <th></th>
+                  </tr>
+              </thead>
+              <tbody id="cartBody">
+       
+              </tbody>
+         </table>
+
           </div>
 
         </div>
 
         </div>
         </div>
-
-
       </div>
+
+        <div class="row mx-auto">
+          <dic class="col-12 col-md-6" style="margin: 0 auto;">
+            <a href="#" class="btn btn-block btn-succ">Check out</a>
+          </dic>
+        </div>
+
     </div>
 
 
   </div>
+
   
 </div>
 

@@ -106,16 +106,15 @@
                   <br>
 
                   <!-- Add to Cart -->
-                  <a class="btn btn-md btn-succ" href="/cart"> ADD TO CART</a>
+                  <button class="btn btn-md btn-succ" id="Btn" onclick="addToCart()"> ADD TO CART</button>
 
                   <!-- / -->
                 </div>
 
 
-                <div class="col-12 col-md-4">
 
-                <!-- FORM ------------------------------------------------ -->
-                <form action="/cart" method="GET">
+
+                <div class="col-12 col-md-4">
 
                 <!-- Price -->
                 <h2 class="card-title text-info">
@@ -128,9 +127,9 @@
                   <br>
 
                   <!-- Quantity -->
-                  <select class="form-control product_qty_dropdown" product_id='<%=courseData["classes"][grade][program]["price"]["product_id"]%>' price_per_qty='<%=courseData["classes"][grade][program]["price"]["amount"]%>'  
-                    name="quantity">
-                    <!-- <option> Choose no. of <%=courseData["classes"][grade][program]["price"]["quantity-name"]%> to buy</option> -->
+                  <select class="form-control product_qty_dropdown" product_id='<%=courseData["classes"][grade][program]["price"]["product_id"]%>' price_per_qty='<%=courseData["classes"][grade][program]["price"]["amount"]%>'>
+
+                    <option> Choose no. of <%=courseData["classes"][grade][program]["price"]["quantity-name"]%> to buy</option> 
                       
                     <% for( var q = 0 ; q < courseData["classes"][grade][program]["price"]["quantity"].length ; q++ ) { %>
                     <option value='<%=courseData["classes"][grade][program]["price"]["quantity"][q] %>'>
@@ -145,18 +144,6 @@
                   </div>
             
                 </h4>
-
-                <!-- TITLE -->
-                <input type="text" hidden name="course_id" value='<%=courseData["classes"][grade][program]["price"]["product_id"]%>'>
-                <!--  -->
-                <input type="text" hidden name="title" id="" value='<%=program%>'>
-                <!-- PricePerHour -->
-                <input type="text" hidden name="price" id="" value='<%=courseData["classes"][grade][program]["price"]["amount"]%>'>
-                <!-- Submit -->
-                <input type="submit" class="btn btn-md btn-succ" value="ADD TO CART">
-                <!-- / -->
-              </form>
-              <!-- FORM -------------------------------------------------------------- -->
 
                 </div>
 
