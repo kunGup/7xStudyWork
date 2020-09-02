@@ -55,6 +55,8 @@ router.post('/cart/login', (req,res) => {
   var get_email = req.body.student_email;
   var password = req.body.student_password;
 
+  console.log(req.body)
+
   //checking username
   var checkUser = studentModel.findOne({email:get_email});
 
@@ -84,9 +86,9 @@ router.post('/cart/login', (req,res) => {
       // console.log(localStorage.getItem('userToken'));
       // console.log(localStorage.getItem('loginUsername'));
       //redirect after login
-
+        console.log('CCC')
       var loginUsername = localStorage.getItem('loginUsername');
-      res.redirect('/courses')
+      res.redirect('/cart')
       }
 
       else{
@@ -108,8 +110,6 @@ router.get('/cart', checkLoginUserCart, (req,res)=> {
 
   var loginUsername = localStorage.getItem('loginUsername');
 
-  console.log(localStorage.getItem('products'));
-
   //console.log(localStorage.getItem())
  // var loginUsername = localStorage.getItem('loginUsername');
 
@@ -123,9 +123,8 @@ router.get('/cart', checkLoginUserCart, (req,res)=> {
 
       res.render('cart', {
         loginUsername: loginUsername,
-        docs: docs
+        docs: docs,
       })
-
     }
   })
 })

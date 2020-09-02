@@ -18,7 +18,7 @@
   <div class="card shadow mb-4">
 
     <div class="card-header text-center">
-        <h4 class="text-center"> Cart </h4>
+        <h4 class="text-center"> Your Orders </h4>
     </div>
 
     <div class="card-body">
@@ -28,39 +28,53 @@
 
           <div class="card-body">
 
-          <div class="row">
-            <div class="col-12 col-md-12 mb-4">
-              <h4 class="text-muted">Your Order</h4>
-            </div>
-
+          <div class="Mainrow">
+            <br>
+            <br>
             <table class="table" id="cart" style="visibility:hidden; width:100%">
               <thead>
                    <tr>
-                       <th>Product</th>
+                       <th>Classes</th>
                        <th>Price</th>
-                       <th>Qty</th>
+                       <th>No Of Hours</th>
                        <th>Total</th>
                        <th></th>
                   </tr>
               </thead>
-              <tbody id="cartBody">
+              
+              <tbody id="cartMainBody">
        
               </tbody>
-         </table>
+            </table>
 
           </div>
 
         </div>
 
         </div>
+
+        <br>
+        <div class="card bg-light p-4"> 
+        <h4 class="m-md-2 text-center"><span class="text-muted">YOUR SUB TOTAL :</span>  
+        <span class="mx-md-2 text-success">
+          <i class="fa fa-inr"></i> <span id="subTotalID"></span>
+        </span>
+      
+        </h4>
+        </div>
+
+        <!-- <input type="text" name="" id="subTotalID"> -->
+
+        <div class="col-6 col-md-8 mx-auto my-md-4">
+
+          <a href="" class="btn btn-block btn-succ" > Check Out</a>
+          <div id="ii"></div>
+
+        </div>
+
+
         </div>
       </div>
-
-        <div class="row mx-auto">
-          <dic class="col-12 col-md-6" style="margin: 0 auto;">
-            <a href="#" class="btn btn-block btn-succ">Check out</a>
-          </dic>
-        </div>
 
     </div>
 

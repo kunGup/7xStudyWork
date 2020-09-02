@@ -34,15 +34,15 @@ $('#mySelect').on('change', function (e) {
 
 /// jquery get value
 
-$(document).ready(function(){
-  $("select.product_qty_dropdown").change(function(){
-      var quantity = $(this).children("option:selected").val();
-      var product_id = $(this).attr("product_id");
-      var price_per_qty = $(this).attr("price_per_qty");
-      var subtotal_id = product_id + "_subtotal";
-      $("#"+subtotal_id).html(price_per_qty * quantity);
-  });
-});
+// $(document).ready(function(){
+//   $("select.product_qty_dropdown").change(function(){
+//       var quantity = $(this).children("option:selected").val();
+//       var product_id = $(this).attr("product_id");
+//       var price_per_qty = $(this).attr("price_per_qty");
+//       var subtotal_id = product_id + "_subtotal";
+//       $("#"+subtotal_id).html(price_per_qty * quantity);
+//   });
+// });
 
 
 
@@ -78,6 +78,8 @@ var cart = [];
             var name = product_id
             var qty = quantity
 
+            var Total = price_per_qty* quantity;
+
             // update qty if product is already present
             for (var i in cart) {
                 if(cart[i].Product == name)
@@ -89,7 +91,7 @@ var cart = [];
                 }
             }
             // create JavaScript Object
-            var item = { Product: name,  Price: price, Qty: qty }; 
+            var item = { Product: name,  Price: price, Qty: qty, Total: Total }; 
             cart.push(item);
             saveCart();
             showCart();
@@ -118,56 +120,42 @@ var cart = [];
 
             $("#cartBody").empty();
             for (var i in cart) {
+
+                // For Modal
+
                 var item = cart[i];
+
+                // for modal
                 var row = "<tr><td>" + item.Product + "</td><td>" +
                              item.Price + "</td><td>" + item.Qty + "</td><td>"
                              + item.Qty * item.Price + "</td><td>"
                              + "<button onclick='deleteItem(" + i + ")'>Delete</button></td></tr>";
                 $("#cartBody").append(row);
-            }
-        }
 
-
-        // function addToCart() {
-
-        //     products = [];
-        
-        //     price_per_qty = price_per_qty;
-        //     product_id = product_id;
-        //     quantity = quantity;
-
-        //     console.log("Quantity = " +  quantity)
-        //     console.log("product_id = " +  product_id)
-        //     console.log("price = " +  price_per_qty)
-        
-        //     if(localStorage.getItem('products')){
-        //         products = JSON.parse(localStorage.getItem('products'));
                 
-        //     }
-            
-        //     products.push({ CourseId : product_id , quantity : quantity, price_per_qty : price_per_qty });
-        
-        //   localStorage.setItem('products', JSON.stringify(products));
+                // var row = "<tr><td>" + cartItem.Product + "</td><td>" +
+                // cartItem.Price + "</td><td>" + cartItem.Qty + "</td><td>"
+                // + cartItem.Qty * cartItem.Price + "</td><td>";
+                // $("#cartBody").append(row);
+            }
 
-        // };
-        
-        // $('#Remove').click(function(){
-        //     let productId = product_id;
-        //     let storageProducts = JSON.parse(localStorage.getItem('products'));
-        //   let products = storageProducts.filter(product => product.productId !== productId );
-        //   localStorage.setItem('products', JSON.stringify(products));
-        // });
+            // For Cart 
 
+            var sub =0;
 
+            for(var j in cart ){
 
-        // function myFunction() {
-        //     var x = localStorage.getItem("products");
-        //     document.getElementById("demo").innerHTML = x;
-        // }
+                var cartitem = cart[j];
 
-        // myFunction();
+                // for modal
+                var Mainrow = "<tr><td>" + cartitem.Product + "</td><td>" +
+                             cartitem.Price + "</td><td>" + cartitem.Qty + "</td><td>"
+                             + cartitem.Qty * cartitem.Price + "</td><td>";
+                $("#cartMainBody").append(Mainrow);
 
+                sub = sub + cart[j].Total;
+            }
 
+            $("#subTotalID").append(sub);
 
-        //////////////////// Flash message 
-
+        }

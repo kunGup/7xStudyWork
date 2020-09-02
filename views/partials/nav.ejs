@@ -33,10 +33,16 @@
               <li class="nav-item">
                 <a class="nav-link" href="#contactus">Contact Us</a>
               </li>
-              <li class="nav-item">
-                
+              <!-- <li class="nav-item">
                 <a class="nav-link" href="/cart">Cart <i class="fa fa-shopping-cart" aria-hidden="true"></i></a>
+              </li> -->
+
+              <li class="nav-item">
+                <a class="nav-link" href="#"  data-toggle="modal" data-target="#exampleModal">Cart <i class="fa fa-shopping-cart" aria-hidden="true"></i>
+                </a>
               </li>
+
+
               <!-- <li class="nav-item dropdown">
                 <a
                   class="nav-link dropdown-toggle"
@@ -49,10 +55,13 @@
                 >
                 <div class="dropdown-menu border-0" aria-labelledby="dropdown01">
                   <a class="dropdown-item" href="#">Action</a>
+                  <div class="dropdown-divider"></div>
                   <a class="dropdown-item" href="#">Another action</a>
+                  <div class="dropdown-divider"></div>
                   <a class="dropdown-item" href="#">Something else here</a>
                 </div>
-              </li> -->
+              </li>  -->
+
             </ul>
 
         
@@ -68,12 +77,21 @@
                     aria-haspopup="true"
                     aria-expanded="false"
                     style="cursor: pointer;"
-                    >My Account</a
+                    >
+                    <i class="fa fa-address-book-o mr-2" aria-hidden="true"></i>
+                    My Account</a
                   >
                   <div class="dropdown-menu border-0" aria-labelledby="dropdown01">
-                    <a class="dropdown-item" href="/dashboard">Dashboard</a>
-                    <a class="dropdown-item" href="/profile">My Profile</a>
-                    <a style="color: brown;" href="/logout" class="dropdown-item">
+                    <a class="dropdown-item mr-2" href="/dashboard">
+                      <i class="fa fa-inbox mr-2" aria-hidden="true"></i>
+                      Dashboard</a>
+                    <div class="dropdown-divider"></div>
+                    <a class="dropdown-item mr-2" href="/profile">
+                      <i class="fa fa-user mr-2" aria-hidden="true"></i>
+                      My Profile</a>
+                    <div class="dropdown-divider"></div>
+                    <a style="color: rgb(206, 2, 2);" href="/logout" class="dropdown-item mr-2">
+                      <i class="fa fa-sign-out m-2" aria-hidden="true"></i>
                       Log Out
                     </a>
                   </div>
