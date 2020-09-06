@@ -24,6 +24,19 @@ router.get("/", (req, res) => {
 });
 
 
+//Teachers
+
+teachers_json = require('../public/js/teachers.json');
+
+router.get('/teachers', (req,res)=> {
+  var loginUsername = localStorage.getItem("loginUsername");
+  res.render("teachers", {
+    loginUsername: loginUsername,
+    teachers_json : teachers_json
+  });
+})
+
+
 //Courses
 
 jsonData = require('../public/js/courses.json');

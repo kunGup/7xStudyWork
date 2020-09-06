@@ -1,0 +1,85 @@
+{
+	"Shivangini Ma'am": {
+		"image_file": "teachers/shivangini.jpg",
+		"name": "Shivangini Ma'am",
+		"bio": "Shivangini Ma'am has done M.Sc. Physics. She has more than 5 years of experience of teaching class 9 to 12 students."
+	},
+
+	"Nitish Kumar" : {
+		"image_file": "teachers/nitish.jpg",
+		"name": "Nitish Sir",
+		"bio": "Nitish sir is an enthusiastic and passionate mathematics tutor with over 7 years of experience in home tutoring, batch tutoring, student counselling, time management programming. He has attended to 100+ students 1-on-1. "
+	},
+
+	"Prateek Awasthi" : {
+		"image_file": "teachers/prateek.jpg",
+		"name": "Prateek Sir",
+		"bio": "Prateek sir has more than 6 years of experience of teaching. He has taught with reputed brands where he mentored more than 3000 students from class 9th to class 12th in both Engineering and Medical streams. He has headed academic the Academic Planning Committee previously."
+	},
+
+	"Sahab Singh" : {
+		"image_file": "teachers/sahab.jpg",
+		"name": "Sahab Sir",
+		"bio": "Sahab sir has done his BTech in electronics and communication. He has been teaching Physics from last 10 years in institutes such as Aakash, Momentum, etc. He has taught JEE, NEET and Boards aspirants."
+	},
+
+	"Navjot Singh": {
+		"image_file": "teachers/navjot.jpg",
+		"name": "Navjot Sir",
+		"bio": "Navjot sir has done his BTech from PEC (Chandigarh). He has taught  to IIT-JEE and Board aspirants in institutes such as Aakash, Vedantu, etc. for more than 7 years."
+	},
+
+	"Pawan Sir": {
+		"image_file": "teachers/pawan.jpg",
+		"name": "Pawan Sir",
+		"bio": "Pawan Sir has done his B.Tech from IIT Dhanbad in 2013 and has taught in institutes such as Sri Chaitanya and FIITJEE for more than 7 years to students of IIT-JEE, NEET, and Boards examinations."
+	},
+
+	"Shilpi Mishra": {
+		"image_file": "teachers/shilpi.jpg",
+		"name": "Shilpi Ma'am",
+		"bio": "Shilpi Ma'am is BSc. from Allahbad University 1995. She qualified NET exam and has also done MBA. She has work experience of more than 20 years as lecturer in various colleges."
+	},
+
+	"Santosh Kumar": {
+		"image_file": "teachers/santosh.jpg",
+		"name": "Santosh sir",
+		"bio": "Santosh sir has done M.Sc. in Chemistry and B.Ed. He has experience of 20 years in tutoring students for competitive exams like IIT-JEE, NEET and Boards aspirants."
+	},
+
+	"Prateek Gupta": {
+		"image_file": "teachers/prateek_gupta.jpg",
+		"name": "Prateek Gupta sir",
+		"bio": "Prateek Gupta sir teaches Economics and Business Studies/"
+	},
+
+	"Pooja Girdhar": {
+		"image_file": "teachers/pooja.jpg",
+		"name": "Pooja Ma'am",
+		"bio": "Pooja Ma'am has done M.Sc. Chemistry and has taught for more than 10 years in various schools."
+	},
+
+	"Gurdisha Kaur": {
+		"image_file": "teachers/gurdisha.jpg",
+		"name": "Gurdisha Ma'am",
+		"bio": "Gurdisha Ma'am has done BBA and B.Com. She has experience of more than 6 years in teaching Commerce subjects."
+	},
+
+	"Vipin Chaudhary": {
+		"image_file": "teachers/vipin.jpg",
+		"name": "Vipin Sir",
+		"bio": "Vipin sir has done Ph.D in Physics and has experience of more than 7 years in teaching Boards and Competitive exams students."
+	},
+
+	"Subhash Chandra": {
+		"image_file": "teachers/subhash.jpg",
+		"name": "Subhash Sir",
+		"bio": "Subhash sir has experience of more than 20 years in teaching Chemistry in institutes such as Narayana, Aakash, etc. to IIT-JEE, NEET, and Board aspirants"
+	},
+
+	"Saurabh Sir": {
+		"image_file": "teachers/saurabh.jpg",
+		"name": "Saurabh Sir",
+		"bio": "Saurabh Sir has experience of more than 7 years in teaching Maths in institutes such as Narayana, Sri Chaitanya, etc."
+	}
+}
