@@ -203,7 +203,7 @@
 					"price": {
 						"product_id": "reg_live_1on1_cls_07",
 						"type": "per hour",
-						"amount": 320,
+						"amount": 450,
 						"quantity": [1, 2, 3, 4, 5],
 						"quantity-name": "HOURS"
 					}
@@ -213,7 +213,7 @@
 					"price": {
 						"product_id": "reg_live_1on2_cls_07",
 						"type": "per hour",
-						"amount": 260,
+						"amount": 350,
 						"quantity": [1, 2, 3, 4, 5],
 						"quantity-name": "HOURS"
 					}
@@ -223,7 +223,7 @@
 					"price": {
 						"product_id": "reg_live_short_cls_07",
 						"type": "per month per subject",
-						"amount": 1550,
+						"amount": 2300,
 						"quantity": [1, 2, 3, 4, 5],
 						"quantity-name": "MONTHS"
 					}
@@ -235,7 +235,7 @@
 					"price": {
 						"product_id": "reg_live_1on1_cls_08",
 						"type": "per hour",
-						"amount": 320,
+						"amount": 450,
 						"quantity": [1, 2, 3, 4, 5],
 						"quantity-name": "HOURS"
 					}
@@ -245,7 +245,7 @@
 					"price": {
 						"product_id": "reg_live_1on2_cls_08",
 						"type": "per hour",
-						"amount": 260,
+						"amount": 350,
 						"quantity": [1, 2, 3, 4, 5],
 						"quantity-name": "HOURS"
 					}
@@ -255,7 +255,7 @@
 					"price": {
 						"product_id": "reg_live_short_cls_08",
 						"type": "per month per subject",
-						"amount": 1550,
+						"amount": 2300,
 						"quantity": [1, 2, 3, 4, 5],
 						"quantity-name": "MONTHS"
 					}
@@ -287,7 +287,7 @@
 					"price": {
 						"product_id": "reg_live_short_cls_09",
 						"type": "per month per subject",
-						"amount": 1800,
+						"amount": 2300,
 						"quantity": [1, 2, 3, 4, 5],
 						"quantity-name": "MONTHS"
 					}
