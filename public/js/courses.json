@@ -390,5 +390,77 @@
 				}
 			}												
 		}
+	},
+	"Live Sessions - Competitions | NEET | JEE": {
+		"image_file": "svgs/demo-learning.svg",
+		"title_image_file": "svgs/live.svg",
+		"short-description": "Prepare for IIT-JEE and NEET",
+		"long-description": "Teachers and students interact over video call. Get fundamental understanding of the concepts required to crack JEE and NEET. Rigorous practice sessions.",
+		"classes": {
+			"class-11": {
+				"1-on-1": {
+					"desc": "This program contains 1 teacher teaching only 1 student. Program works best for fullfilling special needs and requirements of the child.",
+					"price": {
+						"product_id": "comp_live_1on1_cls_11",
+						"type": "per hour",
+						"amount": 760,
+						"quantity": [1, 2, 3, 4, 5],
+						"quantity-name": "HOURS"
+					}
+				},
+				"1-on-2": {
+					"desc": "This program contains 1 teacher teaching only 2 students. Program works best for fullfilling special needs and requirements of the child.",
+					"price": {
+						"product_id": "comp_live_1on2_cls_11",
+						"type": "per hour",
+						"amount": 490,
+						"quantity": [1, 2, 3, 4, 5],
+						"quantity-name": "HOURS"
+					}
+				},
+				"Short Batch": {
+					"desc": "This program contains a batch of less than 9 students. Students are not more than 7 so that each student also receives individual attention while also has company of some other students to compete with.",
+					"price": {
+						"product_id": "comp_live_short_cls_11",
+						"type": "per month per subject",
+						"amount": 3600,
+						"quantity": [1, 2, 3, 4, 5],
+						"quantity-name": "MONTHS"
+					}
+				}
+			},
+			"class-12": {
+				"1-on-1": {
+					"desc": "This program contains 1 teacher teaching only 1 student. Program works best for fullfilling special needs and requirements of the child.",
+					"price": {
+						"product_id": "comp_live_1on1_cls_12",
+						"type": "per hour",
+						"amount": 760,
+						"quantity": [1, 2, 3, 4, 5],
+						"quantity-name": "HOURS"
+					}
+				},
+				"1-on-2": {
+					"desc": "This program contains 1 teacher teaching only 2 students. Program works best for fullfilling special needs and requirements of the child.",
+					"price": {
+						"product_id": "comp_live_1on2_cls_12",
+						"type": "per hour",
+						"amount": 490,
+						"quantity": [1, 2, 3, 4, 5],
+						"quantity-name": "HOURS"
+					}
+				},
+				"Short Batch": {
+					"desc": "This program contains a batch of less than 9 students. Students are not more than 7 so that each student also receives individual attention while also has company of some other students to compete with.",
+					"price": {
+						"product_id": "comp_live_short_cls_12",
+						"type": "per month per subject",
+						"amount": 3600,
+						"quantity": [1, 2, 3, 4, 5],
+						"quantity-name": "MONTHS"
+					}
+				}
+			}
+		}
 	}
 }
