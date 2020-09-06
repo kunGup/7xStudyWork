@@ -43,10 +43,10 @@
                   <div class="col-md-9 mx-auto">
                     <div class="card-body">
                       <h5 class="card-title">
-                        <%= jsonData[course_type].description %>
+                        <%= jsonData[course_type]["short-description"] %>
                       </h5>
                       <p class="card-text">
-                        <%= jsonData[course_type].description %>
+                        <%= jsonData[course_type]["long-description"] %>
                       </p>
                       <h6 class="card-phone" >
                         <i class="fa fa-phone" aria-hidden="true"></i>
@@ -66,6 +66,48 @@
         <!-- card ends -->
 
       <% } %>
+
+
+        <!--  DEMO card begins -->
+        <div class="col-12 col-md-12">
+            <div class="card mb-3 shadow">
+
+                <p class="card-header"> <span> <img class="img-fluid pb-1" width="60" src="/img/<%=jsonData[course_type].title_image_file%>" alt=""></span>
+                   Demo Class
+                </p>
+
+                <div class="row no-gutters p-4">
+                  <div class="col-md-3 text-center">
+                    <img src="/img/svgs/online-learning.svg" width="200" class="img-fluid" alt="...">
+                  </div>
+                  <div class="col-md-9 mx-auto">
+                    <div class="card-body">
+                      <h5 class="card-title">
+                        Experience how is it like to study with us.
+                      </h5>
+                      <p class="card-text">
+                        You will be paired with a teacher of the subject of your interest. You will be taught like our regular students!
+                      </p>
+                      <h6 class="card-phone" >
+                        <i class="fa fa-phone" aria-hidden="true"></i>
+                        <a style="color: rgb(59, 59, 59);" href="tel:+916397323402">
+                            +916397323402
+                        </a>                       
+                      </h6>
+                      <br>
+                          <div>
+                            <form><script src="https://cdn.razorpay.com/static/widget/payment-button.js" data-payment_button_id="pl_FZge4olRF1sfgL"> </script> </form>
+                          </div>
+                    </div>
+                  </div>
+                </div>
+
+            </div>
+
+        </div>
+        <!-- DEMO card ends -->
+
+
     </div>
 
 

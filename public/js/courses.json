@@ -2,7 +2,8 @@
 	"Live Sessions - Regular" : {
 		"image_file": "svgs/graduate.svg",
 		"title_image_file": "svgs/live.svg",
-		"description": "Regular courses ensures deep understanding of the concepts",
+		"short-description": "Regular courses ensures deep understanding of the concepts",
+		"long-description": "Teachers and students interact over video call. Get your doubts solved instantly. Get regular assignments.",
 		"classes": {
 			"class-1": {
 				"1-on-1": {
