@@ -36,27 +36,32 @@
 	},
 
 	"Shilpi Mishra": {
-		"image_file": "teachers/shilpi.jpg",
+		"image_file": "teachers/shilpi_mishra.jpg",
 		"name": "Shilpi Ma'am",
 		"bio": "Shilpi Ma'am is BSc. from Allahbad University 1995. She qualified NET exam and has also done MBA. She has work experience of more than 20 years as lecturer in various colleges."
+	},
+	"Shashi Bhushan Kumar": {
+		"image_file": "teachers/shashi_bhushan_kumar.jpg",
+		"name": "Shashi sir",
+		"bio": "Shashi sir teaches Biology. He is M. Sc. in Botany. CSIR NET qualified. He has a teaching experience of more than 12 years in NEET preparation and students of class 9th to 12th."
+	},
+
+	"Prateek Gupta": {
+		"image_file": "teachers/prateek_gupta.jpg",
+		"name": "Prateek Gupta sir",
+		"bio": "Prateek Gupta sir has an experience of more than 2 years. He has done his M.A. and B.A. honors in Economics from Delhi University. He is passionate about teaching and teaches students with real-life examples. He teaches Economics & Business Studies."
+	},
+
+	"Pooja Girdhar": {
+		"image_file": "teachers/pooja_girdhar.jpg",
+		"name": "Pooja Ma'am",
+		"bio": "Pooja Ma'am has done M.Sc. Chemistry and has taught for more than 6 years. She is  CTET qualified , a rank holder in CENTA Teaching Professional's Olympiad and also doing a course on online teaching from CENTA."
 	},
 
 	"Santosh Kumar": {
 		"image_file": "teachers/santosh.jpg",
 		"name": "Santosh sir",
 		"bio": "Santosh sir has done M.Sc. in Chemistry and B.Ed. He has experience of 20 years in tutoring students for competitive exams like IIT-JEE, NEET and Boards aspirants."
-	},
-
-	"Prateek Gupta": {
-		"image_file": "teachers/prateek_gupta.jpg",
-		"name": "Prateek Gupta sir",
-		"bio": "Prateek Gupta sir teaches Economics and Business Studies/"
-	},
-
-	"Pooja Girdhar": {
-		"image_file": "teachers/pooja.jpg",
-		"name": "Pooja Ma'am",
-		"bio": "Pooja Ma'am has done M.Sc. Chemistry and has taught for more than 10 years in various schools."
 	},
 
 	"Gurdisha Kaur": {
