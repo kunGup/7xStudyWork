@@ -1,249 +1,80 @@
 var express = require("express");
 var router = express.Router();
+var students_model = require("../models/students");
+var teachers_model = require("../models/teachers");
+var batches_model = require("../models/batches");
+var payments_model = require("../models/payments");
+
+
+// Files for dashboard
+
+batches_info = require('../dashboard/batches.json');
+students_info = require('../dashboard/students.json');
+payments_info = require('../dashboard/payments.json');
+
 
 router.get('/dashboard', (req, res) => {
   res.render('dashboard', {
   	logged_in: false,
-  	tried_login: false,
+  	info_alert: "Please enter the username and password provided by 7xstudy",
   })
 })
 
-module.exports = router;
 
-
-
-// ##################################################################
-
-var express = require("express");
-var router = express.Router();
-
-var customId = require("custom-id");
-var studentModel = require("../models/students");
-
-//requiring bcrypt js
-var bcrypt = require("bcrypt");
-
-//IMPORTING JWT
-var jwt = require('jsonwebtoken');
-
-//IMPORTING NODE LOCAL STORAGE
-if (typeof localStorage === "undefined" || localStorage === null) {
-    var LocalStorage = require('node-localstorage').LocalStorage;
-    localStorage = new LocalStorage('./scratch');
-}
-
-function checkDublicateEmail (req,res,next) {
-
-    var email = req.body.student_email;
-
-    var checkEmail = studentModel.findOne({
-        email: email
-    });
-
-    checkEmail.exec((err, docs) => {
-        if(err) throw err;
-
-        if(docs)
-
-            return res.render('register', { msg : 'Email ID already exists !' } )
-
-        next();
-    })
-
-}
-
-
-//Registration ########################################################################
-
-router.get("/register", (req, res) => {
-  
-  var loginUsername = localStorage.getItem('loginUsername');
-  res.render("register", {
-
-    msg: "",
-    loginUsername : loginUsername
-
-  });
-});
-
-router.post("/register", checkDublicateEmail, (req, res) => {
-
-  //generating custom UId
-  var UId =
-    "STU" +
-    customId({
-      name: "123456",
-      email: "78910",
-    });
-
-  //getting form data
-  var name = req.body.student_name;
-  var email = req.body.student_email;
-  var phone = req.body.student_phone;
-  var gender= req.body.student_gender;
-  var city = req.body.student_city;
-  var cls = req.body.student_cls;
-  var board = req.body.student_board;
-  var marks = req.body.student_marks;
-  var gaurdianName = req.body.student_gaurdianName;
-
-  var password =  req.body.student_password;
-  var confpassword = req.body.student_confpassword;
-
-  //Checking that the password is same or not
-  if (password != confpassword) {
-    res.render("register", {
-      msg: "Password Do Not Match !"
-    });
-  } else {
-
-    var bcryptPassword = bcrypt.hashSync(password, 10);
-
-    //getting form data to model
-    var studentDetails = new studentModel({
-      UId: UId,
-      name: name,
-      email: email,
-      phone: phone,
-      gender: gender,
-      city: city,
-      cls: cls,
-      board: board,
-      marks: marks,
-      gaurdianName: gaurdianName,
-      password: bcryptPassword
-    });
-
-    //saving model to DB
-
-    studentDetails.save((err, docs) => {
-      if (err) throw err;
-      else res.render("register" , {
-        msg: "You Are Registered Succesfully !"
-      });
-    });
-
-  }
-});
-
-//Log In ########################################################################
-
-//Middleware Function to check Authentication
-
-function checkLoginUser(req,res,next){
-
-  var userToken = localStorage.getItem('userToken');
-
-  //using try catch of jwt
-
-  try {
-      var decoded = jwt.verify(userToken, 'LoginToken');
-    } catch(err) {
-      res.redirect('/')
-    }
-
-  next();
-
-}
-
-//Log in Register ########################################################################
-
-router.get("/login", (req, res) => {
-  res.render("login", {
-    msg : '',
-    loginUsername : ''
-  });
-});
-
-
-router.post('/login', (req,res) => {
-
+router.post('/dashboard', (req, res) => {
   //Getting Data From login Page
-  var get_email = req.body.student_email;
-  var password = req.body.student_password;
+  var username = req.body.username;
+  var password = req.body.password;
 
-  //checking username
-  var checkUser = studentModel.findOne({email:get_email});
+  console.log("i got username as: " + username);
+  console.log("i got password: " + password);
 
-  checkUser.exec((err,docs) => {
+  students_model.findOne({id: username}).then(student => {
+    console.log("i found" + student);
 
-      if (err) throw err;
+    if(!student) {
+      res.render('dashboard', {
+        logged_in: false,
+        warning_alert: "No such student! Please use the username provided by 7xstudy",
+      })
+      
+    } else if(student.password == password) {     
+      console.log("okay I loaded everything..")
 
-      if(docs !== null){ 
-
-      //Getting Password from Db
-      var getUserID = docs._id;
-      var getPassword = docs.password;
-      var getUserName = docs.email;
-
-      //checking if the db password & and login page password is same or not
-      //also we have to decrypt the password 
-      //if both are same then login succesfull
-
-      if(bcrypt.compareSync( password, getPassword )){
-
-      //Getting id from model in Token using jwt token
-      var token = jwt.sign({ userID: getUserID }, 'LoginToken');
-      //setting token to local storage
-      localStorage.setItem('userToken', token);
-      localStorage.setItem('loginUsername', getUserName);
-
-      // console.log(localStorage.getItem('userToken'));
-      // console.log(localStorage.getItem('loginUsername'));
-      //redirect after login
-
-      var loginUsername = localStorage.getItem('loginUsername');
-      res.redirect('/dashboard')
-      }
-
-      else{
-        console.log('wrong Password')
-        res.render('login', {
-          msg : "Wrong Password !"
-        })
-  
+      var batch_statuses = [];
+      batches_model.find({student_ids: student.id}).then(batches => {
+        console.log("hey i tried looking")
+        console.log(batches);
+        for(var i in batches) {
+          batch_statuses.push(batches_info[batches[i]["id"]]);
         }
-      }
+        console.log("batch ids are " + batch_statuses);
+        var batch_teacher_names = [];
 
-  })
-
-})
-
-
-//Profile ########################################################################
-
-router.get('/profile' , checkLoginUser ,(req, res, next) => {
-
-  var loginUsername = localStorage.getItem('loginUsername');
-
-  studentModel.findOne({email:loginUsername}, (err, docs)=> {
-    if (err) {
-      console.log('Error Showing Profile !')
+        payments_model.find({student_id: student.id}).sort({date: -1}).limit(10).then(payments => {
+          console.log("These are the payments I found " + payments)
+          res.render('dashboard', {
+            logged_in: true,
+            student_id: student.id,
+            payments: payments,
+            student_name: student.name,
+            batches: batches,
+            batch_statuses: batch_statuses,
+            student_info: students_info[student.id],
+            info_alert: payments_info[student.id],
+          })
+        })
+        
+      }).catch(err => console.log(err))
+      
+    } else {
+      console.log("you entered " + student.password + " But the correct password is " + password)
+      res.render('dashboard', {
+        logged_in: false,
+        error_alert: "Wrong password!"
+      })
     }
-
-    else{
-      console.log(docs)
-    }
   })
-
 })
-
-
-//Log Out ########################################################################
-
-//unset the jwt token userID & username
-router.get('/logout', (req,res) => {
-
-  localStorage.removeItem('userToken');
-  localStorage.removeItem('loginUsername')
-
-  //redirect to /
-  res.redirect('/');
-})
-
-
-
-
-
 
 module.exports = router;

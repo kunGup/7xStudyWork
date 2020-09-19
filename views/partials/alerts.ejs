@@ -1,0 +1,35 @@
+<% if(typeof(success_alert) != 'undefined'){ %>
+<div class="alert alert-success alert-dismissible fade show" role="alert">
+  <%= success_alert %>
+  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+<% } %>
+
+<% if(typeof(info_alert) != 'undefined'){ %>
+<div class="alert alert-info alert-dismissible fade show" role="alert">
+  <%= info_alert %>
+  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+<% } %>
+
+<% if(typeof(warning_alert) != 'undefined'){ %>
+<div class="alert alert-warning alert-dismissible fade show" role="alert">
+  <%= warning_alert %>
+  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+<% } %>
+
+<% if(typeof(error_alert) != 'undefined'){ %>
+<div class="alert alert-danger alert-dismissible fade show" role="alert">
+  <%= error_alert %>
+  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+<% } %>

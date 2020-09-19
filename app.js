@@ -3,9 +3,17 @@ const app = express()
 const port = 3000
 
 
+var dbcreds = require("./secrets/dbcreds.json")
+
+var dbusername = dbcreds["dbusername"]
+var dbpassword = dbcreds["dbpassword"]
+
+console.log("user name is " + dbusername);
+console.log("password is " + dbpassword);
+
 var mongoose = require('mongoose')
 mongoose.connect(
-'mongodb+srv://MyUsername:MyPassword@cluster0.fz6ve.mongodb.net/7xStudy?retryWrites=true&w=majority',
+'mongodb+srv://'+dbusername+':'+dbpassword+'@7xstudy-mongodb.ewlpj.mongodb.net/7xstudy?retryWrites=true&w=majority',
 {useNewUrlParser: true , useCreateIndex:true, useUnifiedTopology: true}, 
     ()=>{console.log('MongoDb Connected ***')}
 );
@@ -18,7 +26,6 @@ app.use(bodyParser.json())
 
 //IMPORTING ROUTES
 var indexRoute = require('./routes/index'); 
-// var studentRoute = require('./routes/students'); 
 var dashboardRoute = require('./routes/dashboard'); 
 var cartRoute = require('./routes/cart')
 var paymentRouter = require('./routes/payment')
@@ -35,7 +42,6 @@ app.set('view engine', 'ejs')
 
 //SETTING ROUTES
 app.use('/', indexRoute);
-// app.use('/', studentRoute);
 app.use('/', dashboardRoute);
 app.use('/', cartRoute);
 app.use('/', paymentRouter)

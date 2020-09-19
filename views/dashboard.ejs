@@ -1,53 +1,159 @@
 <%- include('partials/head'); %> <%- include('partials/nav'); %>
 <%- include('partials/cart-modal'); %>
 
-<section>
-  <div class="jumbotron jumbotron-fluid jumbotron-top">
-    <div class="jumbo-text text-center">
-      <h1>Dashboard</h1>
-      <a href="/logout">Log Out</a>
-    </div>
-  </div>
-</section>
+<% if(!logged_in) {%>
 
-
-<section style="margin: 0 3%;">
-	<div class="container" style="padding: 4% 0 4% 0;">
-	  <div class="row">
-	  <div class="col-12 col-md-6">
-	  <div class="card shadow">
-		<div class="card-body">
-		  <h2 class="card-title"><i class="fa fa-user" aria-hidden="true"></i> My Profile</h2>
-		  <p><span style="font-size: 18px;color: blue;"><i class="fa fa-sign-in" aria-hidden="true"></i> 
-			Logged In As :</span><span style="color: rgb(53, 53, 53);"> blah </span></p>
-			<p>
-			<a href="edit/">
-				<span style="color: blue;"><i class="fa fa-pencil" aria-hidden="true"></i> Edit </span> / <span style="color: blue;">update</span>
-			</a>	
-			Profile</span></p>
-		</div>
-		</div>
+	<section>
+	  <div class="jumbotron jumbotron-fluid jumbotron-top">
+	    <div class="jumbo-text text-center">
+	      <h1>Log In</h1>
+	    </div>
 	  </div>
-	
-	  <div class="col-12 col-md-6">
-	  <div class="card shadow">
-		<div class="card-body">
-		  <h2 class="card-title"><i class="fa fa-graduation-cap" aria-hidden="true"></i>
-			
-			Entrance Exams</h2>
-		  <h4 class="card-text exams-names"><i class="fa fa-check" aria-hidden="true"></i> IIT-JEE</h4>
-		  <h4 class="card-text exams-names"><i class="fa fa-check" aria-hidden="true"></i> NEET</h4>
-		  <h4 class="card-text exams-names"><i class="fa fa-check" aria-hidden="true"></i> Olympiads</h4>
-		  <h4 class="card-text exams-names"><i class="fa fa-check" aria-hidden="true"></i> Foundation courses.</h4>
-	
-	
-		</div>
-	  </div>
-	</div>
-	
-	</div>
-	</div>
 	</section>
+
+	<div class="form-border">
+	  <div class="row">
+	    <div class="col-md-12 mx-auto">
+	      <form action="/dashboard" method="post">
+	        
+	        <div class="row">
+
+	          <div class="col-12 col-md-10 mx-auto">
+	            <%- include('partials/alerts'); %>
+	          </div>
+
+	          <div class="col-12 col-md-10 mx-auto">
+	            <div class="form-group">
+	              <input type="username" name="username" class="form-control my-input" placeholder="Enter Your Username" />
+	            </div>
+	          </div>
+
+	          <div class="col-12 col-md-10 mx-auto">
+	            <div class="form-group">
+	              <input type="password" name="password" class="form-control my-input" placeholder="Enter Your Password" />
+	            </div>
+	          </div>
+
+	          <div class="col-12 col-md-10 mx-auto mb-4">
+	            <input type="submit" class="btn btn-block btn-succ" value="Log In"></input>
+	          </div>
+
+	          <div class="col-12 col-md-10 mx-auto mb-4">
+	            <h6>Don't Have an Account ? <a href="/#contactus"> Contact us </a> !</h6>
+	          </div>
+	        </div>
+	      </form>
+	    </div>
+	  </div>
+	</div>
+
+<% } else { %>
+
+	<section>
+	  <div class="jumbotron jumbotron-fluid jumbotron-top">
+	    <div class="jumbo-text text-center">
+	      <h1>Dashboard</h1>
+	    </div>
+	  </div>
+	</section>
+
+
+	<section style="margin: 0 3%;">
+		<div class="container" style="padding: 4% 0 4% 0;">
+		  <div class="row">
+		  <div class="col-12 col-md-6">
+		  <div class="card shadow">
+			<div class="card-body">
+			  <h2 class="card-title"><i class="fa fa-user" aria-hidden="true"></i> Welcome, <%= student_name%></h2>
+			  <p><span style="font-size: 18px;color: blue;"><i class="fa fa-sign-in" aria-hidden="true"></i> 
+				Logged In As :</span><span style="color: rgb(53, 53, 53);"> <%=student_id%> </span></p>
+			</div>
+			</div>
+		  </div>
+		
+		</div>
+		</div>
+		</section>
+
+	<div class="container">
+	  <!-- Tabs -->
+	<section id="tabs">
+		<div class="container">
+			<div class="row">
+				<div class="col-xs-12 ">
+					<nav>
+						<div class="nav nav-tabs nav-fill" id="nav-tab" role="tablist">
+							<a class="nav-item nav-link active" id="nav-contact-tab" data-toggle="tab" href="#nav-contact" role="tab" aria-controls="nav-contact" aria-selected="false">Payments Status</a>
+
+							<a class="nav-item nav-link " id="nav-home-tab" data-toggle="tab" href="#nav-home" role="tab" aria-controls="nav-home" aria-selected="true">Course status</a>
+
+						</div>
+					</nav>
+					<div class="tab-content py-3 px-3 px-sm-0" id="nav-tabContent">
+
+						<div class="tab-pane fade show active" id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab">
+							 <div class="col-12 col-md-10 mx-auto">
+					            <%- include('partials/alerts'); %>
+					          </div>
+
+					        <% if(payments.length > 0) {%>
+								<table class="table">
+						          <thead>
+						            <tr>
+						              <th scope="col">Date</th>
+						              <th scope="col">Amount</th>
+						              <th scope="col">Remarks</th>
+						            </tr>
+						          </thead>
+						          <tbody>
+						            <% for(var i in payments) { %>
+						            <tr>
+						              <td><%- payments[i].date %></td>
+						              <td><%- payments[i].amount %></td>
+						              <td><%- payments[i].info %></td>
+						            </tr>
+						            <% } %>
+						          </tbody>
+						        </table>
+					        <%} else {%>
+					        	No recent payments found.
+					        <%}%>
+
+						</div>
+
+						<div class="tab-pane fade" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
+							<% for(var i in batches) { %>
+								<% var batch_id = batches[i].id; %>
+								<% var batch_name = batches[i].name; %>
+								<% var teacher_id = batches[i].teacher_id; %>
+								<% var batch_subject = batches[i].subject; %>
+								<% var batch_grade = batches[i].grade; %>
+								 <h4 class="card-text exams-names"><i class="fa fa-check" aria-hidden="true"></i> <%=batch_name%></h4>
+								 <li> Batch ID: <%= batch_id %>
+								 <li> Subject: <%= batch_subject %>
+								 <li> Grade: <%= batch_grade %>
+								 <li> Teacher: <%= teacher_id %>
+								 <li> Batch Status: <%=batch_statuses[i]%>
+								<br>
+								<br>
+								<br>
+							<%}%>
+
+							<h2> Overall Remarks </h2>
+							<li> <%=student_info%>
+						</div>
+						
+					</div>
+				
+				</div>
+			</div>
+		</div>
+	</section>
+	<!-- ./Tabs -->
+	</div>
+
+<% } %>
+
 
 <style>
   /* Tabs*/
@@ -77,40 +183,5 @@
 }
 </style>
 
-<div class="container">
-  <!-- Tabs -->
-<section id="tabs">
-	<div class="container">
-		<div class="row">
-			<div class="col-xs-12 ">
-				<nav>
-					<div class="nav nav-tabs nav-fill" id="nav-tab" role="tablist">
-						<a class="nav-item nav-link active" id="nav-home-tab" data-toggle="tab" href="#nav-home" role="tab" aria-controls="nav-home" aria-selected="true">Home</a>
-						<a class="nav-item nav-link" id="nav-profile-tab" data-toggle="tab" href="#nav-profile" role="tab" aria-controls="nav-profile" aria-selected="false">Profile</a>
-						<a class="nav-item nav-link" id="nav-contact-tab" data-toggle="tab" href="#nav-contact" role="tab" aria-controls="nav-contact" aria-selected="false">Contact</a>
-						<a class="nav-item nav-link" id="nav-about-tab" data-toggle="tab" href="#nav-about" role="tab" aria-controls="nav-about" aria-selected="false">About</a>
-					</div>
-				</nav>
-				<div class="tab-content py-3 px-3 px-sm-0" id="nav-tabContent">
-					<div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
-						Et et consectetur ipsum labore excepteur est proident excepteur ad velit occaecat qui minim occaecat veniam. Fugiat veniam incididunt anim aliqua enim pariatur veniam sunt est aute sit dolor anim. Velit non irure adipisicing aliqua ullamco irure incididunt irure non esse consectetur nostrud minim non minim occaecat. Amet duis do nisi duis veniam non est eiusmod tempor incididunt tempor dolor ipsum in qui sit. Exercitation mollit sit culpa nisi culpa non adipisicing reprehenderit do dolore. Duis reprehenderit occaecat anim ullamco ad duis occaecat ex.
-					</div>
-					<div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
-						Et et consectetur ipsum labore excepteur est proident excepteur ad velit occaecat qui minim occaecat veniam. Fugiat veniam incididunt anim aliqua enim pariatur veniam sunt est aute sit dolor anim. Velit non irure adipisicing aliqua ullamco irure incididunt irure non esse consectetur nostrud minim non minim occaecat. Amet duis do nisi duis veniam non est eiusmod tempor incididunt tempor dolor ipsum in qui sit. Exercitation mollit sit culpa nisi culpa non adipisicing reprehenderit do dolore. Duis reprehenderit occaecat anim ullamco ad duis occaecat ex.
-					</div>
-					<div class="tab-pane fade" id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab">
-						Et et consectetur ipsum labore excepteur est proident excepteur ad velit occaecat qui minim occaecat veniam. Fugiat veniam incididunt anim aliqua enim pariatur veniam sunt est aute sit dolor anim. Velit non irure adipisicing aliqua ullamco irure incididunt irure non esse consectetur nostrud minim non minim occaecat. Amet duis do nisi duis veniam non est eiusmod tempor incididunt tempor dolor ipsum in qui sit. Exercitation mollit sit culpa nisi culpa non adipisicing reprehenderit do dolore. Duis reprehenderit occaecat anim ullamco ad duis occaecat ex.
-					</div>
-					<div class="tab-pane fade" id="nav-about" role="tabpanel" aria-labelledby="nav-about-tab">
-						Et et consectetur ipsum labore excepteur est proident excepteur ad velit occaecat qui minim occaecat veniam. Fugiat veniam incididunt anim aliqua enim pariatur veniam sunt est aute sit dolor anim. Velit non irure adipisicing aliqua ullamco irure incididunt irure non esse consectetur nostrud minim non minim occaecat. Amet duis do nisi duis veniam non est eiusmod tempor incididunt tempor dolor ipsum in qui sit. Exercitation mollit sit culpa nisi culpa non adipisicing reprehenderit do dolore. Duis reprehenderit occaecat anim ullamco ad duis occaecat ex.
-					</div>
-				</div>
-			
-			</div>
-		</div>
-	</div>
-</section>
-<!-- ./Tabs -->
-</div>
 
 <%- include('partials/footer'); %>
