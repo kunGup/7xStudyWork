@@ -1,7 +1,7 @@
 var express = require("express");
 var router = express.Router();
 
-var contactusModel = require("../models/contactus");
+var contactusModel = require("../models/messages");
 
 //IMPORTING NODE LOCAL STORAGE
 if (typeof localStorage === "undefined" || localStorage === null) {
@@ -26,11 +26,11 @@ router.get("/", (req, res) => {
 
 //Teachers
 
-teachers_json = require('../public/js/teachers.json');
+teachers_json = require('../public/js/faculty.json');
 
-router.get('/teachers', (req,res)=> {
+router.get('/faculty', (req,res)=> {
   var loginUsername = localStorage.getItem("loginUsername");
-  res.render("teachers", {
+  res.render("faculty", {
     loginUsername: loginUsername,
     teachers_json : teachers_json
   });

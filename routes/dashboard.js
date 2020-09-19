@@ -1,6 +1,22 @@
 var express = require("express");
 var router = express.Router();
 
+router.get('/dashboard', (req, res) => {
+  res.render('dashboard', {
+  	logged_in: false,
+  	tried_login: false,
+  })
+})
+
+module.exports = router;
+
+
+
+// ##################################################################
+
+var express = require("express");
+var router = express.Router();
+
 var customId = require("custom-id");
 var studentModel = require("../models/students");
 
@@ -190,21 +206,6 @@ router.post('/login', (req,res) => {
       }
 
   })
-
-})
-
-
-//Dashboard ########################################################################
-
-router.get('/dashboard' , checkLoginUser ,(req, res, next) => {
-
-  var loginUsername = localStorage.getItem('loginUsername');
-
-  res.render('studentDashboard', {
-    loginUsername: loginUsername
-  })
-
-  console.log(loginUsername)
 
 })
 

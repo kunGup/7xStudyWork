@@ -18,7 +18,8 @@ app.use(bodyParser.json())
 
 //IMPORTING ROUTES
 var indexRoute = require('./routes/index'); 
-var studentRoute = require('./routes/students'); 
+// var studentRoute = require('./routes/students'); 
+var dashboardRoute = require('./routes/dashboard'); 
 var cartRoute = require('./routes/cart')
 var paymentRouter = require('./routes/payment')
 
@@ -34,7 +35,8 @@ app.set('view engine', 'ejs')
 
 //SETTING ROUTES
 app.use('/', indexRoute);
-app.use('/', studentRoute);
+// app.use('/', studentRoute);
+app.use('/', dashboardRoute);
 app.use('/', cartRoute);
 app.use('/', paymentRouter)
 
