@@ -9,12 +9,6 @@ var bcrypt = require("bcrypt");
 //IMPORTING JWT
 var jwt = require('jsonwebtoken');
 
-//IMPORTING NODE LOCAL STORAGE
-if (typeof localStorage === "undefined" || localStorage === null) {
-    var LocalStorage = require('node-localstorage').LocalStorage;
-    localStorage = new LocalStorage('./scratch');
-}
-
 
 //Log In ########################################################################
 
