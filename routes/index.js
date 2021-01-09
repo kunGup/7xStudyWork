@@ -1,8 +1,6 @@
 var express = require("express");
 var router = express.Router();
 
-var contactusModel = require("../models/messages");
-
 ////////////////////////////////////////////////////////////////////////////////////////////
 
 
@@ -46,27 +44,28 @@ router.get('/courses/details', (req,res)=> {
 })
 
 
+// TODO: set up a mail forwarder here.
 router.post('/', (req,res)=> {
 
-  const MyData = {
+  // const MyData = {
 
-    name : req.body.contactus_name,
-    phone: req.body.contactus_phone,
-    message: req.body.contactus_yourmessage,
+  //   name : req.body.contactus_name,
+  //   phone: req.body.contactus_phone,
+  //   message: req.body.contactus_yourmessage,
 
-  } 
+  // } 
 
-  const Data = contactusModel(MyData)
+  // const Data = contactusModel(MyData)
 
-  Data.save((err, docs)=> {
-    if(err){
-      console.log('ERROR ')
-    }
-    else{
-      console.log(docs)
-      res.redirect('/')
-    }
-  })
+  // Data.save((err, docs)=> {
+  //   if(err){
+  //     console.log('ERROR ')
+  //   }
+  //   else{
+  //     console.log(docs)
+  //     res.redirect('/')
+  //   }
+  // })
 
 })
 

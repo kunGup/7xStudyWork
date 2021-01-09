@@ -1,0 +1,26 @@
+{	
+	"test_student_1": {
+		"name": "Student Malone",
+		"balance": 500,
+		"history": [
+			{"date": "aaj ka din", "amount": 43, "info": "line one goes here"},
+			{"date": "aaj ka din", "amount": 43, "info": "line one goes here"}
+		]
+	},
+	"test_student_2": {
+		"name": "Student Post",
+		"balance": 1500,
+		"history": [
+			{"date": "aaj ka din", "amount": 43, "info": "line one goes here"},
+			{"date": "aaj ka din", "amount": 43, "info": "line one goes here"}
+		]
+	},
+	"test_student_3": {
+		"name": "Test Malone",
+		"balance": 5000,
+		"history": [
+			{"date": "aaj ka din", "amount": 43, "info": "line one goes here"},
+			{"date": "aaj ka din", "amount": 43, "info": "line one goes here"}
+		]
+	}
+}

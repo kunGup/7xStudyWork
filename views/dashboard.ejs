@@ -64,9 +64,9 @@
 		  <div class="col-12 col-md-6">
 		  <div class="card shadow">
 			<div class="card-body">
-			  <h2 class="card-title"><i class="fa fa-user" aria-hidden="true"></i> Welcome, <%= student_name%></h2>
+			  <h2 class="card-title"><i class="fa fa-user" aria-hidden="true"></i> Welcome, <%= name%></h2>
 			  <p><span style="font-size: 18px;color: blue;"><i class="fa fa-sign-in" aria-hidden="true"></i> 
-				Logged In As :</span><span style="color: rgb(53, 53, 53);"> <%=student_id%> </span></p>
+				Logged In As :</span><span style="color: rgb(53, 53, 53);"> <%=userid%> </span></p>
 			</div>
 			</div>
 		  </div>
@@ -76,80 +76,29 @@
 		</section>
 
 	<div class="container">
-	  <!-- Tabs -->
-	<section id="tabs">
-		<div class="container">
-			<div class="row">
-				<div class="col-xs-12 ">
-					<nav>
-						<div class="nav nav-tabs nav-fill" id="nav-tab" role="tablist">
-							<a class="nav-item nav-link active" id="nav-contact-tab" data-toggle="tab" href="#nav-contact" role="tab" aria-controls="nav-contact" aria-selected="false">Payments Status</a>
 
-							<a class="nav-item nav-link " id="nav-home-tab" data-toggle="tab" href="#nav-home" role="tab" aria-controls="nav-home" aria-selected="true">Course status</a>
-
-						</div>
-					</nav>
-					<div class="tab-content py-3 px-3 px-sm-0" id="nav-tabContent">
-
-						<div class="tab-pane fade show active" id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab">
-							 <div class="col-12 col-md-10 mx-auto">
-					            <%- include('partials/alerts'); %>
-					          </div>
-
-					        <% if(payments.length > 0) {%>
-								<table class="table">
-						          <thead>
-						            <tr>
-						              <th scope="col">Date</th>
-						              <th scope="col">Amount</th>
-						              <th scope="col">Remarks</th>
-						            </tr>
-						          </thead>
-						          <tbody>
-						            <% for(var i in payments) { %>
-						            <tr>
-						              <td><%- payments[i].date %></td>
-						              <td><%- payments[i].amount %></td>
-						              <td><%- payments[i].info %></td>
-						            </tr>
-						            <% } %>
-						          </tbody>
-						        </table>
-					        <%} else {%>
-					        	No recent payments found.
-					        <%}%>
-
-						</div>
-
-						<div class="tab-pane fade" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
-							<% for(var i in batches) { %>
-								<% var batch_id = batches[i].id; %>
-								<% var batch_name = batches[i].name; %>
-								<% var teacher_id = batches[i].teacher_id; %>
-								<% var batch_subject = batches[i].subject; %>
-								<% var batch_grade = batches[i].grade; %>
-								 <h4 class="card-text exams-names"><i class="fa fa-check" aria-hidden="true"></i> <%=batch_name%></h4>
-								 <li> Batch ID: <%= batch_id %>
-								 <li> Subject: <%= batch_subject %>
-								 <li> Grade: <%= batch_grade %>
-								 <li> Teacher: <%= teacher_id %>
-								 <li> Batch Status: <%=batch_statuses[i]%>
-								<br>
-								<br>
-								<br>
-							<%}%>
-
-							<h2> Overall Remarks </h2>
-							<li> <%=student_info%>
-						</div>
-						
-					</div>
-				
-				</div>
-			</div>
-		</div>
-	</section>
-	<!-- ./Tabs -->
+		Name: <b> <%=name%> </b>
+		<br>
+		Remaining balance: <b> <%=balance%> </b> 
+		<br>
+		<table class="table">
+	      <thead>
+	        <tr>
+	          <th scope="col">Date</th>
+	          <th scope="col">Amount</th>
+	          <th scope="col">Remarks</th>
+	        </tr>
+	      </thead>
+	      <tbody>
+	        <% for(var i in history) { %>
+	        <tr>
+	          <td><%- history[i].date %></td>
+	          <td><%- history[i].amount %></td>
+	          <td><%- history[i].info %></td>
+	        </tr>
+	        <% } %>
+	      </tbody>
+	    </table>
 	</div>
 
 <% } %>
