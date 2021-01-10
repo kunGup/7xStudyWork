@@ -7,8 +7,8 @@ var router = express.Router();
 // students_info = require('../dashboard/students.json');
 // payments_info = require('../dashboard/payments.json');
 
-student_infos = require('../dashboard/student_infos.json');
-student_passwords = require('../dashboard/student_passwords.json');
+student_infos = require('../dashboard/user_infos.json');
+student_passwords = require('../dashboard/user_passwords.json');
 
 
 router.get('/dashboard', (req, res) => {
@@ -34,14 +34,15 @@ router.post('/dashboard', (req, res) => {
       logged_in: false,
       warning_alert: "No such student! Please use the username provided by 7xstudy",
     })
-  } else if(student_passwords[username] == password){
+  } else if(password == student_passwords[username]){
     console.log("These are the history I found " + student_infos[username]["history"])
     res.render('dashboard', {
       logged_in: true,
       userid: username,
       name: student_infos[username]["name"],
       balance: student_infos[username]["balance"],
-      history: student_infos[username]["history"],
+      classes: student_infos[username]["classes"],
+      payments: student_infos[username]["payments"],
       info_alert: "Hello!",
     })
   } else {
