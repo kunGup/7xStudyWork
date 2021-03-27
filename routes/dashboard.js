@@ -1,5 +1,6 @@
 var express = require("express");
 var router = express.Router();
+var Cookies = require('cookies');
 
 // Files for dashboard
 
@@ -12,14 +13,32 @@ student_passwords = require('../dashboard/user_passwords.json');
 
 
 router.get('/dashboard', (req, res) => {
-  res.render('dashboard', {
-  	logged_in: false,
-  	info_alert: "Please enter the username and password provided by 7xstudy",
-  })
+  // Create a cookies object
+  var cookies = new Cookies(req, res)
+  var username = cookies.get('username');
+  var password = cookies.get('password');
+  if(password == student_passwords[username]){
+      res.render('dashboard', {
+      logged_in: true,
+      userid: username,
+      name: student_infos[username]["name"],
+      balance: student_infos[username]["balance"],
+      classes: student_infos[username]["classes"],
+      payments: student_infos[username]["payments"],
+      info_alert: "Hello!",
+    })
+  } else {
+      res.render('dashboard', {
+        logged_in: false,
+        info_alert: "Please enter the username and password provided by 7xstudy",
+      })
+  }
 })
 
 
 router.post('/dashboard', (req, res) => {
+  var cookies = new Cookies(req, res);
+
   //Getting Data From login Page
   var username = req.body.username;
   var password = req.body.password;
@@ -36,6 +55,8 @@ router.post('/dashboard', (req, res) => {
     })
   } else if(password == student_passwords[username]){
     console.log("These are the history I found " + student_infos[username]["history"])
+    cookies.set('username', username);
+    cookies.set('password', password);
     res.render('dashboard', {
       logged_in: true,
       userid: username,
