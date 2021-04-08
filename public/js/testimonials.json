@@ -1,0 +1,81 @@
+[
+    {
+        "student_name": "Anjali (Delhi, class 12, Physics, Chemistry, Mathematics)",
+        "written_by": "Anjali (now pursuing B.E Mechanical from BITS Pilani",
+        "testimonial":"I acheived a BITSAT score of 281. My application number is 20071062. I completed my schooling from Gyan Bharti, Saket, Delhi. I also got really great marks in PCM (Maths 95, Chemistry 93, Physics 93). I enrolled in 7xstudy and they really helped me strengthen my concepts. The best thing that I explored here was that teachers focus more on pointing out the weakness of the student and they work rigorously in converting the weak points into the strong ones. I am really grateful to Agarwal sir who always directed me like a guardian and made Chemistry my strongest subject which was the weakest before joining 7xstudy. I am also thankful to Navjot sir for Maths, Pawan sir for Physics who helped me boost my performance. Teachers from 7xstudy really helped me to emerge out as a better human being.",
+        "image_file": "students/anjali.jpg"
+    },
+    {
+        "student_name": "Akshit Ram (Bangalore, class 6, English)",
+        "written_by": "Mrs. Gunjan Ram (Akshit's mother)",
+        "testimonial": "I just wanted to share a quick note and let you know that she is really doing a good job and she has a friendly nature very cooperative and my son improved a lot in english grammar.i am so happy that my son has joined 7xstudy.thank you so much.",
+        "image_file": "students/akshit_mother.jpg"
+    },
+
+    {
+        "student_name": "Maria (Noida, class 10, Science)",
+        "written_by": "Mr. Raza (Maria's father)",
+        "testimonial": "I used 7xstudy for my daughter to prepare her for board exams. As she was taking any classes outside school for the first time, I was very particular in terms of selecting some one who understands our requirements and help my daughter in polishing her with concepts and practice. Today I can say my daughter confidence has gone up and she is well prepared for board exams. Thanks 7xStudy for great science classes and your overall professionalism.",
+        "image_file": "students/maria_father.jpg"
+    },
+
+    {
+        "student_name": "Nevan Guha (Mumbai, Class 7, Maths and Science)",
+        "written_by": "Mrs. Shalini (Nevan's Mom)",
+        "testimonial": "I would like to thank the management of 7xstudy for helping my son thru this year, which was the most difficult one. The tutors were excellent, with lots of patience. And would give me regular feedback, they would also accept changes as per the school format. Would like to thank you all and will definetly recommend 7xStudy to my friends.",
+        "image_file": "students/nevan_mother.jpg"
+    },
+
+
+    {
+        "student_name": "Tanvi (Chandigarh, class 4, French)",
+        "written_by": "Mrs. Praveen (Tanvi's mother)",
+        "testimonial": "Tanvi is very happy with all classes and way quickly she learnt is really appreciated. All credit to teacher . Thanks a lot for providing good teacher . Appreciated !! Tanvi is perfoming well in the class test.",
+        "image_file": ""
+    },
+
+
+
+    {
+        "student_name": "Nilesh Wagh (Mumbai, class 3, all subjects)",
+        "written_by": "Nilesh's parents",
+        "testimonial": "Teaching was excellent. Teacher understood the pupil well and taught accordingly. We are happy about teaching and even no issues with institute. Thanks for providing genuine platform to carry on teaching of my child and in general for many children. Thanks and hope to connect in near future.",
+        "image_file": ""
+    },
+
+    {
+        "student_name": "Keshav Kumar (Pune, class 2, English)",
+        "written_by": "Mrs. Nili Kumar (Keshav's mother)",
+        "testimonial": "Hi , I put my son in 7xstudy for English literature lessons.Within a span of 2 months I could see visible change in him in overall understanding of the story and word meanings. The syllabus was quite tough for the class and Anjali mam taught it in a way which made the subject easier and fun at the same time. Overall it was very effective for my son. I would strongly recommend their classes !",
+        "image_file": ""
+    },
+
+    {
+        "student_name": "Name hidden on request (Mumbai, class 9 ICSE, Chemistry)",
+        "written_by": "Parent",
+        "testimonial":" My journey with Agarwal Sir was amazing. Till last year, chemistry used to be the scariest subject for me. I used to hate the reactions and contents related to this subject as I wasn't able to understand them. I cannot forget the day when my parents arranged a demo session with Agarwal Sir and after the session I told my parents that I would like to study chemistry with him. And yes within a few months time I started understanding the concepts in a fun, simplified and a detailed manner. Thank you so much ,Sir 🙏",
+        "image_file": ""
+    },
+
+    {
+        "student_name": "Name hidden on request (Mumbai, class 9 ICSE, Bio)",
+        "written_by": "Parent",
+        "testimonial":"Biology is one of my favourite subjects.But learning so many definitions was a very difficult task for me.Shashi sir made learning easy for me .All my concepts were well explained. Thank you so much ,Sir",
+        "image_file": ""
+    },
+
+    {
+        "student_name": "Name hidden on request (Mumbai, class 9 ICSE, Physics)",
+        "written_by": "Parent",
+        "testimonial":"We started our sessions when my exams were approaching and I was short on time ,had a lot of stress . Thanks to Amit sir who explained all the topics and numericals in a very simplified manner. Thank you so much , Sir",
+        "image_file": ""
+    },
+
+    {
+        "student_name": "Name hidden on request (Mumbai, class 9 ICSE, Maths)",
+        "written_by": "Parent",
+        "testimonial":"I never hated Maths particularly but if I would get stuck in a problem,I would get really annoyed and leave it. Ever since Navjot sir helped me with Maths ,I understood all the concepts in a very detailed manner Thank you so much, Sir.",
+        "image_file": ""
+    }
+
+]

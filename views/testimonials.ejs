@@ -1,0 +1,68 @@
+<%- include('partials/head'); %>
+<%- include('partials/nav'); %>
+<%- include('partials/cart-modal'); %>
+
+<section>
+    <div class="jumbotron jumbotron-fluid jumbotron-top mt-3">
+        <div class="jumbo-text text-center">
+            <h1>Testimonials</h1>
+        </div>
+    </div>
+</section>
+
+
+<style>
+    .card-header {
+        font-size: 1.8rem;
+        text-align: center;
+        font-weight: 400;
+    }
+    .card-phone{
+        font-size: 2rem;
+        float: right;
+    }
+</style>
+
+
+<div class="container">
+    <div class="row ">
+      <% for(var i in testimonials_json) { %>
+
+        <!--  card begins -->
+        <div class="col-12 col-md-12">
+            <div class="card mb-3 shadow">
+
+                <p class="card-header"> <span> <img class="img-fluid pb-1" width="60" alt=""></span>
+                   <%= testimonials_json[i]["student_name"] %>
+                </p>
+
+                <div class="row no-gutters p-4">
+                  <div class="col-md-3 text-center">
+                    <img src="/img/<%=testimonials_json[i].image_file%>" width="200" class="img-fluid" alt="...">
+                  </div>
+                  <div class="col-md-9 mx-auto">
+                    <div class="card-body">
+                      <p class="card-text">
+                        <%= testimonials_json[i]["testimonial"] %>
+                      </p>
+                      <h5 class="card-title">
+                        - <%= testimonials_json[i]["written_by"] %>
+                      </h5>
+                    </div>
+                  </div>
+                </div>
+
+            </div>
+
+        </div>
+        <!-- card ends -->
+
+      <% } %>
+
+    </div>
+
+
+</div>
+
+
+<%- include('partials/footer'); %>

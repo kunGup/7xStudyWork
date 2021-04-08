@@ -16,6 +16,7 @@ router.get("/", (req, res) => {
 
 teachers_json = require('../public/js/faculty.json');
 
+
 router.get('/faculty', (req,res)=> {
   res.render("faculty", {
     teachers_json : teachers_json
@@ -40,6 +41,21 @@ router.get('/courses/details', (req,res)=> {
 
   res.render('coursesDetails',{
     courseData : jsonData[req.query.course_type]
+  });
+})
+
+//About us 
+router.get('/aboutus', (req,res)=> {
+  res.render('aboutus',{
+  });
+})
+
+
+testimonials_json = require('../public/js/testimonials.json');
+
+router.get('/testimonials', (req,res)=> {
+  res.render("testimonials", {
+    testimonials_json : testimonials_json
   });
 })
 
