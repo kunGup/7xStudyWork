@@ -50,6 +50,12 @@ router.get('/aboutus', (req,res)=> {
   });
 })
 
+//About us 
+router.get('/faqs', (req,res)=> {
+  res.render('faqs',{
+  });
+})
+
 
 testimonials_json = require('../public/js/testimonials.json');
 
