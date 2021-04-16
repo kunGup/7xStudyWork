@@ -91,7 +91,7 @@ router.post('/', (req, res) => {
       from: email,
       to: '7xstudy@gmail.com',
       subject: 'mail from 7xstudy website contact form',
-      text: firstname + ' ' + lastname + ' says:\n' + message
+      text: firstname + ' ' + lastname + ' with email ' + email + ' says:\n' + message
   };
 
   transporter.sendMail(mailOptions, function (error, info) {
