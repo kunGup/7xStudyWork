@@ -1,0 +1,110 @@
+<div class="container p-3">
+  <button
+    type="button"
+    class="btn btn-primary btn-sm"
+    data-toggle="modal"
+    data-target="#newClass"
+  >
+    Create a new class
+  </button>
+</div>
+<div class="container">
+  <h3>My Classes</h3>
+  <table class="table">
+    <thead>
+      <tr>
+        <th scope="col">Title</th>
+        <th scope="col"></th>
+      </tr>
+    </thead>
+    <tbody>
+      <% user.classes.forEach(course=> { %>
+      <tr>
+        <td><%= course.title %></td>
+        <td>
+          <button
+            type="button"
+            class="btn btn-success btn-sm join"
+            data-join="<%= course.id %>"
+          >
+            Start Class
+          </button>
+        </td>
+      </tr>
+      <% }) %>
+    </tbody>
+  </table>
+</div>
+
+<!-- Modal -->
+<div
+  class="modal fade"
+  id="newClass"
+  tabindex="-1"
+  aria-labelledby="exampleModalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">New class</h5>
+        <button
+          type="button"
+          class="close"
+          data-dismiss="modal"
+          aria-label="Close"
+        >
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form id="myForm" action="/user/create" method="post" novalidate>
+          <div class="form-group">
+            <input
+              type="text"
+              name="title"
+              class="form-control my-input"
+              placeholder="Title"
+              required
+            />
+            <div class="invalid-feedback">Please give a title</div>
+          </div>
+          Choose students:
+          <br />
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">
+          Close
+        </button>
+        <button type="button" class="btn btn-primary" id="newClass_btn">
+          Create
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+<script>
+  const btn = document.getElementById("newClass_btn");
+  const form = document.getElementById("myForm");
+  fetch("/user/create")
+    .then((res) => res.json())
+    .then((data) => {
+      const { students } = data;
+      students.forEach((student) => {
+        form.innerHTML += `
+          <input
+      type="checkbox"
+      id="${student._id}"
+      name="student"
+      value="${student._id}"
+    />
+    <label for="${student._id}">${student.username}</label><br />
+        `;
+      });
+    })
+    .catch((err) => console.log(err));
+  btn.addEventListener("click", () => {
+    form.submit();
+  });
+</script>

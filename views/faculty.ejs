@@ -1,68 +1,57 @@
-<%- include('partials/head'); %>
-<%- include('partials/nav'); %>
-<%- include('partials/cart-modal'); %>
-
 <section>
-    <div class="jumbotron jumbotron-fluid jumbotron-top mt-3">
-        <div class="jumbo-text text-center">
-            <h1>Our Faculty</h1>
-        </div>
+  <div class="jumbotron jumbotron-fluid jumbotron-top mt-3">
+    <div class="jumbo-text text-center">
+      <h1>Our Faculty</h1>
     </div>
+  </div>
 </section>
 
-
 <style>
-    .card-header {
-        font-size: 1.8rem;
-        text-align: center;
-        font-weight: 400;
-    }
-    .card-phone{
-        font-size: 2rem;
-        float: right;
-    }
+  .card-header {
+    font-size: 1.8rem;
+    text-align: center;
+    font-weight: 400;
+  }
+  .card-phone {
+    font-size: 2rem;
+    float: right;
+  }
 </style>
 
-
 <div class="container">
-    <div class="row ">
-      <% for(var teacher_name in teachers_json) { %>
+  <div class="row">
+    <% for(var teacher_name in teachers_json) { %>
 
-        <!--  card begins -->
-        <div class="col-12 col-md-12">
-            <div class="card mb-3 shadow">
+    <!--  card begins -->
+    <div class="col-12 col-md-12">
+      <div class="card mb-3 shadow">
+        <p class="card-header">
+          <span> <img class="img-fluid pb-1" width="60" alt="" /></span>
+          <%= teacher_name %>
+        </p>
 
-                <p class="card-header"> <span> <img class="img-fluid pb-1" width="60" alt=""></span>
-                   <%= teacher_name %>
-                </p>
-
-                <div class="row no-gutters p-4">
-                  <div class="col-md-3 text-center">
-                    <img src="/img/<%=teachers_json[teacher_name].image_file%>" width="200" class="img-fluid" alt="...">
-                  </div>
-                  <div class="col-md-9 mx-auto">
-                    <div class="card-body">
-                      <h5 class="card-title">
-                        <%= teachers_json[teacher_name]["name"] %>
-                      </h5>
-                      <p class="card-text">
-                        <%= teachers_json[teacher_name]["bio"] %>
-                      </p>
-                    </div>
-                  </div>
-                </div>
-
+        <div class="row no-gutters p-4">
+          <div class="col-md-3 text-center">
+            <img
+              src="/img/<%=teachers_json[teacher_name].image_file%>"
+              width="200"
+              class="img-fluid"
+              alt="..."
+            />
+          </div>
+          <div class="col-md-9 mx-auto">
+            <div class="card-body">
+              <h5 class="card-title">
+                <%= teachers_json[teacher_name]["name"] %>
+              </h5>
+              <p class="card-text"><%= teachers_json[teacher_name]["bio"] %></p>
             </div>
-
+          </div>
         </div>
-        <!-- card ends -->
-
-      <% } %>
-
+      </div>
     </div>
+    <!-- card ends -->
 
-
+    <% } %>
+  </div>
 </div>
-
-
-<%- include('partials/footer'); %>

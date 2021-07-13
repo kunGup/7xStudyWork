@@ -1,0 +1,73 @@
+
+<section>
+    <div class="jumbotron jumbotron-fluid jumbotron-top">
+        <div class="jumbo-text text-center">
+            <h1>Change Password</h1>
+        </div>
+    </div>
+</section>
+
+<div class="form-border">
+    <div class="row">
+        <div class="col-md-12 mx-auto">
+            <form action="/user/passchange?_method=PUT" method="post">
+
+                <div class="row">
+
+                    <div class="col-12 col-md-10 mx-auto">
+                        <%- include('partials/alerts'); %>
+                    </div>
+
+                    <div class="col-12 col-md-10 mx-auto">
+                        <div class="form-group">
+                            <input type="password" name="pass" class="form-control my-input"
+                                placeholder="Enter new password" />
+                        </div>
+                    </div>
+
+                    <div class="col-12 col-md-10 mx-auto">
+                        <div class="form-group">
+                            <input type="password" name="pass2" class="form-control my-input"
+                                placeholder="Repeat password" />
+                        </div>
+                    </div>
+
+                    <div class="col-12 col-md-10 mx-auto mb-4">
+                        <input type="submit" class="btn btn-block btn-succ" value="Set new password"></input>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<style>
+    /* Tabs*/
+
+    #tabs {
+        background: #ffffff;
+        color: rgb(0, 0, 0);
+    }
+
+    #tabs h6.section-title {
+        color: #eee;
+    }
+
+    #tabs .nav-tabs .nav-item.show .nav-link,
+    .nav-tabs .nav-link.active {
+        color: #f3f3f3;
+        background-color: transparent;
+        border-color: transparent transparent #f3f3f3;
+        border-bottom: 4px solid !important;
+        font-size: 20px;
+        font-weight: bold;
+    }
+
+    #tabs .nav-tabs .nav-link {
+        border: 1px solid transparent;
+        border-top-left-radius: .25rem;
+        border-top-right-radius: .25rem;
+        color: rgb(0, 0, 0);
+        font-size: 20px;
+    }
+</style>

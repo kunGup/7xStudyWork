@@ -1,0 +1,27 @@
+<div class="container">
+  <h3>My Classes</h3>
+  <table class="table">
+    <thead>
+      <tr>
+        <th scope="col">Title</th>
+        <th scope="col"></th>
+      </tr>
+    </thead>
+    <tbody>
+      <% user.classes.forEach(course => { %>
+      <tr>
+        <td><%= course.title %></td>
+        <td>
+          <button
+            type="button"
+            class="btn btn-success btn-sm join"
+            data-join="<%= course.id %>"
+          >
+            Join Class
+          </button>
+        </td>
+      </tr>
+      <% }) %>
+    </tbody>
+  </table>
+</div>

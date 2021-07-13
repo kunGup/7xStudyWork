@@ -1,87 +1,64 @@
-<%- include('partials/head'); %>
-<%- include('partials/nav'); %>
-
 <section>
-    <div class="jumbotron jumbotron-fluid jumbotron-top">
-      <div class="jumbo-text text-center">
-        <h1>Your Cart</h1>
-      </div>
+  <div class="jumbotron jumbotron-fluid jumbotron-top">
+    <div class="jumbo-text text-center">
+      <h1>Your Cart</h1>
     </div>
+  </div>
 </section>
 
-
-
-
 <div class="container">
-
-
   <div class="card shadow mb-4">
-
     <div class="card-header text-center">
-        <h4 class="text-center"> Your Orders </h4>
+      <h4 class="text-center">Your Orders</h4>
     </div>
 
     <div class="card-body">
       <div class="row p-md-4">
         <div class="col-12 col-md-12">
-        <div class="card bg-light ">
+          <div class="card bg-light">
+            <div class="card-body">
+              <div class="Mainrow">
+                <br />
+                <br />
+                <table
+                  class="table"
+                  id="cart"
+                  style="visibility: hidden; width: 100%"
+                >
+                  <thead>
+                    <tr>
+                      <th>Classes</th>
+                      <th>Price</th>
+                      <th>No Of Hours</th>
+                      <th>Total</th>
+                      <th></th>
+                    </tr>
+                  </thead>
 
-          <div class="card-body">
-
-          <div class="Mainrow">
-            <br>
-            <br>
-            <table class="table" id="cart" style="visibility:hidden; width:100%">
-              <thead>
-                   <tr>
-                       <th>Classes</th>
-                       <th>Price</th>
-                       <th>No Of Hours</th>
-                       <th>Total</th>
-                       <th></th>
-                  </tr>
-              </thead>
-              
-              <tbody id="cartMainBody">
-       
-              </tbody>
-            </table>
-
+                  <tbody id="cartMainBody"></tbody>
+                </table>
+              </div>
+            </div>
           </div>
 
-        </div>
+          <br />
+          <div class="card bg-light p-4">
+            <h4 class="m-md-2 text-center">
+              <span class="text-muted">YOUR SUB TOTAL :</span>
+              <span class="mx-md-2 text-success">
+                <i class="fa fa-inr"></i> <span id="subTotalID"></span>
+              </span>
+            </h4>
+          </div>
 
-        </div>
+          <!-- <input type="text" name="" id="subTotalID"> -->
 
-        <br>
-        <div class="card bg-light p-4"> 
-        <h4 class="m-md-2 text-center"><span class="text-muted">YOUR SUB TOTAL :</span>  
-        <span class="mx-md-2 text-success">
-          <i class="fa fa-inr"></i> <span id="subTotalID"></span>
-        </span>
-      
-        </h4>
-        </div>
-
-        <!-- <input type="text" name="" id="subTotalID"> -->
-
-        <div class="col-6 col-md-8 mx-auto my-md-4">
-
-          <a href="" class="btn btn-block btn-succ" > Check Out</a>
-          <div id="ii"></div>
-
-        </div>
-
-
+          <div class="col-6 col-md-8 mx-auto my-md-4">
+            <a href="" class="btn btn-block btn-succ"> Check Out</a>
+            <div id="ii"></div>
+          </div>
         </div>
       </div>
-
     </div>
-
-
   </div>
-
-  
 </div>
-
-<%- include('partials/footer'); %>

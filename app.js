@@ -1,4 +1,32 @@
 const express = require("express");
+const mongoose = require("mongoose");
+const flash = require("connect-flash");
+const session = require("express-session");
+const MongoDBStore = require("connect-mongodb-session")(session);
+const passport = require("passport");
+const methodOverride = require("method-override");
+const path = require("path");
+const Class = require("./models/class");
+const expressLayouts = require("express-ejs-layouts");
+require("./config/passport")(passport);
+require("dotenv").config();
+const { ensureAuthenticated } = require("./config/auth");
+//IMPORTING ROUTES
+var indexRoute = require("./routes/index");
+var studentRoute = require("./routes/user");
+
+//mongoose
+const mongouri =
+  "mongodb+srv://root-user:OWV7oKw2RUzn41Kz@cluster0.87tll.mongodb.net/7xstudyDB?retryWrites=true&w=majority";
+// const mongouri = "mongodb://localhost:27017/test-7xstudy";
+mongoose
+  .connect(mongouri, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+  })
+  .then(() => console.log("connected to DB"))
+  .catch((err) => console.log(err));
+
 const app = express();
 const port = 3000;
 
@@ -6,24 +34,80 @@ const port = 3000;
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 
-//IMPORTING ROUTES
-var indexRoute = require("./routes/index");
-var dashboardRoute = require("./routes/dashboard");
+//to use put and delete endpoints
+app.use(methodOverride("_method"));
+
+//mongo session store
+var store = new MongoDBStore({
+  uri: mongouri,
+  collection: "Session",
+});
+
+store.on("error", function (e) {
+  console.log("SESSION STORE ERROR", e);
+});
+
+//express session
+app.use(
+  session({
+    secret: "secret",
+    resave: true,
+    saveUninitialized: true,
+    store: store,
+    cookie: {
+      maxAge: 1000 * 60 * 60 * 24,
+    },
+    unset: "destroy",
+  })
+);
+
+//passport middlewares
+app.use(passport.initialize());
+app.use(passport.session());
+
+//use flash
+app.use(flash());
+app.use((req, res, next) => {
+  res.locals.success_alert = req.flash("success_alert");
+  res.locals.error_alert = req.flash("error_alert");
+  res.locals.error = req.flash("error");
+  // res.locals.user = req.user;
+  next();
+});
 
 //SETTING UP PUBLIC DIRECTORY
-var publicDir = require("path").join(__dirname, "/public");
-app.use(express.static(publicDir));
+app.use(express.static("public"));
 
 //SETTING VIEW ENGINE
 app.set("view engine", "ejs");
+app.use(expressLayouts);
+// app.set("layout extractScripts", true);
+app.set("layout extractStyles", true);
 
 //SETTING ROUTES
 app.use("/", indexRoute);
-app.use("/", dashboardRoute);
+app.use("/user", studentRoute);
+app.get("/config/:classId", ensureAuthenticated, (req, res) => {
+  Class.findById(req.params.classId)
+    .populate("teacher")
+    .exec((err, course) => {
+      if (err) return;
+      res.json({
+        apikey: course.teacher.apikey,
+        apisecret: course.teacher.apisecret,
+      });
+    });
+});
 
 //The 404 Route (ALWAYS Keep this as the last route)
 app.get("*", function (req, res) {
   res.send("404 Page Not Found");
+});
+
+app.use((err, req, res, next) => {
+  const { statusCode = 500 } = err;
+  if (!err.message) err.message = "Oh No, Something Went Wrong!";
+  res.status(statusCode).render("error", { err });
 });
 
 //SETTING UP PORT
