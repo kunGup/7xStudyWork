@@ -7,7 +7,10 @@ const passport = require("passport");
 const methodOverride = require("method-override");
 const path = require("path");
 const Class = require("./models/class");
+const User = require("./models/user");
 const expressLayouts = require("express-ejs-layouts");
+const ExpressError = require("./utils/ExpressError");
+const LocalStrategy = require("passport-local").Strategy;
 require("./config/passport")(passport);
 require("dotenv").config();
 const { ensureAuthenticated } = require("./config/auth");
@@ -16,9 +19,9 @@ var indexRoute = require("./routes/index");
 var studentRoute = require("./routes/user");
 
 //mongoose
-const mongouri =
-  "mongodb+srv://root-user:OWV7oKw2RUzn41Kz@cluster0.87tll.mongodb.net/7xstudyDB?retryWrites=true&w=majority";
-// const mongouri = "mongodb://localhost:27017/test-7xstudy";
+// const mongouri =
+//   "mongodb+srv://root-user:OWV7oKw2RUzn41Kz@cluster0.87tll.mongodb.net/7xstudyDB?retryWrites=true&w=majority";
+const mongouri = "mongodb://localhost:27017/test-7xstudy";
 mongoose
   .connect(mongouri, {
     useNewUrlParser: true,
@@ -64,6 +67,10 @@ app.use(
 //passport middlewares
 app.use(passport.initialize());
 app.use(passport.session());
+passport.use(new LocalStrategy(User.authenticate()));
+
+passport.serializeUser(User.serializeUser());
+passport.deserializeUser(User.deserializeUser());
 
 //use flash
 app.use(flash());
@@ -100,13 +107,14 @@ app.get("/config/:classId", ensureAuthenticated, (req, res) => {
 });
 
 //The 404 Route (ALWAYS Keep this as the last route)
-app.get("*", function (req, res) {
-  res.send("404 Page Not Found");
+app.get("*", function (req, res, next) {
+  next(new ExpressError("Page Not Found", 404));
 });
 
 app.use((err, req, res, next) => {
   const { statusCode = 500 } = err;
   if (!err.message) err.message = "Oh No, Something Went Wrong!";
+  console.log(err);
   res.status(statusCode).render("error", { err });
 });
 

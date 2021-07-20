@@ -4,9 +4,9 @@ const passport = require("passport");
 const axios = require("axios");
 const { ensureAuthenticated } = require("../config/auth");
 const User = require("../models/user");
-const bcrypt = require("bcrypt");
 const Class = require("../models/class");
 const jwt = require("jsonwebtoken");
+const catchAsync = require("../utils/catchAsync");
 router.get("/login", (req, res) => {
   res.render("login");
 });
@@ -19,76 +19,40 @@ router.post("/login", (req, res, next) => {
   })(req, res, next);
 });
 
-router.post("/register", ensureAuthenticated, isAdmin, (req, res, next) => {
-  const { username, email, password, role, apikey, apisecret } = req.body;
-
-  if (!username || !email || !password || !role || !apisecret || !apikey) {
-    req.flash("error_alert", "Please fill in all the fields");
+router.post(
+  "/register",
+  ensureAuthenticated,
+  isAdmin,
+  catchAsync(async (req, res) => {
+    const { email, username, password, apisecret, apikey, role } = req.body;
+    const user = new User({ email, username, apisecret, apikey, role });
+    await User.register(user, password);
+    req.flash("success_alert", "New user created successfully!");
     res.redirect("/user/dashboard");
-    return;
-  }
-
-  User.findOne({ username }, (err, user) => {
-    if (err) {
-      return next(err);
-    }
-    if (user) {
-      req.flash("error_alert", "User with username already exist");
-      res.redirect("/user/dashboard");
+  })
+);
+router.get(
+  "/dashboard",
+  ensureAuthenticated,
+  catchAsync(async (req, res) => {
+    if (req.user.role !== "admin") {
+      const user = await User.findById(req.user._id).populate({
+        path: "classes",
+        populate: {
+          path: "teacher",
+          select: "username",
+        },
+      });
+      res.render("dashboard", { user });
     } else {
-      const newUser = new User({
-        username,
-        email,
-        password,
-        role,
-        apikey,
-        apisecret,
-      });
-
-      //hash password
-      bcrypt.genSalt(10, (err, salt) => {
-        bcrypt.hash(newUser.password, salt, (err, hash) => {
-          if (err) throw err;
-          //save hash to pass
-          newUser.password = hash;
-          //save user
-          newUser
-            .save()
-            .then((value) => {
-              req.flash("success_alert", "New user registered");
-              res.redirect("/user/dashboard");
-            })
-            .catch((value) => console.log(value));
-        });
-      });
+      const user = req.user;
+      const classes = await Class.find({})
+        .sort({ date: -1 })
+        .populate("teacher");
+      res.render("dashboard", { user, classes });
     }
-  });
-});
-router.get("/dashboard", ensureAuthenticated, (req, res) => {
-  if (req.user.role !== "admin") {
-    User.findById(req.user._id)
-      .populate("classes")
-      .populate("teacher", "username")
-      .exec((err, user) => {
-        if (err) {
-          console.log(err);
-          return;
-        }
-        res.render("dashboard", { user });
-      });
-  } else {
-    Class.find({})
-      .populate("teacher")
-      .exec((err, classes) => {
-        if (err) {
-          console.log(err);
-          return;
-        }
-        const user = req.user;
-        res.render("dashboard", { user, classes });
-      });
-  }
-});
+  })
+);
 
 router.get("/logout", (req, res) => {
   req.logout();
@@ -100,33 +64,37 @@ router.get("/passchange", ensureAuthenticated, (req, res) => {
   res.render("passchange");
 });
 
-router.put("/passchange", ensureAuthenticated, async (req, res) => {
-  const { pass, pass2 } = req.body;
-  let errors = [];
-  if (pass.length < 8) {
-    errors.push({ msg: "Password should atleast 8 characters" });
-  }
-  if (pass !== pass2) {
-    errors.push({ msg: "Passwords don't match" });
-  }
-
-  if (errors.length > 0) {
-    res.render("passchange", {
-      errors,
-    });
-  } else {
-    try {
-      const user = await User.findById(req.user._id);
-      const hash = await bcrypt.hash(pass, 10);
-      user.password = hash;
-      await user.save();
-      req.flash("success_alert", "Password successfully updated.");
-      res.redirect("/user/dashboard");
-    } catch (error) {
-      console.log(error);
+router.put(
+  "/passchange",
+  ensureAuthenticated,
+  catchAsync(async (req, res) => {
+    const { pass, pass2 } = req.body;
+    let errors = [];
+    if (pass.length < 8) {
+      errors.push({ msg: "Password should atleast 8 characters" });
     }
-  }
-});
+    if (pass !== pass2) {
+      errors.push({ msg: "Passwords don't match" });
+    }
+
+    if (errors.length > 0) {
+      res.render("passchange", {
+        errors,
+      });
+    } else {
+      try {
+        const user = await User.findById(req.user._id);
+        await user.setPassword(pass);
+        await user.save();
+        req.flash("success_alert", "Password successfully updated.");
+        res.redirect("/user/dashboard");
+      } catch (e) {
+        req.flash("error", e.message);
+        res.redirect("/user/passchange");
+      }
+    }
+  })
+);
 
 router.get("/create", ensureAuthenticated, isTeacher, (req, res) => {
   const students = req.students;
@@ -256,7 +224,6 @@ function isTeacher(req, res, next) {
   }
   User.find({ role: "student" }, (err, students) => {
     if (err) {
-      console.log(err);
       return;
     }
     req.students = students;
