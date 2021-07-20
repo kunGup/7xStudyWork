@@ -28,7 +28,7 @@ mongoose
   .catch((err) => console.log(err));
 
 const app = express();
-const port = 3000;
+const port = 3002;
 
 //Removed BODY-PARSER because deprecated
 app.use(express.urlencoded({ extended: false }));
