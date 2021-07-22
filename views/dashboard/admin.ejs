@@ -17,7 +17,9 @@
       <tr>
         <th scope="col">Title</th>
         <th scope="col">Taught by</th>
-        <th scope="col"></th>
+        <th scope="col">Class</th>
+        <th scope="col">Timings</th>
+        <th scope="col">Join</th>
       </tr>
     </thead>
     <tbody>
@@ -25,6 +27,8 @@
       <tr>
         <td><%= course.title %></td>
         <td><%= course.teacher.username %></td>
+        <td><%= course.class %></td>
+        <td><%= course.timing %></td>
         <td>
           <button
             type="button"

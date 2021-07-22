@@ -41,6 +41,7 @@ const userSchema = new mongoose.Schema({
   classes: [{ type: mongoose.Schema.Types.ObjectId, ref: "Class" }],
   apikey: String,
   apisecret: String,
+  class: String,
 });
 
 userSchema.plugin(passportLocalMongoose);

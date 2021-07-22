@@ -100,102 +100,73 @@ router.get("/create", ensureAuthenticated, isTeacher, (req, res) => {
   const students = req.students;
   res.json({ students });
 });
-router.post("/create", ensureAuthenticated, isTeacher, (req, res, next) => {
-  const { title, student } = req.body;
-  console.log(student);
-  const user = req.user;
-  //jwt token created
-  jwt.sign(
-    { aud: null, iss: user.apikey },
-    user.apisecret,
-    { algorithm: "HS256", expiresIn: 60 * 5 },
-    (err, token) => {
-      if (err) {
-        console.log("err generating token");
-        return;
-      }
-      //new recurring meeting created
-      axios({
-        method: "post",
-        url: "https://api.zoom.us/v2/users/me/meetings",
-        data: {
-          topic: title,
-          type: 3,
-          settings: {
-            host_video: false,
-            participant_video: false,
-            in_meeting: false,
-            mute_upon_entry: true,
-            audio: "voip",
-            waiting_room: true,
-          },
+router.post(
+  "/create",
+  ensureAuthenticated,
+  isTeacher,
+  catchAsync(async (req, res, next) => {
+    const { title, student, standard, timing } = req.body;
+    const user = req.user;
+    //jwt token created
+    const token = jwt.sign({ aud: null, iss: user.apikey }, user.apisecret, {
+      algorithm: "HS256",
+      expiresIn: 60 * 5,
+    });
+
+    //new recurring meeting created
+    const meeting = await axios({
+      method: "post",
+      url: "https://api.zoom.us/v2/users/me/meetings",
+      data: {
+        topic: title,
+        type: 3,
+        settings: {
+          host_video: false,
+          participant_video: false,
+          in_meeting: false,
+          mute_upon_entry: true,
+          audio: "voip",
+          waiting_room: true,
         },
-        headers: { Authorization: `Bearer ${token}` },
-      })
-        .then((meeting) => {
-          const newCourse = new Class({
-            title: title,
-            students: student,
-            teacher: req.user._id,
-            meetingId: meeting.data.id,
-            meetingPwd: meeting.data.password,
-            joinUrl: meeting.data.join_url,
-          });
+      },
+      headers: { Authorization: `Bearer ${token}` },
+    });
+    const newCourse = new Class({
+      title: title,
+      students: student,
+      teacher: req.user._id,
+      meetingId: meeting.data.id,
+      meetingPwd: meeting.data.password,
+      joinUrl: meeting.data.join_url,
+      class: standard,
+      timing: timing,
+    });
 
-          newCourse
-            .save()
-            .then((course) => {
-              const { students } = course;
-              //the class created is added into enrolled student's
-              students.forEach((studentId) => {
-                User.findById(studentId, (err, student) => {
-                  if (err) {
-                    console.log(err);
-                    return;
-                  }
-                  student.classes.push(course.id);
-                  student
-                    .save()
-                    .then((s) => s)
-                    .catch((e) => console.log(e));
-                });
-              });
-              User.findById(req.user.id, (err, teacher) => {
-                if (err) {
-                  console.log(err);
-                  return;
-                }
-                teacher.classes.push(course.id);
-                teacher
-                  .save()
-                  .then((t) => {
-                    req.flash("success_alert", "Class created");
-                    res.redirect("/user/dashboard");
-                  })
-                  .catch((e) => console.log(e));
-              });
-            })
-            .catch((err) => {
-              console.log(err);
-              return;
-            });
-        })
-        .catch((err) => {
-          console.log(err);
-          return;
-        });
-    }
-  );
-});
+    const course = await newCourse.save();
 
-router.get("/class/:classId", ensureAuthenticated, (req, res) => {
-  const { classId } = req.params;
-  Class.findById(classId).exec((err, course) => {
-    if (err) {
-      console.log(err);
-      return;
-    }
-    const { meetingId, meetingPwd, title } = course;
+    const { students } = course;
+
+    students.forEach(async (studentId) => {
+      const student = await User.findById(studentId);
+      student.classes.push(course.id);
+      await student.save();
+    });
+    const teacher = await User.findById(req.user.id);
+    teacher.classes.push(course.id);
+    await teacher.save();
+
+    req.flash("success_alert", "New class created");
+    res.redirect("/user/dashboard");
+  })
+);
+
+router.get(
+  "/class/:classId",
+  ensureAuthenticated,
+  catchAsync(async (req, res) => {
+    const { classId } = req.params;
+    const batch = await Class.findById(classId);
+    const { meetingId, meetingPwd, title } = batch;
     const role =
       req.user.role === "teacher" || req.user.role === "admin" ? 1 : 0;
     const { username } = req.user;
@@ -207,8 +178,8 @@ router.get("/class/:classId", ensureAuthenticated, (req, res) => {
       username,
       title,
     });
-  });
-});
+  })
+);
 
 function isAdmin(req, res, next) {
   if (req.user.role !== "admin") {

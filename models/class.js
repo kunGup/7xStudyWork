@@ -5,6 +5,14 @@ const classSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  class: {
+    type: String,
+    required: true,
+  },
+  timing: {
+    type: String,
+    required: true,
+  },
   created: {
     type: Date,
     default: Date.now,
