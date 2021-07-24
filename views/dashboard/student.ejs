@@ -1,16 +1,20 @@
 <div class="container">
-  <h3>My Classes</h3>
+  <h3>My Batches</h3>
   <table class="table">
     <thead>
       <tr>
         <th scope="col">Title</th>
-        <th scope="col"></th>
+        <th scope="col">Faculty</th>
+        <th scope="col">Timings</th>
+        <th scope="col">Join</th>
       </tr>
     </thead>
     <tbody>
       <% user.classes.forEach(course => { %>
       <tr>
         <td><%= course.title %></td>
+        <td><%= course.teacher.username %></td>
+        <td><%= course.timing %></td>
         <td>
           <button
             type="button"
@@ -19,6 +23,8 @@
           >
             Join Class
           </button>
+          OR
+          <a href="<%= course.joinUrl %>" target="_blank">Try this</a>
         </td>
       </tr>
       <% }) %>
