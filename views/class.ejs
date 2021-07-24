@@ -5,12 +5,12 @@
     <link
       type="text/css"
       rel="stylesheet"
-      href="https://source.zoom.us/1.9.5/css/bootstrap.css"
+      href="https://source.zoom.us/1.9.7/css/bootstrap.css"
     />
     <link
       type="text/css"
       rel="stylesheet"
-      href="https://source.zoom.us/1.9.5/css/react-select.css"
+      href="https://source.zoom.us/1.9.7/css/react-select.css"
     />
     <meta name="format-detection" content="telephone=no" />
     <meta
@@ -26,18 +26,20 @@
     data-role="<%= role %>"
   >
     <!-- import ZoomMtg dependencies -->
-    <script src="https://source.zoom.us/1.9.5/lib/vendor/react.min.js"></script>
-    <script src="https://source.zoom.us/1.9.5/lib/vendor/react-dom.min.js"></script>
-    <script src="https://source.zoom.us/1.9.5/lib/vendor/redux.min.js"></script>
-    <script src="https://source.zoom.us/1.9.5/lib/vendor/redux-thunk.min.js"></script>
-    <script src="https://source.zoom.us/1.9.5/lib/vendor/lodash.min.js"></script>
+    <script src="https://source.zoom.us/1.9.7/lib/vendor/react.min.js"></script>
+    <script src="https://source.zoom.us/1.9.7/lib/vendor/react-dom.min.js"></script>
+    <script src="https://source.zoom.us/1.9.7/lib/vendor/redux.min.js"></script>
+    <script src="https://source.zoom.us/1.9.7/lib/vendor/redux-thunk.min.js"></script>
+    <script src="https://source.zoom.us/1.9.7/lib/vendor/lodash.min.js"></script>
 
     <!-- import ZoomMtg -->
-    <script src="https://source.zoom.us/zoom-meeting-1.9.5.min.js"></script>
+    <script src="https://source.zoom.us/zoom-meeting-1.9.7.min.js"></script>
 
     <script>
       ZoomMtg.preLoadWasm();
       ZoomMtg.prepareJssdk();
+      ZoomMtg.i18n.load("en-US");
+      ZoomMtg.i18n.reload("en-US");
       const { id, name, pwd, role } = document.body.dataset;
       const classId = window.location.pathname.split("/")[3];
       fetch(`/config/${classId}`)
@@ -53,6 +55,7 @@
               ZoomMtg.init({
                 leaveUrl: `${window.location.origin}/user/dashboard`,
                 isSupportAV: true,
+                isShowJoiningErrorDialog: true,
                 success: function () {
                   ZoomMtg.join({
                     signature: signature,
@@ -73,11 +76,17 @@
                       });
                     },
                     error(res) {
-                      console.log(res);
+                      alert(res.result);
                     },
                   });
                 },
+                error(res) {
+                  console.log(res);
+                },
               });
+            },
+            error(res) {
+              console.log(res);
             },
           });
         })

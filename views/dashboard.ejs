@@ -6,9 +6,9 @@
   </div>
 </section>
 
-<%- include('partials/alerts'); %>
 <section>
   <div class="container">
+    <%- include('partials/alerts'); %>
     <div class="row">
       <div class="col-12 col-md-6">
         <div class="card shadow">
@@ -79,4 +79,7 @@ if(user.role === 'teacher') { %> <%- include('dashboard/teacher') %> <% } %>
   passwordBtn.addEventListener("click", () => {
     window.location.href = "/user/passchange";
   });
+  const batchTable = document.querySelector("table");
+  batchTable.classList.add("table-striped");
+  batchTable.classList.add("table-responsive-sm");
 </script>

@@ -24,8 +24,16 @@ router.post(
   ensureAuthenticated,
   isAdmin,
   catchAsync(async (req, res) => {
-    const { email, username, password, apisecret, apikey, role } = req.body;
-    const user = new User({ email, username, apisecret, apikey, role });
+    const { email, username, password, apisecret, apikey, role, standard } =
+      req.body;
+    const user = new User({
+      email,
+      username,
+      apisecret,
+      apikey,
+      role,
+      class: standard,
+    });
     await User.register(user, password);
     req.flash("success_alert", "New user created successfully!");
     res.redirect("/user/dashboard");
@@ -153,10 +161,10 @@ router.post(
     });
     const teacher = await User.findById(req.user.id);
     teacher.classes.push(course.id);
-    await teacher.save();
-
-    req.flash("success_alert", "New class created");
-    res.redirect("/user/dashboard");
+    teacher.save().then(() => {
+      req.flash("success_alert", "New class created");
+      res.redirect("/user/dashboard");
+    });
   })
 );
 
