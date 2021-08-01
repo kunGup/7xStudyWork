@@ -1,0 +1,63 @@
+<!-- Modal -->
+<style>
+  .teacher {
+    display: flex;
+    padding: 10px 5px;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 0.3px solid lightgray;
+  }
+  .teacher:nth-of-type(2n) {
+    background-color: whitesmoke;
+  }
+</style>
+<div
+  class="modal fade"
+  id="changeTeacher"
+  data-bs-backdrop="static"
+  data-bs-keyboard="false"
+  tabindex="-1"
+  aria-labelledby="staticBackdropLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="staticBackdropLabel">Choose Teacher</h5>
+      </div>
+      <div class="modal-body">
+        <form
+          action="/dashboard/class/<%= cls.id %>/changeTeacher?_method=PUT"
+          method="POST"
+        >
+          <div class="mb-3" id="all-teachers"></div>
+          <button type="submit" id="" class="btn btn-primary">Confirm</button>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+          Cancel
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+<script>
+  const allTeachers = document.getElementById("all-teachers");
+  fetch("/dashboard/teachers")
+    .then((res) => res.json())
+    .then((data) => {
+      render(data.teachers);
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+  function render(teachers) {
+    teachers.forEach((teacher) => {
+      allTeachers.innerHTML += `<div class="teacher">
+              <label for="${teacher._id}">${teacher.username}</label>
+              <input type="radio" id="${teacher._id}" name="teacher" value="${teacher._id}"/>
+            </div>`;
+    });
+  }
+</script>

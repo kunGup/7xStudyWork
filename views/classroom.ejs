@@ -1,0 +1,105 @@
+<html>
+  <head>
+    <title>Classroom</title>
+    <meta charset="utf-8" />
+    <link
+      type="text/css"
+      rel="stylesheet"
+      href="https://source.zoom.us/1.9.5/css/bootstrap.css"
+    />
+    <link
+      type="text/css"
+      rel="stylesheet"
+      href="https://source.zoom.us/1.9.5/css/react-select.css"
+    />
+    <meta name="format-detection" content="telephone=no" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no"
+    />
+    <meta http-equiv="origin-trial" content="" />
+  </head>
+  <body
+    data-id="<%= meetingId %>"
+    data-pwd="<%= meetingPwd %>"
+    data-name="<%= currentUser.username %>"
+    data-role="<%= role %>"
+  >
+    <!-- import ZoomMtg dependencies -->
+    <script src="https://source.zoom.us/1.9.5/lib/vendor/react.min.js"></script>
+    <script src="https://source.zoom.us/1.9.5/lib/vendor/react-dom.min.js"></script>
+    <script src="https://source.zoom.us/1.9.5/lib/vendor/redux.min.js"></script>
+    <script src="https://source.zoom.us/1.9.5/lib/vendor/redux-thunk.min.js"></script>
+    <script src="https://source.zoom.us/1.9.5/lib/vendor/lodash.min.js"></script>
+
+    <!-- import ZoomMtg -->
+    <script src="https://source.zoom.us/zoom-meeting-1.9.5.min.js"></script>
+
+    <script>
+      ZoomMtg.preLoadWasm();
+      ZoomMtg.prepareJssdk();
+      ZoomMtg.i18n.load("en-US");
+      ZoomMtg.i18n.reload("en-US");
+      const { id, name, pwd, role } = document.body.dataset;
+      const classId = window.location.pathname.split("/")[3];
+      fetch(`/config/${classId}`)
+        .then((res) => res.json())
+        .then((data) => {
+          ZoomMtg.generateSignature({
+            meetingNumber: parseInt(id),
+            apiKey: data.apikey,
+            apiSecret: data.apisecret,
+            role: parseInt(role),
+            success: function (res) {
+              let signature = res.result;
+              ZoomMtg.init({
+                leaveUrl: `${window.location.origin}/dashboard/class/${classId}`,
+                isSupportAV: true,
+                isShowJoiningErrorDialog: true,
+                success: function () {
+                  ZoomMtg.join({
+                    signature: signature,
+                    apiKey: data.apikey,
+                    meetingNumber: parseInt(id),
+                    userName: name,
+                    // password optional; set by Host
+                    passWord: pwd,
+                    success: function (res) {
+                      ZoomMtg.record({
+                        record: true,
+                      });
+                      ZoomMtg.showRecordFunction({
+                        show: true,
+                      });
+                      console.log("join meeting success");
+                      ZoomMtg.getCurrentUser({
+                        success: function (res) {
+                          console.log(
+                            "success getCurrentUser",
+                            res.result.currentUser
+                          );
+                        },
+                      });
+                    },
+                    error(res) {
+                      alert(res.result);
+                    },
+                  });
+                },
+                error(res) {
+                  console.log(res);
+                },
+              });
+            },
+            error(res) {
+              console.log(res);
+            },
+          });
+        })
+        .catch((err) => {
+          console.log(err);
+          return;
+        });
+    </script>
+  </body>
+</html>

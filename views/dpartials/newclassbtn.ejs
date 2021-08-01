@@ -1,0 +1,289 @@
+<!-- trigger modal -->
+<style>
+  .group {
+    display: flex;
+  }
+  .group > * {
+    margin-right: 10px;
+  }
+</style>
+<button
+  type="button"
+  class="btn btn-primary btn-sm"
+  data-bs-toggle="modal"
+  data-bs-target="#newClass"
+>
+  Create a new class
+</button>
+
+<!-- Modal -->
+<div
+  class="modal fade"
+  id="newClass"
+  tabindex="-1"
+  aria-labelledby="exampleModalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog modal-dialog-scrollable">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">New class</h5>
+      </div>
+      <div class="modal-body">
+        <form id="newClassForm" action="/dashboard/class" method="post">
+          <div class="mb-3">
+            <input
+              type="text"
+              name="title"
+              class="form-control my-input"
+              placeholder="Title"
+              required
+            />
+          </div>
+          <div class="mb-3">
+            <input
+              type="text"
+              name="subject"
+              class="form-control my-input"
+              placeholder="Subject"
+              required
+            />
+          </div>
+          <div class="mb-3">
+            <label for="date" class="form-label">When</label><br />
+            <div class="group">
+              <input type="date" id="date" name="date" required />
+              <select
+                class="form-select form-select-sm"
+                aria-label=".form-select-sm"
+                name="time"
+                style="width: 100px"
+              >
+                <option value="12:00" selected>12:00</option>
+                <option value="12:30">12:30</option>
+                <option value="1:00">1:00</option>
+                <option value="1:30">1:30</option>
+                <option value="2:00">2:00</option>
+                <option value="2:30">2:30</option>
+                <option value="3:00">3:00</option>
+                <option value="3:30">3:30</option>
+                <option value="4:00">4:00</option>
+                <option value="4:30">4:30</option>
+                <option value="5:00">5:00</option>
+                <option value="5:30">5:30</option>
+                <option value="6:00">6:00</option>
+                <option value="6:30">6:30</option>
+                <option value="7:00">7:00</option>
+                <option value="7:30">7:30</option>
+                <option value="8:00">8:00</option>
+                <option value="8:30">8:30</option>
+                <option value="9:00">9:00</option>
+                <option value="9:30">9:30</option>
+                <option value="10:00">10:00</option>
+                <option value="10:30">10:30</option>
+                <option value="11:00">11:00</option>
+                <option value="11:30">11:30</option>
+              </select>
+              <select
+                class="form-select form-select-sm"
+                aria-label=".form-select-sm"
+                name="A"
+                style="width: 100px"
+              >
+                <option value="AM" selected>AM</option>
+                <option value="PM">PM</option>
+              </select>
+            </div>
+          </div>
+          <div class="mb-3">
+            <label for="" class="form-label">Duration</label><br />
+            <div class="group">
+              <label for="duration[hrs]" class="form-label">Hrs :</label>
+              <select
+                class="form-select form-select-sm"
+                aria-label=".form-select-sm"
+                name="hrs"
+                style="width: 100px"
+              >
+                <option value="0">0</option>
+                <option value="1" selected>1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+              </select>
+              <label for="duration[mins]" class="form-label">Mins :</label>
+              <select
+                class="form-select form-select-sm"
+                aria-label=".form-select-sm"
+                name="mins"
+                style="width: 100px"
+              >
+                <option value="0" selected>0</option>
+                <option value="15">15</option>
+                <option value="30">30</option>
+                <option value="45">45</option>
+              </select>
+            </div>
+          </div>
+          <div class="form-check form-switch mb-3">
+            <input
+              class="form-check-input"
+              type="checkbox"
+              name="isRecurring"
+              id="isRecurring"
+              value="false"
+              onclick="toggleRec()"
+            />
+            <label class="form-check-label" for="isRecurring">Recurring</label>
+          </div>
+          <div class="mb-3" id="recurring-group" style="display: none">
+            <div>
+              Repeat every:
+              <select
+                class="form-select form-select-sm d-inline"
+                name="days"
+                style="width: 100px"
+              >
+                <option value="1" selected>1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+                <option value="6">6</option>
+                <option value="7">7</option>
+              </select>
+              days
+            </div>
+            <div>
+              End After
+              <select
+                class="form-select form-select-sm d-inline"
+                name="occurences"
+                style="width: 100px"
+              >
+                <option value="2" selected>2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+                <option value="6">6</option>
+                <option value="7">7</option>
+              </select>
+              occurences
+            </div>
+          </div>
+          <!-- <div class="mb-3">
+            <input
+              type="text"
+              class="form-control"
+              id="meetUrl"
+              name="meetUrl"
+              placeholder="Google meet link(optional)"
+            />
+          </div> -->
+          <div class="mb-3">
+            <label for="select-class">Select Class</label>
+            <select class="form-select" id="select-class" name="standard">
+              <option value="1" selected>1</option>
+              <option value="2">2</option>
+              <option value="3">3</option>
+              <option value="4">4</option>
+              <option value="5">5</option>
+              <option value="6">6</option>
+              <option value="7">7</option>
+              <option value="8">8</option>
+              <option value="9">9</option>
+              <option value="10">10</option>
+              <option value="11">11</option>
+              <option value="12">12</option>
+            </select>
+          </div>
+          <div class="mb-3">
+            <div id="students"></div>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+          Close
+        </button>
+        <button type="button" class="btn btn-primary" id="newClass_btn">
+          Create
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+<style>
+  .student {
+    display: flex;
+    padding: 10px 5px;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 0.3px solid lightgray;
+  }
+  .student:nth-of-type(2n) {
+    background-color: whitesmoke;
+  }
+</style>
+<script>
+  const newClassBtn = document.getElementById("newClass_btn");
+  const form = document.getElementById("newClassForm");
+  const selectClass = document.getElementById("select-class");
+  const allStudents = document.getElementById("students");
+  let students = [];
+  fetch("/dashboard/students")
+    .then((res) => res.json())
+    .then((data) => {
+      students = data.students;
+      render(
+        students.filter((student) => student.class === "1"),
+        1
+      );
+    })
+    .catch((err) => console.log(err));
+
+  newClassBtn.addEventListener("click", () => {
+    form.submit();
+  });
+  selectClass.addEventListener("change", (e) => {
+    render(
+      students.filter((student) => student.class === `${e.target.value}`),
+      e.target.value
+    );
+  });
+  function render(students, standard) {
+    clear(allStudents);
+    allStudents.innerHTML =
+      students.length === 0
+        ? `<b>No class ${standard} students</b>`
+        : `<b>Class ${standard} students:</b>`;
+    students.forEach((student) => {
+      allStudents.innerHTML += `<div class="student">
+              <label for="${student._id}">${student.username}</label>
+              <input type="checkbox" id="${student._id}" name="student" value="${student._id}"/>
+            </div>`;
+    });
+  }
+  function clear(element) {
+    while (element.firstChild) {
+      element.removeChild(element.firstChild);
+    }
+  }
+
+  function toggleRec() {
+    // Get the checkbox
+    var checkBox = document.getElementById("isRecurring");
+    // Get the output text
+    var text = document.getElementById("recurring-group");
+
+    // If the checkbox is checked, display the output text
+    if (checkBox.checked == true) {
+      text.classList.add("d-flex");
+      checkBox.value = "true";
+    } else {
+      text.classList.remove("d-flex");
+      checkBox.value = "false";
+    }
+  }
+</script>

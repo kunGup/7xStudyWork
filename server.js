@@ -16,7 +16,8 @@ require("dotenv").config();
 const { ensureAuthenticated } = require("./config/auth");
 //IMPORTING ROUTES
 var indexRoute = require("./routes/index");
-var studentRoute = require("./routes/user");
+var userRoute = require("./routes/user");
+var dashboardRoute = require("./routes/dashboard");
 
 //mongoose
 const mongouri =
@@ -78,7 +79,7 @@ app.use((req, res, next) => {
   res.locals.success_alert = req.flash("success_alert");
   res.locals.error_alert = req.flash("error_alert");
   res.locals.error = req.flash("error");
-  // res.locals.user = req.user;
+  res.locals.currentUser = req.user;
   next();
 });
 
@@ -93,7 +94,8 @@ app.set("layout extractStyles", true);
 
 //SETTING ROUTES
 app.use("/", indexRoute);
-app.use("/user", studentRoute);
+app.use("/user", userRoute);
+app.use("/dashboard", dashboardRoute);
 app.get("/config/:classId", ensureAuthenticated, (req, res) => {
   Class.findById(req.params.classId)
     .populate("teacher")
@@ -113,8 +115,12 @@ app.get("*", function (req, res, next) {
 
 app.use((err, req, res, next) => {
   const { statusCode = 500 } = err;
+  console.log(err);
   if (!err.message) err.message = "Oh No, Something Went Wrong!";
-  res.status(statusCode).render("error", { err });
+  req.flash("error_alert", err.message);
+  const redirectUrl = req.session.returnTo || "/dashboard";
+  delete req.session.returnTo;
+  res.redirect(redirectUrl);
 });
 
 //SETTING UP PORT

@@ -5,35 +5,36 @@ const classSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  class: {
-    type: String,
-    required: true,
+  when: Date,
+  subject: String,
+  duration: {
+    hrs: Number,
+    mins: Number,
   },
-  timing: {
-    type: String,
-    required: true,
+  class: String,
+  completed: {
+    type: Boolean,
+    default: false,
   },
-  created: {
-    type: Date,
-    default: Date.now,
-  },
-  students: [{ type: mongoose.Schema.Types.ObjectId, ref: "User" }],
+  joinUrl: String,
+  // students: [
+  //   {
+  //     type: mongoose.Schema.Types.ObjectId,
+  //     ref: "User",
+  //   },
+  // ],
+  students: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "User",
+    },
+  ],
   teacher: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "User",
   },
-  meetingId: {
-    type: String,
-    required: true,
-  },
-  meetingPwd: {
-    type: String,
-    required: true,
-  },
-  joinUrl: {
-    type: String,
-    required: true,
-  },
+  reviews: [{ type: mongoose.Schema.Types.ObjectId, ref: "Review" }],
+  studentAttended: { type: Array, default: [] },
 });
 const Class = mongoose.model("Class", classSchema);
 module.exports = Class;
