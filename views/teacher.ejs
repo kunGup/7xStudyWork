@@ -1,3 +1,11 @@
+<style>
+  .nav-pills {
+    display: none;
+  }
+  .nav-pills.active {
+    display: flex;
+  }
+</style>
 <section>
   <div class="container-fluid">
     <div class="row">
@@ -8,7 +16,7 @@
           </div>
           <ul class="list-group list-group-flush">
             <li class="list-group-item">
-              <strong>Username: </strong><%= teacher.username%>
+              <strong>Name: </strong><%= teacher.username%>
             </li>
             <li class="list-group-item">
               <strong>Email: </strong><%= teacher.email%>
@@ -20,7 +28,7 @@
         <div class="card shadow">
           <div class="card-body">
             <h4 class="card-title">Classes</h4>
-            <ul class="nav nav-tabs">
+            <ul class="nav nav-tabs mb-2">
               <li class="nav-item">
                 <a class="nav-link nl active" aria-current="page" href=""
                   >Today</a
@@ -31,6 +39,16 @@
               </li>
               <li class="nav-item">
                 <a class="nav-link nl" href="">Past</a>
+              </li>
+            </ul>
+            <ul class="nav nav-pills">
+              <li class="nav-item">
+                <a class="nav-link active" aria-current="page" href=""
+                  >Current Cycle</a
+                >
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="">Past Cycle</a>
               </li>
             </ul>
             <div class="table-responsive">
@@ -63,15 +81,21 @@
     .then((data) => {
       classes = data.classes;
       groupAll();
+      var getPastDates = determineDates();
+      groupPastClasses(getPastDates);
       renderClasses(today);
     })
     .catch((err) => console.log(err));
 
   const navLinks = document.querySelectorAll(".nl");
+  const navPills = document.querySelector(".nav-pills");
+  const pastClassTab = navPills.querySelectorAll(".nav-link");
   const tbody = document.querySelector("tbody");
   let past = [];
   let today = [];
   let upcoming = [];
+  let pPast = [];
+  let pCurrent = [];
   navLinks.forEach((navlink) => {
     navlink.addEventListener("click", (e) => {
       e.preventDefault();
@@ -81,12 +105,27 @@
       navlink.classList.add("active");
       let category = navlink.innerText;
       if (category === "Past") {
-        renderClasses(past);
+        renderClasses(pCurrent, category);
+        navPills.classList.add("active");
       } else if (category === "Today") {
         renderClasses(today);
+        navPills.classList.remove("active");
       } else {
         renderClasses(upcoming);
+        navPills.classList.remove("active");
       }
+    });
+  });
+  pastClassTab.forEach((tab) => {
+    tab.addEventListener("click", (e) => {
+      e.preventDefault();
+      pastClassTab.forEach((tab) => {
+        tab.classList.remove("active");
+      });
+      tab.classList.add("active");
+      tab.innerText === "Current Cycle"
+        ? renderClasses(pCurrent, "abc")
+        : renderClasses(pPast, "abc");
     });
   });
   function groupAll() {
@@ -108,13 +147,28 @@
     sort(upcoming);
     sort(past);
   }
-
+  function groupPastClasses(dates) {
+    pPast = past.filter((c) => {
+      var time = new Date(c.when).getTime();
+      return (
+        time >= new Date(dates.ps).getTime() &&
+        time <= new Date(dates.pe).getTime()
+      );
+    });
+    pCurrent = past.filter((c) => {
+      var time = new Date(c.when).getTime();
+      return (
+        time >= new Date(dates.cs).getTime() &&
+        time <= new Date(dates.ce).getTime()
+      );
+    });
+  }
   function sort(array) {
     array.sort(function (a, b) {
       return new Date(a.when) - new Date(b.when);
     });
   }
-  function renderClasses(array) {
+  function renderClasses(array, category) {
     clear(tbody);
     array.forEach((obj) => {
       var dt = new Date(obj.when);
@@ -125,6 +179,7 @@
         <td>${obj.duration.hrs} hrs ${obj.duration.mins} mins</td>
         <td>${format(dt.getHours())}:${format(dt.getMinutes())}</td>
         <td>${dt.getDate()}/${dt.getMonth() + 1}/${dt.getFullYear()}</td>
+        ${category ? `<td>${obj.status ? "Taken" : "Not Taken"}</td>` : ""}
       </tr>`;
     });
   }
@@ -135,5 +190,63 @@
     while (element.firstChild) {
       element.removeChild(element.firstChild);
     }
+  }
+  function determineDates() {
+    var today = new Date();
+    var date = today.getDate();
+    var month = today.getMonth() + 1;
+    var year = today.getFullYear();
+    let cs, ce, ps, pe;
+    if (month === 1) {
+      if (date >= 26) {
+        ce = `${year}-2-25`;
+        cs = `${year}-1-26`;
+        pe = `${year}-1-25`;
+        ps = `${year - 1}-12-26`;
+      } else if (date <= 25) {
+        ce = `${year}-1-25`;
+        cs = `${year - 1}-12-26`;
+        pe = `${year - 1}-12-25`;
+        ps = `${year - 1}-11-26`;
+      }
+    } else if (month === 2) {
+      if (date >= 26) {
+        ce = `${year}-3-25`;
+        cs = `${year}-2-26`;
+        pe = `${year}-2-25`;
+        ps = `${year}-1-26`;
+      } else if (date <= 25) {
+        ce = `${year}-2-25`;
+        cs = `${year}-1-26`;
+        pe = `${year}-1-25`;
+        ps = `${year - 1}-12-26`;
+      }
+    } else if (month === 12) {
+      if (date >= 26) {
+        ce = `${year + 1}-1-25`;
+        cs = `${year}-12-26`;
+        pe = `${year}-12-25`;
+        ps = `${year}-11-26`;
+      } else if (date <= 25) {
+        ce = `${year}-12-25`;
+        cs = `${year}-11-26`;
+        pe = `${year}-11-25`;
+        ps = `${year}-10-26`;
+      }
+    } else {
+      if (date >= 26) {
+        ce = `${year}-${month + 1}-25`;
+        cs = `${year}-${month}-26`;
+        pe = `${year}-${month}-25`;
+        ps = `${year}-${month - 1}-26`;
+      } else if (date <= 25) {
+        ce = `${year}-${month}-25`;
+        cs = `${year}-${month - 1}-26`;
+        pe = `${year}-${month - 1}-25`;
+        ps = `${year}-${month - 2}-26`;
+      }
+    }
+    let dates = { ps, pe, cs, ce };
+    return dates;
   }
 </script>

@@ -1,0 +1,127 @@
+<style>
+    #custom-button {
+        padding: 5px;
+        font-size: 0.8rem;
+        color: white;
+        background-color: #009578;
+        border: 1px solid #000;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+
+    #custom-button:hover {
+        background-color: #00b28f;
+    }
+
+    #custom-text {
+        margin-left: 10px;
+        font-family: sans-serif;
+        color: #aaa;
+    }
+</style>
+<section>
+    <div class="jumbotron jumbotron-fluid jumbotron-top">
+        <div class="jumbo-text text-center">
+            <h1>Teacher Application</h1>
+        </div>
+    </div>
+</section>
+
+<div class="form-border">
+    <div class="row">
+        <div class="col-md-9 mx-auto">
+            <form action="/user/apply" method="post" enctype="multipart/form-data">
+                <%- include('partials/alerts'); %>
+                    <div class="form-group">
+                        <label for="fullname">Full Name</label>
+                        <input type="text" class="form-control" id="fullname" name="fullname" />
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email</label>
+                        <input type="email" class="form-control" id="email" name="email" />
+                    </div>
+                    <div class="form-group">
+                        <label for="univ">University / College</label>
+                        <input type="text" class="form-control" id="univ" name="university" />
+                    </div>
+                    <div class="form-group">
+                        <label for="">Highest Qualification</label>
+                        <select class="custom-select custom-select-sm" name="qualification">
+                            <option selected></option>
+                            <% for(let qualification of data.qualifications){ %>
+                                <option value="<%= qualification %>">
+                                    <%= qualification %>
+                                </option>
+                                <% } %>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="">Years of experience in teaching</label>
+                        <select class="custom-select custom-select-sm" name="experience">
+                            <option selected></option>
+                            <% for(let experience of data.experiences){ %>
+                                <option value="<%= experience %>">
+                                    <%= experience %>
+                                </option>
+                                <% } %>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="">Available Timings</label>
+                        <% for(let i=0; i<data.timeSlots.length; i++){ %>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" value="<%= data.timeSlots[i] %>"
+                                    id="time<%= i %>" name="availableTimings" />
+                                <label class="form-check-label" for="time<%= i %>">
+                                    <%= data.timeSlots[i] %>
+                                </label>
+                            </div>
+                            <% } %>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" value="No" id="isWeekend" onclick="isWeekend(this);">
+                                <label class="form-check-label" for="isWeekend">
+                                    Is available at weekends?
+                                </label>
+                            </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="real-file">Resume</label>
+                        <div>
+                            <input type="file" id="real-file" hidden="hidden"
+                                accept=".pdf,.doc,.docx,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document"
+                                name="resume" />
+                            <button type="button" id="custom-button">CHOOSE A FILE</button>
+                            <span id="custom-text">No file chosen, yet.</span>
+                        </div>
+                    </div>
+                    <button type="submit" class="btn btn-secondary">Submit</button>
+            </form>
+        </div>
+    </div>
+</div>
+<script>
+    const realFileBtn = document.getElementById("real-file");
+    const customBtn = document.getElementById("custom-button");
+    const customTxt = document.getElementById("custom-text");
+
+    customBtn.addEventListener("click", function () {
+        realFileBtn.click();
+    });
+
+    realFileBtn.addEventListener("change", function () {
+        if (this.files[0].size > 307200) {
+            alert("File is too big!");
+            this.value = "";
+        }
+        if (realFileBtn.value) {
+            customTxt.innerHTML = realFileBtn.value.match(
+                /[\/\\]([\w\d\s\.\-\(\)]+)$/
+            )[1];
+        } else {
+            customTxt.innerHTML = "No file chosen, yet.";
+        }
+    });
+    function isWeekend(x){
+        x.value = x.checked ? "Yes":"No"
+    }
+</script>

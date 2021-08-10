@@ -62,6 +62,14 @@ module.exports.validateReview = (req, res, next) => {
   }
 };
 
+module.exports.ensureAuthenticated = (req, res, next) => {
+  if (!req.isAuthenticated()) {
+    req.flash("error_alert", "Please login to view your dashboard");
+    return res.redirect("/user/login");
+  }
+  next();
+};
+
 module.exports.isAdmin = (req, res, next) => {
   if (req.user.role !== "admin") {
     req.flash("error_alert", "Not allowed");

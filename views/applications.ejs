@@ -1,0 +1,76 @@
+<style>
+  .list-group-item {
+    display: flex;
+    justify-content: space-between;
+  }
+  .list-group-item.vertical {
+    flex-direction: column;
+  }
+  #accept,
+  #reject {
+    height: 100%;
+    width: 50%;
+    border: none;
+  }
+  .list-group-item.buttons {
+    padding: 0;
+    height: 40px;
+  }
+</style>
+<div class="container">
+  <div class="card border-dark">
+    <div class="card-body">
+      <h5 class="card-title">Teacher Name</h5>
+    </div>
+    <ul class="list-group list-group-flush">
+      <li class="list-group-item">
+        <span><b>Email</b></span
+        ><span>example@a.com</span>
+      </li>
+      <li class="list-group-item">
+        <span><b>Qualification</b></span
+        ><span>MTech</span>
+      </li>
+      <li class="list-group-item">
+        <span><b>College / University</b></span
+        ><span>IIT Madras</span>
+      </li>
+      <li class="list-group-item">
+        <span><b>Grades</b></span
+        ><span>9.1 CGPA</span>
+      </li>
+      <li class="list-group-item">
+        <span><b>Teaching experience</b></span
+        ><span>10+ yrs</span>
+      </li>
+      <li class="list-group-item vertical">
+        <span><b>Available Timings</b></span
+        ><span>9-10 AM, 10-11 AM, 11 AM - 12 PM, 12-1 PM</span>
+      </li>
+      <li class="list-group-item">
+        <span><b>Available on weekends?</b></span
+        ><span>Yes</span>
+      </li>
+      <li class="list-group-item vertical">
+        <span><b>Batches</b></span
+        ><span>1-on-1, 1-on-2, short batches</span>
+      </li>
+      <li class="list-group-item">
+        <span><b>Min Charges</b></span
+        ><span></span>
+      </li>
+      <li class="list-group-item">
+        <span><b>Resume</b></span
+        ><span
+          ><a class="btn btn-secondary btn-sm" href="#" role="button"
+            >Open</a
+          ></span
+        >
+      </li>
+      <li class="list-group-item buttons">
+        <button id="accept" class="bg-success">Accept</button>
+        <button id="reject" class="bg-danger">Reject</button>
+      </li>
+    </ul>
+  </div>
+</div>

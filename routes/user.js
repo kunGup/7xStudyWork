@@ -1,12 +1,14 @@
 var express = require("express");
 var router = express.Router();
 const passport = require("passport");
-const { ensureAuthenticated } = require("../config/auth");
 const User = require("../models/user");
+const Application = require("../models/application");
 const catchAsync = require("../utils/catchAsync");
 const jwt = require("jsonwebtoken");
 const axios = require("axios");
-const { validateUser, isAdmin } = require("../middleware");
+const multer = require("multer");
+var generatePassword = require("password-generator");
+const { validateUser, isAdmin, ensureAuthenticated } = require("../middleware");
 
 router.get("/login", (req, res) => {
   res.render("login");
@@ -29,10 +31,8 @@ router.post(
       req.body;
     //new user commmon details
     let user = new User({
-      email,
       username,
-      apisecret,
-      apikey,
+      email,
       role,
     });
 
@@ -59,11 +59,14 @@ router.post(
         },
         headers: { Authorization: `Bearer ${token}` },
       });
+      user.apikey = apikey;
+      user.apisecret = apisecret;
       //classroom details for teacher
       user.classroom = {
         id: classroom.data.id,
         pwd: classroom.data.password,
-        url: classroom.data.join_url,
+        join_url: classroom.data.join_url,
+        start_url: classroom.data.start_url,
       };
     } else if (role === "student") {
       //for student
@@ -73,6 +76,57 @@ router.post(
     await User.register(user, password);
     req.flash("success_alert", "New user created successfully!");
     res.redirect("/dashboard");
+  })
+);
+
+//Configuration for Multer
+const multerStorage = multer.diskStorage({
+  destination: (req, file, cb) => {
+    cb(null, "public");
+  },
+  filename: (req, file, cb) => {
+    const ext = file.mimetype.split("/")[1];
+    cb(null, `files/${file.fieldname}-${Date.now()}.${ext}`);
+  },
+});
+
+// Multer Filter
+const multerFilter = (req, file, cb) => {
+  if (
+    file.mimetype.split("/")[1] === "pdf" ||
+    file.mimetype.split("/")[1] === "doc" ||
+    file.mimetype.split("/")[1] === "docx"
+  ) {
+    cb(null, true);
+  } else {
+    cb(new Error("Not a PDF or Word File!!"), false);
+  }
+};
+
+const upload = multer({
+  storage: multerStorage,
+  fileFilter: multerFilter,
+});
+
+let data = require("../public/js/teacherApply");
+router.get("/apply", (req, res) => {
+  res.render("teacherApply", { data });
+});
+
+router.post(
+  "/apply",
+  upload.single("resume"),
+  catchAsync(async (req, res) => {
+    const application = new Application(req.body);
+    application.resumeName = req.file.filename;
+    // let password = generatePassword();
+    // teacher.role = "teacher";
+    // await User.register(teacher, password);
+    req.flash(
+      "success_alert",
+      "Your application has been submitted successfully."
+    );
+    res.redirect("/user/apply");
   })
 );
 

@@ -1,6 +1,15 @@
 const mongoose = require("mongoose");
 const passportLocalMongoose = require("passport-local-mongoose");
+// const baseOptions = {
+//   discriminatorKey: "__role",
+//   collection: "users",
+// };
 const userSchema = new mongoose.Schema({
+  //email but will be written username due to passport-local-mongoose
+  username: {
+    type: String,
+    required: true,
+  },
   email: {
     type: String,
     required: true,
@@ -10,12 +19,25 @@ const userSchema = new mongoose.Schema({
     enum: ["teacher", "student", "admin"],
     required: true,
   },
+  //student
   class: String,
+
+  //teacher
+  minCharges: [String],
+  batches: [String],
+  isAvailableWeekend: String,
+  availableTimings: [String],
+  grades: String,
+  qualification: String,
+  university: String,
+  experience: String,
+  resumeName: String,
   apikey: String,
   apisecret: String,
   classroom: {
     id: String,
-    url: String,
+    join_url: String,
+    start_url: String,
     pwd: String,
   },
 });
@@ -24,3 +46,26 @@ userSchema.plugin(passportLocalMongoose);
 
 const User = mongoose.model("User", userSchema);
 module.exports = User;
+
+// const studentSchema = mongoose.Schema({
+//   class: String,
+// });
+// const teacherSchema = mongoose.Schema({
+
+//   minCharges: [String],
+//   batches: [String],
+//   isAvailableWeekend: String,
+//   timings: [String],
+//   grades: String,
+//   qualification: String,
+//   university: String,
+//   apikey: String,
+//   apisecret: String,
+//   classroom: {
+//     id: String,
+//     join_url: String,
+//     start_url: String,
+//     pwd: String,
+//   },
+// });
+// const adminSchema = mongoose.Schema({})

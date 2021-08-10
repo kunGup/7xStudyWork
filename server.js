@@ -11,22 +11,24 @@ const User = require("./models/user");
 const expressLayouts = require("express-ejs-layouts");
 const ExpressError = require("./utils/ExpressError");
 const LocalStrategy = require("passport-local").Strategy;
-require("./config/passport")(passport);
+// require("./config/passport")(passport);
 require("dotenv").config();
-const { ensureAuthenticated } = require("./config/auth");
+const { ensureAuthenticated } = require("./middleware");
 //IMPORTING ROUTES
 var indexRoute = require("./routes/index");
 var userRoute = require("./routes/user");
 var dashboardRoute = require("./routes/dashboard");
+var adminRoute = require("./routes/admin");
 
 //mongoose
-const mongouri =
-  "mongodb+srv://root-user:OWV7oKw2RUzn41Kz@cluster0.87tll.mongodb.net/7xstudyDB?retryWrites=true&w=majority";
-// const mongouri = "mongodb://localhost:27017/test-7xstudy";
+// const mongouri =
+//   "mongodb+srv://root-user:OWV7oKw2RUzn41Kz@cluster0.87tll.mongodb.net/7xstudyDB?retryWrites=true&w=majority";
+const mongouri = "mongodb://localhost:27017/test-7xstudy";
 mongoose
   .connect(mongouri, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
+    useFindAndModify: true,
   })
   .then(() => console.log("connected to DB"))
   .catch((err) => console.log(err));
@@ -94,6 +96,7 @@ app.set("layout extractStyles", true);
 
 //SETTING ROUTES
 app.use("/", indexRoute);
+app.use("/admin", adminRoute);
 app.use("/user", userRoute);
 app.use("/dashboard", dashboardRoute);
 app.get("/config/:classId", ensureAuthenticated, (req, res) => {
@@ -117,10 +120,7 @@ app.use((err, req, res, next) => {
   const { statusCode = 500 } = err;
   console.log(err);
   if (!err.message) err.message = "Oh No, Something Went Wrong!";
-  req.flash("error_alert", err.message);
-  const redirectUrl = req.session.returnTo || "/dashboard";
-  delete req.session.returnTo;
-  res.redirect(redirectUrl);
+  res.status(statusCode).render("error", { err });
 });
 
 //SETTING UP PORT

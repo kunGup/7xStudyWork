@@ -1,22 +1,19 @@
 <section>
   <div class="container-fluid">
-    <%- include('dpartials/alerts'); %>
     <div class="row">
       <div class="col-12 col-md-3 mb-2">
         <div class="card shadow">
           <div class="card-body">
-            <h4 class="card-title">Welcome, <%= currentUser.username%></h4>
+            <h4 class="card-title">Student Info</h4>
           </div>
           <ul class="list-group list-group-flush">
             <li class="list-group-item">
-              <strong>Email: </strong><%= currentUser.email%>
+              <strong>Name: </strong><%= student.fullname%>
+            </li>
+            <li class="list-group-item">
+              <strong>Email: </strong><%= student.email%>
             </li>
           </ul>
-          <div class="card-footer">
-            <% if(currentUser.role === 'admin'){ %>
-            <%-include('dpartials/newuserbtn') %> <% } %> <% if(currentUser.role
-            === 'teacher'){ %> <%-include('dpartials/newclassbtn') %> <% } %>
-          </div>
         </div>
       </div>
       <div class="col-12 col-md-9">
@@ -41,8 +38,6 @@
                 <thead>
                   <tr>
                     <th scope="col">Title</th>
-                    <th scope="col">Topic</th>
-                    <th scope="col">Teacher</th>
                     <th scope="col">Subject</th>
                     <th scope="col">Class</th>
                     <th scope="col">Duration</th>
@@ -60,10 +55,10 @@
   </div>
 </section>
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.17.1/moment.min.js"></script>
 <script>
+  const studentId = window.location.pathname.split("/")[3];
   let classes = [];
-  fetch("/dashboard/classes")
+  fetch(`/dashboard/student/${studentId}/classes`)
     .then((res) => res.json())
     .then((data) => {
       classes = data.classes;
@@ -86,7 +81,7 @@
       navlink.classList.add("active");
       let category = navlink.innerText;
       if (category === "Past") {
-        renderClasses(past);
+        renderClasses(past, category);
       } else if (category === "Today") {
         renderClasses(today);
       } else {
@@ -119,21 +114,18 @@
       return new Date(a.when) - new Date(b.when);
     });
   }
-  function renderClasses(array) {
+  function renderClasses(array, category) {
     clear(tbody);
     array.forEach((obj) => {
       var dt = new Date(obj.when);
       tbody.innerHTML += `<tr>
         <td><a href="/dashboard/class/${obj._id}">${obj.title}</a></td>
-        <td>${obj.topic ? obj.topic : "NA"}</td>
-        <td><a href="/dashboard/teacher/${obj.teacher._id}">${
-        obj.teacher.username
-      }</a></td>
         <td>${obj.subject}</td>
         <td>${obj.class}</td>
         <td>${obj.duration.hrs} hrs ${obj.duration.mins} mins</td>
         <td>${format(dt.getHours())}:${format(dt.getMinutes())}</td>
         <td>${dt.getDate()}/${dt.getMonth() + 1}/${dt.getFullYear()}</td>
+        ${category ? `<td>${obj.status ? "Taken" : "Not Taken"}</td>` : ""}
       </tr>`;
     });
   }

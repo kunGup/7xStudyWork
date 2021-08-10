@@ -27,6 +27,9 @@
               <strong>Title: </strong><span><%= cls.title %></span>
             </li>
             <li class="list-group-item details">
+              <strong>Topic: </strong><span><%= cls.topic ? cls.topic : "Not provided" %></span>
+            </li>
+            <li class="list-group-item details">
               <strong>Teacher: </strong>
               <span>
                 <a href="/dashboard/teacher/<%= cls.teacher._id %>"><%= cls.teacher.username %></a>
@@ -55,6 +58,11 @@
               <strong>Duration: </strong><%= cls.duration.hrs %> hrs <%=
               cls.duration.mins %> mins
             </li>
+            <% if(cls.meetUrl){ %> 
+            <li class="list-group-item details">
+              <strong>Google meet link: </strong><a href="<%= cls.meetUrl %>" target="_blank">Join</a>
+            </li>
+            <% } %> 
             <!-- <li class="list-group-item details">
               <strong>Status: </strong>
               <% if(cls.completed) {%> Completed <% } else{%> Not marked <% } %>
@@ -71,7 +79,7 @@
             </li>
           </ul>
           <div class="card-footer">
-            <a class="btn btn-success btn-sm" href="/dashboard/classroom/<%= cls.id %>" target="_blank" role="button">Join Class</a>
+            <a class="btn btn-success btn-sm" href="<%= currentUser.role === 'student' ? cls.teacher.classroom.join_url : cls.teacher.classroom.start_url %>" target="_blank" role="button">Join Class</a>
             <% if(currentUser.role !== 'student') {%> 
             <button
               class="btn btn-warning btn-sm"
@@ -80,6 +88,14 @@
               data-bs-target="#changeClassInfo"
             >
               Change Info
+            </button>
+            <button
+              class="btn btn-warning btn-sm"
+              href="#"
+              data-bs-toggle="modal"
+              data-bs-target="#rescheduleClass"
+            >
+              Reschedule Class
             </button>
             <form action="/dashboard/class/<%= cls.id %>?_method=DELETE" method="post" class="d-inline">
               <button
@@ -93,16 +109,29 @@
             <% } %> 
           </div>
         </div>
-        <!-- <div class="card shadow">
+        
+      </div> 
+    </div>
+    <% if(currentUser.role !== 'student'){ %> 
+    <div class="row">
+      <div class="col-md-6 offset-md-3">
+        <div class="card shadow mb-2">
           <div class="card-body">
             <h4 class="card-title">Attendance</h4>
+            <% if(!cls.status){ %> 
+              Class not yet marked completed by teacher
+            <% }else{ %> 
             <ul class="list-group">
+              <% for(let i=0; i<cls.students.length; i++){ %> 
               <li class="list-group-item list-group-att">
-                <span>student name</span>
-                <span>email</span>
+                <span><%= cls.students[i].username %> </span>
+                <span><%= cls.studentAttended && cls.studentAttended.includes(cls.students[i].id) ? 'P' : 'A' %></span>
               </li>
+              <% } %>
             </ul>
+            <% } %> 
           </div>
+          <% if(cls.status){ %> 
           <div class="card-footer">
             <button
               class="btn btn-warning btn-sm"
@@ -113,17 +142,19 @@
               Update
             </button>
           </div>
-        </div> -->
-      </div> 
+          <% } %> 
+        </div>
+      </div>
     </div>
+    <% } %> 
     <div class="row">
       <% if(currentUser.role !== 'teacher'){ %> 
       <div class="col-md-6 offset-md-3">
         <div class="card shadow">
           <div class="card-body">
-            <h4 class="card-title">Student Feedback</h4>
+            <h4 class="card-title">Class Feedback</h4>
             <% if(currentUser.role === 'student') {%> 
-            <form action="/dashboard/class/<%= cls.id %>/review" method="POST" class="mb-3 validated-form" novalidate>
+            <form action="/dashboard/class/<%= cls.id %>/review" method="POST" class="mb-3 validated-form">
               <fieldset class="starability-fade">
                 <input
                   type="radio"
@@ -171,15 +202,12 @@
                 <label for="first-rate5" title="Amazing">5 stars</label>
               </fieldset>
               <div class="mb-3">
-                <label class="form-label" for="body">Review Text</label>
                 <textarea
                   class="form-control"
                   name="body"
                   id="body"
                   rows="2"
-                  required
                 ></textarea>
-                <div class="valid-feedback">Looks good!</div>
               </div>
               <button class="btn btn-sm btn-success">Submit</button>
             </form>
@@ -205,10 +233,17 @@
     </div>
   </div>
 </section>
-<%- include('dpartials/cancelClass') %> <%- include('dpartials/deleteReview') %>
-<%- include('dpartials/changeClassInfo') %> <%-
-include('dpartials/updateAttendance') %>
+<% if(currentUser.role === 'admin') {%>
 <%- include('dpartials/changeTeacher') %> 
+<% } %> 
+<%- include('dpartials/deleteReview') %>
+
+<% if(currentUser.role !== 'student') {%> 
+  <%- include('dpartials/cancelClass') %> 
+  <%- include('dpartials/changeClassInfo') %> 
+  <%- include('dpartials/rescheduleClass') %>
+  <%- include('dpartials/updateAttendance') %> 
+<% } %> 
 <script>
   // const navLinks = document.querySelectorAll(".nav-link");
   // navLinks.forEach(navlink => {
