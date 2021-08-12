@@ -259,18 +259,6 @@ router.put(
   })
 );
 
-router.put(
-  "/class/:classId/attendance",
-  ensureAuthenticated,
-  catchAsync(async (req, res) => {
-    const { classId } = req.params;
-    await Class.findByIdAndUpdate(classId, {
-      studentAttended: req.body.student,
-    });
-    req.flash("success_alert", "Attendance updated successfully");
-    res.redirect(`/dashboard/class/${classId}`);
-  })
-);
 //cancel class
 router.delete(
   "/class/:classId",
@@ -323,13 +311,12 @@ router.put(
   })
 );
 
-//update attendance
-
 //post review
 router.post(
   "/class/:classId/review",
   ensureAuthenticated,
-  validateReview,
+  isWithinTime,
+  isAlreadySubmitted,
   catchAsync(async (req, res) => {
     const cls = await Class.findById(req.params.classId);
     const { rating, body } = req.body;
@@ -342,18 +329,46 @@ router.post(
     res.redirect(`/dashboard/class/${cls._id}`);
   })
 );
-//delete review
-router.delete(
-  "/class/:classId/review/:reviewId",
-  ensureAuthenticated,
-  catchAsync(async (req, res) => {
-    const { classId, reviewId } = req.params;
-    await Class.findByIdAndUpdate(classId, { $pull: { reviews: reviewId } });
-    await Review.findByIdAndDelete(reviewId);
-    req.flash("success", "Successfully deleted review");
-    res.redirect(`/dashboard/class/${classId}`);
-  })
-);
+async function isWithinTime(req, res, next) {
+  const cls = await Class.findById(req.params.classId);
+  let hrs = parseInt(cls.duration.hrs);
+  let mins = parseInt(cls.duration.mins);
+  let totalMins = 60 * hrs + mins;
+  let timeAfterClass = add_minutes(cls.when, totalMins);
+  let time5minsAfterClass = add_minutes(cls.when, totalMins + 5);
+  if (isBetween(timeAfterClass, time5minsAfterClass)) {
+    next();
+  } else {
+    req.flash("error_alert", "You can't fill attendance now");
+    res.redirect("back");
+  }
+}
+var add_minutes = function (dt, minutes) {
+  return new Date(dt.getTime() + minutes * 60000);
+};
+const isBetween = (min, max) => {
+  let rightNow = new Date();
+  return (
+    rightNow.getTime() >= min.getTime() && rightNow.getTime() <= max.getTime()
+  );
+};
+async function isAlreadySubmitted(req, res, next) {
+  const cls = await Class.findById(req.params.classId).populate("reviews");
+  let found = false;
+
+  for (let i = 0; i < cls.reviews.length; i++) {
+    if (cls.reviews[i].student.equals(req.user._id)) {
+      found = true;
+      break;
+    }
+  }
+  if (found) {
+    req.flash("error_alert", "You have already filled the feedback");
+    res.redirect("back");
+  } else {
+    next();
+  }
+}
 //class meeting room
 router.get(
   "/classroom/:classId",

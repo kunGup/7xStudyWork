@@ -7,12 +7,16 @@ const applicationSchema = new mongoose.Schema({
   },
   qualification: String,
   university: String,
-  grades: String,
+  grades: Number,
   experience: String,
   availableTimings: [String],
   isAvailableWeekend: String,
-  batches: [String],
-  minCharges: [String],
+  batches: [
+    {
+      name: String,
+      minCharges: Number,
+    },
+  ],
   resumeName: String,
 });
 

@@ -119,14 +119,28 @@ router.post(
   catchAsync(async (req, res) => {
     const application = new Application(req.body);
     application.resumeName = req.file.filename;
-    // let password = generatePassword();
-    // teacher.role = "teacher";
-    // await User.register(teacher, password);
+
+    //inserting batch objects after mapping from req.body.batch
+    let batches = req.body.batch;
+    batches = [].concat(batches);
+    application.batches = batches.map((batch) => {
+      var obj = {};
+      obj.name = batch;
+      if (obj.name === "1to1") {
+        obj.minCharges = req.body.onetooneprice;
+      } else if (obj.name === "1to2") {
+        obj.minCharges = req.body.onetotwoprice;
+      } else {
+        obj.minCharges = req.body.shortprice;
+      }
+      return obj;
+    });
+    await application.save();
     req.flash(
       "success_alert",
       "Your application has been submitted successfully."
     );
-    res.redirect("/user/apply");
+    res.redirect("back");
   })
 );
 

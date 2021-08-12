@@ -14,12 +14,6 @@ const classSchema = new mongoose.Schema({
   },
   class: String,
   meetUrl: String,
-  // students: [
-  //   {
-  //     type: mongoose.Schema.Types.ObjectId,
-  //     ref: "User",
-  //   },
-  // ],
   students: [
     {
       type: mongoose.Schema.Types.ObjectId,
@@ -31,16 +25,6 @@ const classSchema = new mongoose.Schema({
     ref: "User",
   },
   reviews: [{ type: mongoose.Schema.Types.ObjectId, ref: "Review" }],
-  studentAttended: [
-    {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: "User",
-    },
-  ],
-  status: {
-    type: Boolean,
-    default: false,
-  },
 });
 const Class = mongoose.model("Class", classSchema);
 module.exports = Class;

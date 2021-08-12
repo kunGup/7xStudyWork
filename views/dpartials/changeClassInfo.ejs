@@ -69,24 +69,10 @@
               value="<%= cls.meetUrl ? cls.meetUrl : '' %>"
             />
           </div>
-          <div class="form-check form-switch mb-3">
-            <input class="form-check-input" type="checkbox" id="status"
-            name="isCompleted" value="<%= cls.status ? "true" : "false" %>"
-            onclick="toggleStatus(this);" <%= cls.status ? 'checked' : '' %>/>
-            <label class="form-check-label" for="status">Completed</label>
-          </div>
           <button type="submit" class="btn btn-primary">Confirm</button>
         </form>
       </div>
     </div>
   </div>
 </div>
-<script>
-  function toggleStatus(checkbox) {
-    if (checkbox.checked) {
-      checkbox.value = "true";
-    } else {
-      checkbox.value = "false";
-    }
-  }
-</script>
+<script></script>

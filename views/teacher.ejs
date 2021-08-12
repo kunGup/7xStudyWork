@@ -2,6 +2,7 @@
   .nav-pills {
     display: none;
   }
+
   .nav-pills.active {
     display: flex;
   }
@@ -16,10 +17,12 @@
           </div>
           <ul class="list-group list-group-flush">
             <li class="list-group-item">
-              <strong>Name: </strong><%= teacher.username%>
+              <strong>Name: </strong>
+              <%= teacher.username%>
             </li>
             <li class="list-group-item">
-              <strong>Email: </strong><%= teacher.email%>
+              <strong>Email: </strong>
+              <%= teacher.email%>
             </li>
           </ul>
         </div>
@@ -28,43 +31,88 @@
         <div class="card shadow">
           <div class="card-body">
             <h4 class="card-title">Classes</h4>
-            <ul class="nav nav-tabs mb-2">
-              <li class="nav-item">
-                <a class="nav-link nl active" aria-current="page" href=""
-                  >Today</a
+
+            <ul class="nav nav-tabs mb-2" role="tablist">
+              <li class="nav-item" role="presentation">
+                <button
+                  class="nav-link active"
+                  id="today-tab"
+                  data-bs-toggle="tab"
+                  data-bs-target="#today"
+                  type="button"
+                  role="tab"
                 >
+                  Today
+                </button>
               </li>
-              <li class="nav-item">
-                <a class="nav-link nl" aria-current="page" href="">Upcoming</a>
+              <li class="nav-item" role="presentation">
+                <button
+                  class="nav-link"
+                  id="upcoming-tab"
+                  data-bs-toggle="tab"
+                  data-bs-target="#upcoming"
+                  type="button"
+                  role="tab"
+                >
+                  Upcoming
+                </button>
               </li>
-              <li class="nav-item">
-                <a class="nav-link nl" href="">Past</a>
+              <li class="nav-item" role="presentation">
+                <button
+                  class="nav-link"
+                  id="past-tab"
+                  data-bs-toggle="tab"
+                  data-bs-target="#past"
+                  type="button"
+                  role="tab"
+                >
+                  Past
+                </button>
               </li>
             </ul>
-            <ul class="nav nav-pills">
-              <li class="nav-item">
-                <a class="nav-link active" aria-current="page" href=""
-                  >Current Cycle</a
-                >
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="">Past Cycle</a>
-              </li>
-            </ul>
-            <div class="table-responsive">
-              <table class="table table-striped table-hover align-middle">
-                <thead>
-                  <tr>
-                    <th scope="col">Title</th>
-                    <th scope="col">Subject</th>
-                    <th scope="col">Class</th>
-                    <th scope="col">Duration</th>
-                    <th scope="col">Time</th>
-                    <th scope="col">Date</th>
-                  </tr>
-                </thead>
-                <tbody></tbody>
-              </table>
+
+            <div class="tab-content">
+              <div class="tab-pane active" id="today" role="tabpanel"></div>
+              <div class="tab-pane" id="upcoming" role="tabpanel"></div>
+              <div class="tab-pane" id="past" role="tabpanel">
+                <ul class="nav nav-tabs" role="tablist">
+                  <!-- nav pills -->
+                  <li class="nav-item" role="presentation">
+                    <button
+                      class="nav-link active"
+                      id="pcurrent-tab"
+                      data-bs-toggle="tab"
+                      data-bs-target="#pcurrent"
+                      type="button"
+                      role="tab"
+                    >
+                      Current Cycle
+                    </button>
+                  </li>
+                  <li class="nav-item" role="presentation">
+                    <button
+                      class="nav-link"
+                      id="ppast-tab"
+                      data-bs-toggle="tab"
+                      data-bs-target="#ppast"
+                      type="button"
+                      role="tab"
+                    >
+                      Past Cycle
+                    </button>
+                  </li>
+                </ul>
+
+                <!-- tab panes -->
+                <div class="tab-content">
+                  <div
+                    class="tab-pane active"
+                    id="pcurrent"
+                    role="tabpanel"
+                  ></div>
+                  <div class="tab-pane" id="ppast" role="tabpanel"></div>
+                </div>
+              </div>
             </div>
           </div>
         </div>
@@ -76,6 +124,11 @@
 <script>
   const teacherId = window.location.pathname.split("/")[3];
   let classes = [];
+  let past = [];
+  let today = [];
+  let upcoming = [];
+  let pPast = [];
+  let pCurrent = [];
   fetch(`/dashboard/teacher/${teacherId}/classes`)
     .then((res) => res.json())
     .then((data) => {
@@ -83,51 +136,13 @@
       groupAll();
       var getPastDates = determineDates();
       groupPastClasses(getPastDates);
-      renderClasses(today);
+      populateClasses(today, "today");
+      populateClasses(upcoming, "upcoming");
+      populateClasses(pPast, "ppast");
+      populateClasses(pCurrent, "pcurrent");
     })
     .catch((err) => console.log(err));
 
-  const navLinks = document.querySelectorAll(".nl");
-  const navPills = document.querySelector(".nav-pills");
-  const pastClassTab = navPills.querySelectorAll(".nav-link");
-  const tbody = document.querySelector("tbody");
-  let past = [];
-  let today = [];
-  let upcoming = [];
-  let pPast = [];
-  let pCurrent = [];
-  navLinks.forEach((navlink) => {
-    navlink.addEventListener("click", (e) => {
-      e.preventDefault();
-      navLinks.forEach((navlink) => {
-        navlink.classList.remove("active");
-      });
-      navlink.classList.add("active");
-      let category = navlink.innerText;
-      if (category === "Past") {
-        renderClasses(pCurrent, category);
-        navPills.classList.add("active");
-      } else if (category === "Today") {
-        renderClasses(today);
-        navPills.classList.remove("active");
-      } else {
-        renderClasses(upcoming);
-        navPills.classList.remove("active");
-      }
-    });
-  });
-  pastClassTab.forEach((tab) => {
-    tab.addEventListener("click", (e) => {
-      e.preventDefault();
-      pastClassTab.forEach((tab) => {
-        tab.classList.remove("active");
-      });
-      tab.classList.add("active");
-      tab.innerText === "Current Cycle"
-        ? renderClasses(pCurrent, "abc")
-        : renderClasses(pPast, "abc");
-    });
-  });
   function groupAll() {
     classes.forEach((c) => {
       let dt = c.when;
@@ -168,8 +183,31 @@
       return new Date(a.when) - new Date(b.when);
     });
   }
-  function renderClasses(array, category) {
-    clear(tbody);
+  function populateClasses(array, id) {
+    let tabPane = document.getElementById(id);
+    tabPane.innerHTML = `
+    <div class="table-responsive">
+                  <table class="table table-striped table-hover align-middle">
+                    <thead>
+                      <tr>
+                        <th scope="col">Title</th>
+                        <th scope="col">Subject</th>
+                        <th scope="col">Class</th>
+                        <th scope="col">Duration</th>
+                        <th scope="col">Time</th>
+                        <th scope="col">Date</th>
+                        ${
+                          id === "pcurrent" || id === "ppast"
+                            ? `<th scope="col">Students Attended</th>`
+                            : ""
+                        }
+                      </tr>
+                    </thead>
+                    <tbody></tbody>
+                  </table>
+                </div>
+    `;
+    let tbody = tabPane.querySelector("tbody");
     array.forEach((obj) => {
       var dt = new Date(obj.when);
       tbody.innerHTML += `<tr>
@@ -179,17 +217,16 @@
         <td>${obj.duration.hrs} hrs ${obj.duration.mins} mins</td>
         <td>${format(dt.getHours())}:${format(dt.getMinutes())}</td>
         <td>${dt.getDate()}/${dt.getMonth() + 1}/${dt.getFullYear()}</td>
-        ${category ? `<td>${obj.status ? "Taken" : "Not Taken"}</td>` : ""}
+        ${
+          id === "pcurrent" || id === "ppast"
+            ? `<td>${obj.reviews.length}</td>`
+            : ""
+        }
       </tr>`;
     });
   }
   function format(num) {
     return num < 10 ? "0" + num : num;
-  }
-  function clear(element) {
-    while (element.firstChild) {
-      element.removeChild(element.firstChild);
-    }
   }
   function determineDates() {
     var today = new Date();
