@@ -6,6 +6,18 @@
   .group > * {
     margin-right: 10px;
   }
+  #days {
+    display: flex;
+    font-size: 0.8rem;
+    justify-content: space-between;
+  }
+  input[type="date"] {
+    outline: none;
+    border: 0.5px solid lightgray;
+    border-radius: 6px;
+    font-size: 0.8rem;
+    padding-left: 5px;
+  }
 </style>
 <button
   type="button"
@@ -90,20 +102,21 @@
                 name="A"
                 style="width: 100px"
               >
-                <option value="AM" selected>AM</option>
-                <option value="PM">PM</option>
+                <option value="AM">AM</option>
+                <option value="PM" selected>PM</option>
               </select>
             </div>
           </div>
           <div class="mb-3">
             <label for="" class="form-label">Duration</label><br />
             <div class="group">
-              <label for="duration[hrs]" class="form-label">Hrs :</label>
+              <label for="" class="form-label">Hrs</label>
               <select
                 class="form-select form-select-sm"
                 aria-label=".form-select-sm"
                 name="hrs"
                 style="width: 100px"
+                required
               >
                 <option value="0">0</option>
                 <option value="1" selected>1</option>
@@ -112,7 +125,7 @@
                 <option value="4">4</option>
                 <option value="5">5</option>
               </select>
-              <label for="duration[mins]" class="form-label">Mins :</label>
+              <label for="" class="form-label">Mins</label>
               <select
                 class="form-select form-select-sm"
                 aria-label=".form-select-sm"
@@ -126,65 +139,90 @@
               </select>
             </div>
           </div>
-          <div class="form-check form-switch mb-3">
-            <input
-              class="form-check-input"
-              type="checkbox"
-              name="isRecurring"
-              id="isRecurring"
-              value="false"
-              onclick="toggleRec()"
-            />
-            <label class="form-check-label" for="isRecurring">Recurring</label>
-          </div>
-          <div class="mb-3" id="recurring-group" style="display: none">
-            <div>
-              Repeat every:
-              <select
-                class="form-select form-select-sm d-inline"
-                name="days"
-                style="width: 100px"
-              >
-                <option value="1" selected>1</option>
-                <option value="2">2</option>
-                <option value="3">3</option>
-                <option value="4">4</option>
-                <option value="5">5</option>
-                <option value="6">6</option>
-                <option value="7">7</option>
-              </select>
-              days
+          <div class="mb-3">
+            <label for="" class="form-label">Occurs on</label>
+            <div id="days">
+              <div class="form-check">
+                <input
+                  class="form-check-input"
+                  type="checkbox"
+                  name="wdays"
+                  id="sun"
+                  value="sun"
+                />
+                <label class="form-check-label" for="sun"> Sun </label>
+              </div>
+              <div class="form-check">
+                <input
+                  class="form-check-input"
+                  type="checkbox"
+                  name="wdays"
+                  id="mon"
+                  value="mon"
+                />
+                <label class="form-check-label" for="mon"> Mon </label>
+              </div>
+              <div class="form-check">
+                <input
+                  class="form-check-input"
+                  type="checkbox"
+                  name="wdays"
+                  id="tue"
+                  value="tue"
+                />
+                <label class="form-check-label" for="tue"> Tue </label>
+              </div>
+              <div class="form-check">
+                <input
+                  class="form-check-input"
+                  type="checkbox"
+                  name="wdays"
+                  id="wed"
+                  value="wed"
+                />
+                <label class="form-check-label" for="wed"> Wed </label>
+              </div>
+              <div class="form-check">
+                <input
+                  class="form-check-input"
+                  type="checkbox"
+                  name="wdays"
+                  id="thu"
+                  value="thu"
+                />
+                <label class="form-check-label" for="thu"> Thu </label>
+              </div>
+              <div class="form-check">
+                <input
+                  class="form-check-input"
+                  type="checkbox"
+                  name="wdays"
+                  id="fri"
+                  value="fri"
+                />
+                <label class="form-check-label" for="fri"> Fri </label>
+              </div>
+              <div class="form-check">
+                <input
+                  class="form-check-input"
+                  type="checkbox"
+                  name="wdays"
+                  id="sat"
+                  value="sat"
+                />
+                <label class="form-check-label" for="sat"> Sat </label>
+              </div>
             </div>
-            <div>
-              End After
-              <select
-                class="form-select form-select-sm d-inline"
-                name="occurences"
-                style="width: 100px"
-              >
-                <option value="2" selected>2</option>
-                <option value="3">3</option>
-                <option value="4">4</option>
-                <option value="5">5</option>
-                <option value="6">6</option>
-                <option value="7">7</option>
-              </select>
-              occurences
-            </div>
           </div>
-          <!-- <div class="mb-3">
-            <input
-              type="text"
-              class="form-control"
-              id="meetUrl"
-              name="meetUrl"
-              placeholder="Google meet link(optional)"
-            />
-          </div> -->
+          <div class="mb-3">
+            <label for="endby">End By </label>
+            <input type="date" name="endby" id="endby" />
+          </div>
           <div class="mb-3">
             <label for="select-class">Select Class</label>
-            <select class="form-select" id="select-class" name="standard">
-              <option value="1" selected>1</option>
+            <select class="form-select form-select-sm" id="select-class" name="class" required>
+              <option value="" selected disabled>Choose...</option>1</option>
+              <option value="1">1</option>
               <option value="2">2</option>
               <option value="3">3</option>
               <option value="4">4</option>
@@ -260,8 +298,8 @@
         : `<b>Class ${standard} students:</b>`;
     students.forEach((student) => {
       allStudents.innerHTML += `<div class="student">
-              <label for="${student._id}">${student.username}</label>
-              <input type="checkbox" id="${student._id}" name="student" value="${student._id}"/>
+              <label for="${student._id}">${student.fullname}</label>
+              <input type="checkbox" id="${student._id}" name="students" value="${student._id}"/>
             </div>`;
     });
   }
@@ -286,4 +324,11 @@
       checkBox.value = "false";
     }
   }
+  function populateDate() {
+    var today = new Date();
+    document.getElementById("date").value = today.toISOString().split("T")[0];
+    today.setDate(today.getDate() + 30);
+    document.getElementById("endby").value = today.toISOString().split("T")[0];
+  }
+  populateDate();
 </script>

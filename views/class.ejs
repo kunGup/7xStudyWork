@@ -8,219 +8,223 @@
     display: flex;
     justify-content: space-between;
   }
+
   .list-group-student:last-child,
   .list-group-att:last-child {
     border-bottom: 0;
+  }
+
+  .feedback-heading {
+    display: flex;
+    justify-content: space-between;
   }
 </style>
 <section>
   <div class="container-fluid">
     <%- include('dpartials/alerts'); %>
-    <div class="row">
-      <div class="offset-md-3 col-md-6">
-        <div class="card shadow mb-2">
-          <div class="card-body">
-            <h4 class="card-title">Class Info</h4>
-          </div>
-          <ul class="list-group list-group-flush">
-            <li class="list-group-item details">
-              <strong>Title: </strong><span><%= cls.title %></span>
-            </li>
-            <li class="list-group-item details">
-              <strong>Teacher: </strong>
-              <span>
-                <a href="/dashboard/teacher/<%= cls.teacher._id %>"><%= cls.teacher.username %></a>
-                <% if(currentUser.role === 'admin'){ %> 
-                <button
-                class="btn btn-warning btn-sm ml-1"
-                href="#"
-                data-bs-toggle="modal"
-                data-bs-target="#changeTeacher"
-              >
-                Change
-              </button>
-              <% } %> 
-              </span>
-            </li>
-            <li class="list-group-item details">
-              <strong>Subject: </strong><%= cls.subject %>
-            </li>
-            <li class="list-group-item details">
-              <strong>Class: </strong><%= cls.class %>
-            </li>
-            <li class="list-group-item details">
-              <strong>When: </strong><%= info.time %>, <%= info.date %>
-            </li>
-            <li class="list-group-item details">
-              <strong>Duration: </strong><%= cls.duration.hrs %> hrs <%=
-              cls.duration.mins %> mins
-            </li>
-            <!-- <li class="list-group-item details">
-              <strong>Status: </strong>
-              <% if(cls.completed) {%> Completed <% } else{%> Not marked <% } %>
-            </li> -->
-            <li class="list-group-item">
-              <strong>Enrolled students: </strong>
-              <ul class="list-group">
-                <% for(var i=0;i<cls.students.length;i++){ %> 
-                <li class="list-group-item list-group-student">
-                  <span><%= cls.students[i].username %></span><span><%= cls.students[i].email %></span>
-                </li>
-                <% } %> 
-              </ul>
-            </li>
-          </ul>
-          <div class="card-footer">
-            <a class="btn btn-success btn-sm" href="/dashboard/classroom/<%= cls.id %>" target="_blank" role="button">Join Class</a>
-            <% if(currentUser.role !== 'student') {%> 
-            <button
-              class="btn btn-warning btn-sm"
-              href="#"
-              data-bs-toggle="modal"
-              data-bs-target="#changeClassInfo"
-            >
-              Change Info
-            </button>
-            <form action="/dashboard/class/<%= cls.id %>?_method=DELETE" method="post" class="d-inline">
-              <button
-                class="btn btn-danger btn-sm"
-                type="submit"
-                onclick="return ConfirmDelete()"
-              >
-                Cancel Class
-              </button>
-            </form>
-            <% } %> 
-          </div>
-        </div>
-        <!-- <div class="card shadow">
-          <div class="card-body">
-            <h4 class="card-title">Attendance</h4>
-            <ul class="list-group">
-              <li class="list-group-item list-group-att">
-                <span>student name</span>
-                <span>email</span>
+      <div class="row">
+        <div class="offset-md-3 col-md-6">
+          <div class="card shadow mb-2">
+            <div class="card-body">
+              <h4 class="card-title">Class Info</h4>
+            </div>
+            <ul class="list-group list-group-flush">
+              <li class="list-group-item details">
+                <strong>Title: </strong><span>
+                  <%= cls.title %>
+                </span>
               </li>
+              <li class="list-group-item details">
+                <strong>Topic: </strong><span>
+                  <%= cls.topic ? cls.topic : "Not provided" %>
+                </span>
+              </li>
+              <li class="list-group-item details">
+                <strong>Teacher: </strong>
+                <span>
+                  <a href="/dashboard/teacher/<%= cls.teacher._id %>">
+                    <%= cls.teacher.fullname %>
+                  </a>
+                  <% if(currentUser.role==='admin' ){ %>
+                    <button class="btn btn-warning btn-sm ml-1" href="#" data-bs-toggle="modal"
+                      data-bs-target="#changeTeacher">
+                      Change
+                    </button>
+                    <% } %>
+                </span>
+              </li>
+              <li class="list-group-item details">
+                <strong>Subject: </strong>
+                <%= cls.subject %>
+              </li>
+              <li class="list-group-item details">
+                <strong>Class: </strong>
+                <%= cls.class %>
+              </li>
+              <li class="list-group-item details">
+                <strong>When: </strong>
+                <%= info.time %>, <%= info.date %>
+              </li>
+              <li class="list-group-item details">
+                <strong>Duration: </strong>
+                <%= cls.duration.hrs %> hrs <%= cls.duration.mins %> mins
+              </li>
+              <% if(cls.meetUrl){ %>
+                <li class="list-group-item details">
+                  <strong>Google meet link: </strong><a href="<%= cls.meetUrl %>" target="_blank">Join</a>
+                </li>
+                <% } %>
+                <li class="list-group-item">
+                  <strong>Enrolled students: </strong>
+                  <ul class="list-group">
+                    <% for(var i=0;i<cls.students.length;i++){ %>
+                      <li class="list-group-item list-group-student">
+                        <span>
+                          <%= cls.students[i].fullname %>
+                        </span><span>
+                          <%= cls.students[i].email %>
+                        </span>
+                      </li>
+                      <% } %>
+                  </ul>
+                </li>
             </ul>
-          </div>
-          <div class="card-footer">
-            <button
-              class="btn btn-warning btn-sm"
-              href="#"
-              data-bs-toggle="modal"
-              data-bs-target="#updateAttendance"
-            >
-              Update
-            </button>
-          </div>
-        </div> -->
-      </div> 
-    </div>
-    <div class="row">
-      <% if(currentUser.role !== 'teacher'){ %> 
-      <div class="col-md-6 offset-md-3">
-        <div class="card shadow">
-          <div class="card-body">
-            <h4 class="card-title">Student Feedback</h4>
-            <% if(currentUser.role === 'student') {%> 
-            <form action="/dashboard/class/<%= cls.id %>/review" method="POST" class="mb-3 validated-form" novalidate>
-              <fieldset class="starability-fade">
-                <input
-                  type="radio"
-                  id="no-rate"
-                  class="input-no-rate"
-                  name="rating"
-                  value="1"
-                  checked
-                  aria-label="No rating."
-                />
-                <input
-                  type="radio"
-                  id="first-rate1"
-                  name="rating"
-                  value="1"
-                />
-                <label for="first-rate1" title="Terrible">1 star</label>
-                <input
-                  type="radio"
-                  id="first-rate2"
-                  name="rating"
-                  value="2"
-                />
-                <label for="first-rate2" title="Not good">2 stars</label>
-                <input
-                  type="radio"
-                  id="first-rate3"
-                  name="rating"
-                  value="3"
-                />
-                <label for="first-rate3" title="Average">3 stars</label>
-                <input
-                  type="radio"
-                  id="first-rate4"
-                  name="rating"
-                  value="4"
-                />
-                <label for="first-rate4" title="Very good">4 stars</label>
-                <input
-                  type="radio"
-                  id="first-rate5"
-                  name="rating"
-                  value="5"
-                />
-                <label for="first-rate5" title="Amazing">5 stars</label>
-              </fieldset>
-              <div class="mb-3">
-                <label class="form-label" for="body">Review Text</label>
-                <textarea
-                  class="form-control"
-                  name="body"
-                  id="body"
-                  rows="2"
-                  required
-                ></textarea>
-                <div class="valid-feedback">Looks good!</div>
-              </div>
-              <button class="btn btn-sm btn-success">Submit</button>
-            </form>
-            <% } %>
-            <% for(let review of cls.reviews) { %>
-            <div class="card mb-3">
-              <div class="card-body">
-                <h6 class="card-title"><%= review.student.username %></h6>
-                <p class="starability-result" data-rating="<%=review.rating%>">Rated: <%=review.rating%> stars</p>
-                <p class="card-text"><%= review.body %></p>
-                <%  if( currentUser && review.student.equals(currentUser._id))  {%>
-                <form action="/dashboard/class/<%=cls._id%>/review/<%=review._id%>?_method=DELETE" method="POST">
-                    <button class="btn btn-sm btn-danger" onclick="return ConfirmDelete()">Delete</button>
+            <div class="card-footer">
+              <a class="btn btn-success btn-sm"
+                href="<%= currentUser.role === 'student' ? cls.teacher.classroom.join_url : cls.teacher.classroom.start_url %>"
+                target="_blank" role="button">Join Class</a>
+                <% if(currentUser.role !=='student' ) {%>
+                <button class="btn btn-warning btn-sm" href="#" data-bs-toggle="modal"
+                  data-bs-target="#changeClassInfo">
+                  Change Info
+                </button>
+                <button class="btn btn-warning btn-sm" href="#" data-bs-toggle="modal"
+                  data-bs-target="#rescheduleClass">
+                  Reschedule Class
+                </button>
+                <form action="/dashboard/class/<%= cls.id %>?_method=DELETE" method="post" class="d-inline">
+                  <button class="btn btn-danger btn-sm" type="submit" onclick="return ConfirmDelete()">
+                    Cancel Class
+                  </button>
                 </form>
                 <% } %>
-              </div>
             </div>
-            <% } %>
           </div>
+
         </div>
       </div>
-      <% } %>
-    </div>
+
+      <% if(currentUser.role !=='teacher' ){ %>
+        <div class="row">
+          <div class="col-md-6 offset-md-3">
+            <div class="card shadow">
+              <div class="card-body">
+                <h4 class="card-title">Class Feedback</h4>
+                  <% if(currentUser.role==='student' ) {%>
+                  <form action="/dashboard/class/<%= cls.id %>/review" method="POST" class="mb-3 validated-form"
+                    id="feedback-form">
+                    <h6 class="card-subtitle mb-2 text-muted">Giving feedback is mandatory as it will mark your
+                      attendance.</h6>
+                    <p id="timer"><span id="mins">--</span>:<span id="secs">--</span></p>
+                    <fieldset class="starability-fade">
+                      <input type="radio" id="no-rate" class="input-no-rate" name="rating" value="1" checked
+                        aria-label="No rating." />
+                      <input type="radio" id="first-rate1" name="rating" value="1" />
+                      <label for="first-rate1" title="Terrible">1 star</label>
+                      <input type="radio" id="first-rate2" name="rating" value="2" />
+                      <label for="first-rate2" title="Not good">2 stars</label>
+                      <input type="radio" id="first-rate3" name="rating" value="3" />
+                      <label for="first-rate3" title="Average">3 stars</label>
+                      <input type="radio" id="first-rate4" name="rating" value="4" />
+                      <label for="first-rate4" title="Very good">4 stars</label>
+                      <input type="radio" id="first-rate5" name="rating" value="5" />
+                      <label for="first-rate5" title="Amazing">5 stars</label>
+                    </fieldset>
+                    <div class="mb-3">
+                      <textarea class="form-control" name="body" id="body" rows="2"></textarea>
+                    </div>
+                    <button class="btn btn-sm btn-success">Submit</button>
+                  </form>
+                  <% } %>
+                  <% if(cls.reviews.length) {%> 
+                    <% for(let review of cls.reviews) { %>
+                    <div class="card mb-3">
+                      <div class="card-body">
+                        <h6 class="card-title">
+                          <%= review.student.fullname %>
+                        </h6>
+                        <p class="starability-result" data-rating="<%=review.rating%>">Rated: <%=review.rating%>
+                            stars</p>
+                        <p class="card-text">
+                          <%= review.body %>
+                        </p>
+                      </div>
+                    </div>
+                    <% } %>
+                  <% } else{%>
+                  Currently there are no feedbacks.
+                  <% } %>  
+              </div>
+            </div>
+          </div>
+        </div>
+        <% } %>
   </div>
 </section>
-<%- include('dpartials/cancelClass') %> <%- include('dpartials/deleteReview') %>
-<%- include('dpartials/changeClassInfo') %> <%-
-include('dpartials/updateAttendance') %>
-<%- include('dpartials/changeTeacher') %> 
-<script>
-  // const navLinks = document.querySelectorAll(".nav-link");
-  // navLinks.forEach(navlink => {
-  //   navlink.addEventListener('click',(e)=>{
-  //     e.preventDefault();
-  //     navLinks.forEach((navlink) => {
-  //       navlink.classList.remove("active");
-  //     });
-  //     navlink.classList.add("active");
-  //   })
-  // })
-  function ConfirmDelete() {
-    return confirm("Are you sure you want to delete?");
-  }
-</script>
+<% if(currentUser.role==='admin' ) {%>
+  <%- include('dpartials/changeTeacher') %>
+    <% } %>
+
+        <% if(currentUser.role !=='student' ) {%>
+          <%- include('dpartials/cancelClass') %>
+            <%- include('dpartials/changeClassInfo') %>
+              <%- include('dpartials/rescheduleClass') %>
+                <% } %>
+                  <script>
+                    function ConfirmDelete() {
+                      return confirm("Are you sure you want to delete?");
+                    }
+                    const feedbackForm = document.getElementById("feedback-form")
+                    const minutesEl = document.getElementById('mins')
+                    const secondsEl = document.getElementById('secs')
+                    var data = '<%- JSON.stringify(cls) %>'
+                    var cls = JSON.parse(data);
+                    function showFeedbackForm() {
+                      let hrs = parseInt(cls.duration.hrs);
+                      let mins = parseInt(cls.duration.mins);
+                      let totalMins = 60 * hrs + mins;
+                      let timeAfterClass = add_minutes(new Date(cls.when), totalMins);
+                      let time5minsAfterClass = add_minutes(new Date(cls.when), totalMins + 5);
+                      if (isBetween(timeAfterClass, time5minsAfterClass)) {
+                        let timerId = setInterval(() => {
+                          countdown(time5minsAfterClass)
+                        }, 1000);
+                        setTimeout(() => {
+                          clearInterval(timerId);
+                          feedbackForm.remove()
+                        }, time5minsAfterClass.getTime() - new Date().getTime());
+                      } else {
+                        feedbackForm.remove()
+                      }
+                    }
+                    showFeedbackForm()
+                    function add_minutes(dt, minutes) {
+                      return new Date(dt.getTime() + minutes * 60000);
+                    };
+                    function isBetween(min, max) {
+                      let rightNow = new Date();
+                      return (
+                        rightNow.getTime() >= min.getTime() && rightNow.getTime() <= max.getTime()
+                      );
+                    };
+                    function countdown(time5minsAfterClass) {
+                      let totalSecs = (time5minsAfterClass.getTime() - new Date().getTime()) / 1000
+                      let minutes = Math.floor(totalSecs / 60) % 60
+                      let seconds = Math.floor(totalSecs) % 60
+                      minutesEl.textContent = format(minutes)
+                      secondsEl.textContent = format(seconds)
+                    }
+                    function format(text) {
+                      return text < 10 ? `0${text}` : text;
+                    }
+                  </script>

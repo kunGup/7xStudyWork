@@ -1,3 +1,15 @@
+<style>
+  .student {
+    display: flex;
+    padding: 10px 5px;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 0.3px solid lightgray;
+  }
+  .student:nth-of-type(2n) {
+    background-color: whitesmoke;
+  }
+</style>
 <div
   class="modal fade"
   id="updateAttendance"
@@ -10,32 +22,30 @@
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="staticBackdropLabel">Update Attendance</h5>
+        <h6 class="modal-title" id="staticBackdropLabel">Students who were present?</h6>
         <button
           type="button"
-          class="btn-close"
+          class="btn-close"     
           data-bs-dismiss="modal"
           aria-label="Close"
         ></button>
       </div>
       <div class="modal-body">
-        <form action="">
-          <div class="form-check form-switch mb-3">
-            <label class="form-check-label" for="status">Student Name</label>
+        <form action="/dashboard/class/<%= cls.id %>/attendance?_method=PUT" method="POST">
+          <% for(let i=0; i<cls.students.length; i++){ %> 
+          <div class="student">
+            <label for="<%= cls.students[i].id %>"><%= cls.students[i].username %></label>
             <input
-              class="form-check-input"
               type="checkbox"
-              id="status"
-              checked
+              id="<%= cls.students[i].id %>"
+              name="student"
+              value="<%= cls.students[i].id %>"
+              <%= cls.studentAttended && cls.studentAttended.includes(cls.students[i].id) ? 'checked' : ''%> 
             />
           </div>
+          <% } %> 
+          <button type="submit" class="btn btn-primary mt-2">Confirm</button>
         </form>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
-          Cancel
-        </button>
-        <button type="button" class="btn btn-primary">Confirm</button>
       </div>
     </div>
   </div>

@@ -13,6 +13,8 @@
   class="modal fade"
   id="newUser"
   tabindex="-1"
+  data-bs-backdrop="static"
+  data-bs-keyboard="false"
   aria-labelledby="exampleModalLabel"
   aria-hidden="true"
 >
@@ -22,7 +24,16 @@
         <h5 class="modal-title" id="exampleModalLabel">New user</h5>
       </div>
       <div class="modal-body">
-        <form id="myForm" action="/user/register" method="post" novalidate>
+        <form id="myForm" action="/user/register" method="post">
+          <div class="mb-3">
+            <input
+              type="text"
+              name="fullname"
+              class="form-control"
+              placeholder="Fullname"
+              required
+            />
+          </div>
           <div class="mb-3">
             <input
               type="text"
@@ -41,7 +52,6 @@
               required
             />
           </div>
-
           <div class="mb-3">
             <input
               type="password"
@@ -57,7 +67,6 @@
               name="apikey"
               class="form-control"
               placeholder="Api Key"
-              required
             />
           </div>
           <div class="mb-3" id="B">
@@ -66,12 +75,12 @@
               name="apisecret"
               class="form-control"
               placeholder="Api Secret"
-              required
             />
           </div>
           <div class="mb-3" id="C">
             <label for="select-class">Select Class</label>
-            <select class="form-select" name="standard">
+            <select class="form-select form-select-sm" name="standard">
+              <option disabled selected value="">Choose...</option>
               <option value="1">1</option>
               <option value="2">2</option>
               <option value="3">3</option>
@@ -86,30 +95,33 @@
               <option value="12">12</option>
             </select>
           </div>
-          Assign Role:
-          <br />
-          <div class="form-check form-check-inline">
-            <input
-              class="form-check-input"
-              type="radio"
-              name="role"
-              id="student"
-              value="student"
-              onchange="hideAB(this)"
-              checked
-            />
-            <label class="form-check-label" for="student">Student</label>
-          </div>
-          <div class="form-check form-check-inline">
-            <input
-              class="form-check-input"
-              type="radio"
-              name="role"
-              id="teacher"
-              value="teacher"
-              onchange="hideC(this)"
-            />
-            <label class="form-check-label" for="teacher">Teacher</label>
+          <div class="mb-3">
+            <label for="">Assign Role</label>
+            <div class="form-group">
+              <div class="form-check form-check-inline">
+                <input
+                  class="form-check-input"
+                  type="radio"
+                  name="role"
+                  id="student"
+                  value="student"
+                  onchange="hideAB(this)"
+                  checked
+                />
+                <label class="form-check-label" for="student">Student</label>
+              </div>
+              <div class="form-check form-check-inline">
+                <input
+                  class="form-check-input"
+                  type="radio"
+                  name="role"
+                  id="teacher"
+                  value="teacher"
+                  onchange="hideC(this)"
+                />
+                <label class="form-check-label" for="teacher">Teacher</label>
+              </div>
+            </div>
           </div>
         </form>
       </div>
@@ -135,14 +147,14 @@
     if (x.checked) {
       document.getElementById("A").style.display = "none";
       document.getElementById("B").style.display = "none";
-      document.getElementById("C").style.display = "initial";
+      document.getElementById("C").style.display = "block";
     }
   }
 
   function hideC(x) {
     if (x.checked) {
-      document.getElementById("B").style.display = "initial";
-      document.getElementById("A").style.display = "initial";
+      document.getElementById("B").style.display = "block";
+      document.getElementById("A").style.display = "block";
       document.getElementById("C").style.display = "none";
     }
   }

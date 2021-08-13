@@ -1,3 +1,12 @@
+<style>
+  .nav-pills {
+    display: none;
+  }
+
+  .nav-pills.active {
+    display: flex;
+  }
+</style>
 <section>
   <div class="container-fluid">
     <div class="row">
@@ -8,10 +17,16 @@
           </div>
           <ul class="list-group list-group-flush">
             <li class="list-group-item">
-              <strong>Username: </strong><%= teacher.username%>
+              <strong>Name: </strong>
+              <%= teacher.fullname%>
             </li>
             <li class="list-group-item">
-              <strong>Email: </strong><%= teacher.email%>
+              <strong>Username: </strong>
+              <%= teacher.username%>
+            </li>
+            <li class="list-group-item">
+              <strong>Email: </strong>
+              <%= teacher.email%>
             </li>
           </ul>
         </div>
@@ -20,33 +35,88 @@
         <div class="card shadow">
           <div class="card-body">
             <h4 class="card-title">Classes</h4>
-            <ul class="nav nav-tabs">
-              <li class="nav-item">
-                <a class="nav-link nl active" aria-current="page" href=""
-                  >Today</a
+
+            <ul class="nav nav-tabs mb-2" role="tablist">
+              <li class="nav-item" role="presentation">
+                <button
+                  class="nav-link active"
+                  id="today-tab"
+                  data-bs-toggle="tab"
+                  data-bs-target="#today"
+                  type="button"
+                  role="tab"
                 >
+                  Today
+                </button>
               </li>
-              <li class="nav-item">
-                <a class="nav-link nl" aria-current="page" href="">Upcoming</a>
+              <li class="nav-item" role="presentation">
+                <button
+                  class="nav-link"
+                  id="upcoming-tab"
+                  data-bs-toggle="tab"
+                  data-bs-target="#upcoming"
+                  type="button"
+                  role="tab"
+                >
+                  Upcoming
+                </button>
               </li>
-              <li class="nav-item">
-                <a class="nav-link nl" href="">Past</a>
+              <li class="nav-item" role="presentation">
+                <button
+                  class="nav-link"
+                  id="past-tab"
+                  data-bs-toggle="tab"
+                  data-bs-target="#past"
+                  type="button"
+                  role="tab"
+                >
+                  Past
+                </button>
               </li>
             </ul>
-            <div class="table-responsive">
-              <table class="table table-striped table-hover align-middle">
-                <thead>
-                  <tr>
-                    <th scope="col">Title</th>
-                    <th scope="col">Subject</th>
-                    <th scope="col">Class</th>
-                    <th scope="col">Duration</th>
-                    <th scope="col">Time</th>
-                    <th scope="col">Date</th>
-                  </tr>
-                </thead>
-                <tbody></tbody>
-              </table>
+
+            <div class="tab-content">
+              <div class="tab-pane active" id="today" role="tabpanel"></div>
+              <div class="tab-pane" id="upcoming" role="tabpanel"></div>
+              <div class="tab-pane" id="past" role="tabpanel">
+                <ul class="nav nav-tabs" role="tablist">
+                  <!-- nav pills -->
+                  <li class="nav-item" role="presentation">
+                    <button
+                      class="nav-link active"
+                      id="pcurrent-tab"
+                      data-bs-toggle="tab"
+                      data-bs-target="#pcurrent"
+                      type="button"
+                      role="tab"
+                    >
+                      Current Cycle
+                    </button>
+                  </li>
+                  <li class="nav-item" role="presentation">
+                    <button
+                      class="nav-link"
+                      id="ppast-tab"
+                      data-bs-toggle="tab"
+                      data-bs-target="#ppast"
+                      type="button"
+                      role="tab"
+                    >
+                      Past Cycle
+                    </button>
+                  </li>
+                </ul>
+
+                <!-- tab panes -->
+                <div class="tab-content">
+                  <div
+                    class="tab-pane active"
+                    id="pcurrent"
+                    role="tabpanel"
+                  ></div>
+                  <div class="tab-pane" id="ppast" role="tabpanel"></div>
+                </div>
+              </div>
             </div>
           </div>
         </div>
@@ -58,37 +128,25 @@
 <script>
   const teacherId = window.location.pathname.split("/")[3];
   let classes = [];
+  let past = [];
+  let today = [];
+  let upcoming = [];
+  let pPast = [];
+  let pCurrent = [];
   fetch(`/dashboard/teacher/${teacherId}/classes`)
     .then((res) => res.json())
     .then((data) => {
       classes = data.classes;
       groupAll();
-      renderClasses(today);
+      var getPastDates = determineDates();
+      groupPastClasses(getPastDates);
+      populateClasses(today, "today");
+      populateClasses(upcoming, "upcoming");
+      populateClasses(pPast, "ppast");
+      populateClasses(pCurrent, "pcurrent");
     })
     .catch((err) => console.log(err));
 
-  const navLinks = document.querySelectorAll(".nl");
-  const tbody = document.querySelector("tbody");
-  let past = [];
-  let today = [];
-  let upcoming = [];
-  navLinks.forEach((navlink) => {
-    navlink.addEventListener("click", (e) => {
-      e.preventDefault();
-      navLinks.forEach((navlink) => {
-        navlink.classList.remove("active");
-      });
-      navlink.classList.add("active");
-      let category = navlink.innerText;
-      if (category === "Past") {
-        renderClasses(past);
-      } else if (category === "Today") {
-        renderClasses(today);
-      } else {
-        renderClasses(upcoming);
-      }
-    });
-  });
   function groupAll() {
     classes.forEach((c) => {
       let dt = c.when;
@@ -108,14 +166,52 @@
     sort(upcoming);
     sort(past);
   }
-
+  function groupPastClasses(dates) {
+    pPast = past.filter((c) => {
+      var time = new Date(c.when).getTime();
+      return (
+        time >= new Date(dates.ps).getTime() &&
+        time <= new Date(dates.pe).getTime()
+      );
+    });
+    pCurrent = past.filter((c) => {
+      var time = new Date(c.when).getTime();
+      return (
+        time >= new Date(dates.cs).getTime() &&
+        time <= new Date(dates.ce).getTime()
+      );
+    });
+  }
   function sort(array) {
     array.sort(function (a, b) {
       return new Date(a.when) - new Date(b.when);
     });
   }
-  function renderClasses(array) {
-    clear(tbody);
+  function populateClasses(array, id) {
+    let tabPane = document.getElementById(id);
+    tabPane.innerHTML = `
+    <div class="table-responsive">
+                  <table class="table table-striped table-hover align-middle">
+                    <thead>
+                      <tr>
+                        <th scope="col">Title</th>
+                        <th scope="col">Subject</th>
+                        <th scope="col">Class</th>
+                        <th scope="col">Duration</th>
+                        <th scope="col">Time</th>
+                        <th scope="col">Date</th>
+                        ${
+                          id === "pcurrent" || id === "ppast"
+                            ? `<th scope="col">Students Attended</th>`
+                            : ""
+                        }
+                      </tr>
+                    </thead>
+                    <tbody></tbody>
+                  </table>
+                </div>
+    `;
+    let tbody = tabPane.querySelector("tbody");
     array.forEach((obj) => {
       var dt = new Date(obj.when);
       tbody.innerHTML += `<tr>
@@ -125,15 +221,73 @@
         <td>${obj.duration.hrs} hrs ${obj.duration.mins} mins</td>
         <td>${format(dt.getHours())}:${format(dt.getMinutes())}</td>
         <td>${dt.getDate()}/${dt.getMonth() + 1}/${dt.getFullYear()}</td>
+        ${
+          id === "pcurrent" || id === "ppast"
+            ? `<td>${obj.reviews.length}</td>`
+            : ""
+        }
       </tr>`;
     });
   }
   function format(num) {
     return num < 10 ? "0" + num : num;
   }
-  function clear(element) {
-    while (element.firstChild) {
-      element.removeChild(element.firstChild);
+  function determineDates() {
+    var today = new Date();
+    var date = today.getDate();
+    var month = today.getMonth() + 1;
+    var year = today.getFullYear();
+    let cs, ce, ps, pe;
+    if (month === 1) {
+      if (date >= 26) {
+        ce = `${year}-2-25`;
+        cs = `${year}-1-26`;
+        pe = `${year}-1-25`;
+        ps = `${year - 1}-12-26`;
+      } else if (date <= 25) {
+        ce = `${year}-1-25`;
+        cs = `${year - 1}-12-26`;
+        pe = `${year - 1}-12-25`;
+        ps = `${year - 1}-11-26`;
+      }
+    } else if (month === 2) {
+      if (date >= 26) {
+        ce = `${year}-3-25`;
+        cs = `${year}-2-26`;
+        pe = `${year}-2-25`;
+        ps = `${year}-1-26`;
+      } else if (date <= 25) {
+        ce = `${year}-2-25`;
+        cs = `${year}-1-26`;
+        pe = `${year}-1-25`;
+        ps = `${year - 1}-12-26`;
+      }
+    } else if (month === 12) {
+      if (date >= 26) {
+        ce = `${year + 1}-1-25`;
+        cs = `${year}-12-26`;
+        pe = `${year}-12-25`;
+        ps = `${year}-11-26`;
+      } else if (date <= 25) {
+        ce = `${year}-12-25`;
+        cs = `${year}-11-26`;
+        pe = `${year}-11-25`;
+        ps = `${year}-10-26`;
+      }
+    } else {
+      if (date >= 26) {
+        ce = `${year}-${month + 1}-25`;
+        cs = `${year}-${month}-26`;
+        pe = `${year}-${month}-25`;
+        ps = `${year}-${month - 1}-26`;
+      } else if (date <= 25) {
+        ce = `${year}-${month}-25`;
+        cs = `${year}-${month - 1}-26`;
+        pe = `${year}-${month - 1}-25`;
+        ps = `${year}-${month - 2}-26`;
+      }
     }
+    let dates = { ps, pe, cs, ce };
+    return dates;
   }
 </script>
