@@ -5,7 +5,10 @@ const passportLocalMongoose = require("passport-local-mongoose");
 //   collection: "users",
 // };
 const userSchema = new mongoose.Schema({
-  //email but will be written username due to passport-local-mongoose
+  fullname: {
+    type: String,
+    required: true,
+  },
   username: {
     type: String,
     required: true,
@@ -19,19 +22,21 @@ const userSchema = new mongoose.Schema({
     enum: ["teacher", "student", "admin"],
     required: true,
   },
+
   //student
   class: String,
 
   //teacher
-  minCharges: [String],
-  batches: [String],
-  isAvailableWeekend: String,
-  availableTimings: [String],
-  grades: String,
-  qualification: String,
-  university: String,
-  experience: String,
-  resumeName: String,
+  // minCharges: [String],
+  // batches: [String],
+  // isAvailableWeekend: String,
+  // availableTimings: [String],
+  // grades: String,
+  // qualification: String,
+  // university: String,
+  // experience: String,
+  // resumeName: String,
+
   apikey: String,
   apisecret: String,
   classroom: {

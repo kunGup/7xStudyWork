@@ -55,7 +55,7 @@
   function render(teachers) {
     teachers.forEach((teacher) => {
       allTeachers.innerHTML += `<div class="teacher">
-              <label for="${teacher._id}">${teacher.username}</label>
+              <label for="${teacher._id}">${teacher.fullname}</label>
               <input type="radio" id="${teacher._id}" name="teacher" value="${teacher._id}"/>
             </div>`;
     });

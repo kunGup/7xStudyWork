@@ -11,14 +11,12 @@ const User = require("./models/user");
 const expressLayouts = require("express-ejs-layouts");
 const ExpressError = require("./utils/ExpressError");
 const LocalStrategy = require("passport-local").Strategy;
-// require("./config/passport")(passport);
-require("dotenv").config();
 const { ensureAuthenticated } = require("./middleware");
 //IMPORTING ROUTES
 var indexRoute = require("./routes/index");
 var userRoute = require("./routes/user");
 var dashboardRoute = require("./routes/dashboard");
-var adminRoute = require("./routes/admin");
+// var adminRoute = require("./routes/admin");
 
 //mongoose
 // const mongouri =
@@ -96,7 +94,7 @@ app.set("layout extractStyles", true);
 
 //SETTING ROUTES
 app.use("/", indexRoute);
-app.use("/admin", adminRoute);
+// app.use("/admin", adminRoute);
 app.use("/user", userRoute);
 app.use("/dashboard", dashboardRoute);
 app.get("/config/:classId", ensureAuthenticated, (req, res) => {

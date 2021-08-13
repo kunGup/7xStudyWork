@@ -1,6 +1,7 @@
 const mongoose = require("mongoose");
 const User = require("./models/user");
 const Class = require("./models/class");
+const Review = require("./models/review");
 const jwt = require("jsonwebtoken");
 const axios = require("axios");
 
@@ -19,11 +20,13 @@ db.once("open", () => {
 
 const users = [
   {
+    fullname: "admin name",
     username: "admin",
     email: "admin@a.in",
     role: "admin",
   },
   {
+    fullname: "teacher1 name",
     username: "teacher1",
     email: "teacher1@a.in",
     role: "teacher",
@@ -31,6 +34,7 @@ const users = [
     apisecret: "ComfBfrmZq6idLn9feJoUSQm0gMAzECtrqZC",
   },
   {
+    fullname: "teacher2 name",
     username: "teacher2",
     email: "teacher2@a.in",
     role: "teacher",
@@ -38,12 +42,14 @@ const users = [
     apisecret: "1KfheD3nMtXmQAMe2KTUfvbYL6mFHvK8ArSD",
   },
   {
+    fullname: "student1 name",
     username: "student1",
     email: "goodkunal723@gmail.com",
     role: "student",
     class: "12",
   },
   {
+    fullname: "student2 name",
     username: "student2",
     email: "greatkunal49@gmail.com",
     role: "student",
@@ -53,8 +59,10 @@ const users = [
 const seedDB = async () => {
   await User.deleteMany({});
   await Class.deleteMany({});
+  await Review.deleteMany({});
   for (let u of users) {
     let user = new User({
+      fullname: u.fullname,
       username: u.username,
       email: u.email,
       role: u.role,

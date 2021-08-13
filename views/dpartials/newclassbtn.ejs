@@ -110,12 +110,13 @@
           <div class="mb-3">
             <label for="" class="form-label">Duration</label><br />
             <div class="group">
-              <label for="duration[hrs]" class="form-label">Hrs</label>
+              <label for="" class="form-label">Hrs</label>
               <select
                 class="form-select form-select-sm"
                 aria-label=".form-select-sm"
                 name="hrs"
                 style="width: 100px"
+                required
               >
                 <option value="0">0</option>
                 <option value="1" selected>1</option>
@@ -124,7 +125,7 @@
                 <option value="4">4</option>
                 <option value="5">5</option>
               </select>
-              <label for="duration[mins]" class="form-label">Mins</label>
+              <label for="" class="form-label">Mins</label>
               <select
                 class="form-select form-select-sm"
                 aria-label=".form-select-sm"
@@ -139,7 +140,7 @@
             </div>
           </div>
           <div class="mb-3">
-            Occurs on<br />
+            <label for="" class="form-label">Occurs on</label>
             <div id="days">
               <div class="form-check">
                 <input
@@ -217,65 +218,11 @@
             <label for="endby">End By </label>
             <input type="date" name="endby" id="endby" />
           </div>
-          <!-- <div class="form-check form-switch mb-3">
-            <input
-              class="form-check-input"
-              type="checkbox"
-              name="isRecurring"
-              id="isRecurring"
-              value="false"
-              onclick="toggleRec()"
-            />
-            <label class="form-check-label" for="isRecurring">Recurring</label>
-          </div>
-          <div class="mb-3" id="recurring-group" style="display: none">
-            <div>
-              Repeat every:
-              <select
-                class="form-select form-select-sm d-inline"
-                name="days"
-                style="width: 100px"
-              >
-                <option value="1" selected>1</option>
-                <option value="2">2</option>
-                <option value="3">3</option>
-                <option value="4">4</option>
-                <option value="5">5</option>
-                <option value="6">6</option>
-                <option value="7">7</option>
-              </select>
-              days
-            </div>
-            <div>
-              End After
-              <select
-                class="form-select form-select-sm d-inline"
-                name="occurences"
-                style="width: 100px"
-              >
-                <option value="2" selected>2</option>
-                <option value="3">3</option>
-                <option value="4">4</option>
-                <option value="5">5</option>
-                <option value="6">6</option>
-                <option value="7">7</option>
-              </select>
-              occurences
-            </div>
-          </div> -->
-          <!-- <div class="mb-3">
-            <input
-              type="text"
-              class="form-control"
-              id="meetUrl"
-              name="meetUrl"
-              placeholder="Google meet link(optional)"
-            />
-          </div> -->
           <div class="mb-3">
             <label for="select-class">Select Class</label>
-            <select class="form-select" id="select-class" name="standard">
-              <option value="1" selected>1</option>
+            <select class="form-select form-select-sm" id="select-class" name="class" required>
+              <option value="" selected disabled>Choose...</option>1</option>
+              <option value="1">1</option>
               <option value="2">2</option>
               <option value="3">3</option>
               <option value="4">4</option>
@@ -351,8 +298,8 @@
         : `<b>Class ${standard} students:</b>`;
     students.forEach((student) => {
       allStudents.innerHTML += `<div class="student">
-              <label for="${student._id}">${student.username}</label>
-              <input type="checkbox" id="${student._id}" name="student" value="${student._id}"/>
+              <label for="${student._id}">${student.fullname}</label>
+              <input type="checkbox" id="${student._id}" name="students" value="${student._id}"/>
             </div>`;
     });
   }

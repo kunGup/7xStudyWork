@@ -43,7 +43,7 @@
                 <strong>Teacher: </strong>
                 <span>
                   <a href="/dashboard/teacher/<%= cls.teacher._id %>">
-                    <%= cls.teacher.username %>
+                    <%= cls.teacher.fullname %>
                   </a>
                   <% if(currentUser.role==='admin' ){ %>
                     <button class="btn btn-warning btn-sm ml-1" href="#" data-bs-toggle="modal"
@@ -74,30 +74,26 @@
                   <strong>Google meet link: </strong><a href="<%= cls.meetUrl %>" target="_blank">Join</a>
                 </li>
                 <% } %>
-                  <!-- <li class="list-group-item details">
-              <strong>Status: </strong>
-              <% if(cls.completed) {%> Completed <% } else{%> Not marked <% } %>
-            </li> -->
-                  <li class="list-group-item">
-                    <strong>Enrolled students: </strong>
-                    <ul class="list-group">
-                      <% for(var i=0;i<cls.students.length;i++){ %>
-                        <li class="list-group-item list-group-student">
-                          <span>
-                            <%= cls.students[i].username %>
-                          </span><span>
-                            <%= cls.students[i].email %>
-                          </span>
-                        </li>
-                        <% } %>
-                    </ul>
-                  </li>
+                <li class="list-group-item">
+                  <strong>Enrolled students: </strong>
+                  <ul class="list-group">
+                    <% for(var i=0;i<cls.students.length;i++){ %>
+                      <li class="list-group-item list-group-student">
+                        <span>
+                          <%= cls.students[i].fullname %>
+                        </span><span>
+                          <%= cls.students[i].email %>
+                        </span>
+                      </li>
+                      <% } %>
+                  </ul>
+                </li>
             </ul>
             <div class="card-footer">
               <a class="btn btn-success btn-sm"
                 href="<%= currentUser.role === 'student' ? cls.teacher.classroom.join_url : cls.teacher.classroom.start_url %>"
                 target="_blank" role="button">Join Class</a>
-              <% if(currentUser.role !=='student' ) {%>
+                <% if(currentUser.role !=='student' ) {%>
                 <button class="btn btn-warning btn-sm" href="#" data-bs-toggle="modal"
                   data-bs-target="#changeClassInfo">
                   Change Info
@@ -150,20 +146,24 @@
                     <button class="btn btn-sm btn-success">Submit</button>
                   </form>
                   <% } %>
-                  <% for(let review of cls.reviews) { %>
-                  <div class="card mb-3">
-                    <div class="card-body">
-                      <h6 class="card-title">
-                        <%= review.student.username %>
-                      </h6>
-                      <p class="starability-result" data-rating="<%=review.rating%>">Rated: <%=review.rating%>
-                          stars</p>
-                      <p class="card-text">
-                        <%= review.body %>
-                      </p>
+                  <% if(cls.reviews.length) {%> 
+                    <% for(let review of cls.reviews) { %>
+                    <div class="card mb-3">
+                      <div class="card-body">
+                        <h6 class="card-title">
+                          <%= review.student.fullname %>
+                        </h6>
+                        <p class="starability-result" data-rating="<%=review.rating%>">Rated: <%=review.rating%>
+                            stars</p>
+                        <p class="card-text">
+                          <%= review.body %>
+                        </p>
+                      </div>
                     </div>
-                  </div>
-                  <% } %>
+                    <% } %>
+                  <% } else{%>
+                  Currently there are no feedbacks.
+                  <% } %>  
               </div>
             </div>
           </div>
@@ -181,16 +181,6 @@
               <%- include('dpartials/rescheduleClass') %>
                 <% } %>
                   <script>
-                    // const navLinks = document.querySelectorAll(".nav-link");
-                    // navLinks.forEach(navlink => {
-                    //   navlink.addEventListener('click',(e)=>{
-                    //     e.preventDefault();
-                    //     navLinks.forEach((navlink) => {
-                    //       navlink.classList.remove("active");
-                    //     });
-                    //     navlink.classList.add("active");
-                    //   })
-                    // })
                     function ConfirmDelete() {
                       return confirm("Are you sure you want to delete?");
                     }

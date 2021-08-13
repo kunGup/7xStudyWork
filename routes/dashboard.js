@@ -4,7 +4,6 @@ const axios = require("axios");
 const User = require("../models/user");
 const Class = require("../models/class");
 const Review = require("../models/review");
-const jwt = require("jsonwebtoken");
 const catchAsync = require("../utils/catchAsync");
 const ExpressError = require("../utils/ExpressError");
 const nodemailer = require("nodemailer");
@@ -53,32 +52,33 @@ router.get(
 );
 
 //get student info
-router.get(
-  "/student/:studentId",
-  ensureAuthenticated,
-  catchAsync(async (req, res) => {
-    let student = await User.findById(req.params.studentId);
-    res.render("student", { layout: "dlayout", student });
-  })
-);
+// router.get(
+//   "/student/:studentId",
+//   ensureAuthenticated,
+//   catchAsync(async (req, res) => {
+//     let student = await User.findById(req.params.studentId);
+//     res.render("student", { layout: "dlayout", student });
+//   })
+// );
 
 //get classes of student
-router.get(
-  "/student/:studentId/classes",
-  ensureAuthenticated,
-  catchAsync(async (req, res) => {
-    let classes = await Class.find({ student: req.params.studentId });
-    res.json({ classes });
-  })
-);
+// router.get(
+//   "/student/:studentId/classes",
+//   ensureAuthenticated,
+//   catchAsync(async (req, res) => {
+//     let classes = await Class.find({ student: req.params.studentId });
+//     res.json({ classes });
+//   })
+// );
 
-router.get(
-  "/user",
-  ensureAuthenticated,
-  catchAsync(async (req, res) => {
-    res.render("user", { layout: "dlayout" });
-  })
-);
+// router.get(
+//   "/user",
+//   ensureAuthenticated,
+//   catchAsync(async (req, res) => {
+//     res.render("user", { layout: "dlayout" });
+//   })
+// );
+
 //get classes
 router.get(
   "/classes",
@@ -100,7 +100,6 @@ router.get(
 router.get(
   "/class/:classId",
   ensureAuthenticated,
-
   catchAsync(async (req, res) => {
     const { classId } = req.params;
     const cls = await Class.findById(classId)
@@ -134,29 +133,13 @@ router.post(
   ensureAuthenticated,
   validateClass,
   catchAsync(async (req, res, next) => {
-    let {
-      title,
-      topic,
-      student,
-      subject,
-      hrs,
-      mins,
-      standard,
-      isRecurring,
-      occurences,
-      days,
-      time,
-      date,
-      A,
-      wdays,
-      endby,
-    } = req.body;
+    let { hrs, mins, time, date, A, wdays, endby, students } = req.body;
     var convertedTime = moment(`${time} ${A}`, "hh:mm A").format("HH:mm");
     var start = new Date(`${date}T${convertedTime}`);
     var end = new Date(`${endby}T${convertedTime}`);
     let dates = [];
     wdays = [].concat(wdays);
-    student = [].concat(student);
+    students = [].concat(students);
     wdays.forEach((day) => {
       dates.push(...getDaysBetweenDates(start, end, day));
     });
@@ -165,12 +148,9 @@ router.post(
     });
     async function createClass(when) {
       const newClass = new Class({
-        title,
-        topic,
-        subject,
-        students: student,
+        ...req.body,
+        students,
         teacher: req.user._id,
-        class: standard,
         duration: { hrs, mins },
         when,
       });
@@ -193,7 +173,7 @@ router.post(
       return result;
     }
     req.flash("success_alert", "New class created");
-    res.redirect("/dashboard");
+    res.redirect("back");
   })
 );
 
@@ -203,20 +183,13 @@ router.put(
   ensureAuthenticated,
   catchAsync(async (req, res, next) => {
     const { classId } = req.params;
-    let { title, topic, subject, meetUrl, isCompleted } = req.body;
-    var status = isCompleted === "true" ? true : false;
-    await Class.findByIdAndUpdate(classId, {
-      title,
-      topic,
-      subject,
-      meetUrl,
-      status,
-    });
+    await Class.findByIdAndUpdate(classId, req.body);
     req.flash("success_alert", "Class updated successfully");
-    res.redirect(`/dashboard/class/${classId}`);
+    res.redirect("back");
   })
 );
 
+//reschedule class
 router.put(
   "/class/:classId/reschedule",
   ensureAuthenticated,
@@ -240,7 +213,7 @@ router.put(
         <li><b>Title</b>: ${cls.title}</li>
         <li><b>Topic</b>: ${cls.topic ? cls.topic : "NA"}</li>
         <li><b>Subject</b>: ${cls.subject}</li>
-        <li><b>Teacher</b>: ${cls.teacher.username}</li>
+        <li><b>Teacher</b>: ${cls.teacher.fullname}</li>
         <li><b>When</b>: ${time} ${A}, ${date}</li>
         <li><b>Duration</b>: ${hrs} hrs ${mins} mins</li>
         
@@ -255,7 +228,7 @@ router.put(
     `;
     await notify(emails, "Class rescheduled", output);
     req.flash("success_alert", "Class Rescheduled successfully");
-    res.redirect(`/dashboard/class/${classId}`);
+    res.redirect("back");
   })
 );
 
@@ -288,7 +261,7 @@ router.delete(
         <li><b>Title</b>: ${cls.title}</li>
         <li><b>Topic</b>: ${cls.topic ? cls.topic : "NA"}</li>
         <li><b>Subject</b>: ${cls.subject}</li>
-        <li><b>Teacher</b>: ${cls.teacher.username}</li>
+        <li><b>Teacher</b>: ${cls.teacher.fullname}</li>
         <li><b>When</b>: ${info.time}, ${info.date}</li>
       </ul>
     `;
@@ -307,11 +280,11 @@ router.put(
     const { classId } = req.params;
     await Class.findByIdAndUpdate(classId, { teacher: req.body.teacher });
     req.flash("success_alert", "Teacher changed successfully");
-    res.redirect(`/dashboard/class/${classId}`);
+    res.redirect("back");
   })
 );
 
-//post review
+//post feedback
 router.post(
   "/class/:classId/review",
   ensureAuthenticated,
@@ -369,7 +342,8 @@ async function isAlreadySubmitted(req, res, next) {
     next();
   }
 }
-//class meeting room
+
+//class meeting room[deprecated because now we are using join and start urls]
 router.get(
   "/classroom/:classId",
   ensureAuthenticated,
@@ -445,9 +419,7 @@ router.use((err, req, res, next) => {
   console.log(err);
   if (!err.message) err.message = "Oh No, Something Went Wrong!";
   req.flash("error_alert", err.message);
-  const redirectUrl = req.session.returnTo || "/dashboard";
-  delete req.session.returnTo;
-  res.redirect(redirectUrl);
+  res.redirect("back");
 });
 
 module.exports = router;

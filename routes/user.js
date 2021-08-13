@@ -24,18 +24,26 @@ router.post("/login", (req, res, next) => {
 
 router.post(
   "/register",
-  ensureAuthenticated,
-  isAdmin,
+  // ensureAuthenticated,
+  // isAdmin,
   catchAsync(async (req, res) => {
-    const { email, username, password, apisecret, apikey, role, standard } =
-      req.body;
+    const {
+      fullname,
+      username,
+      email,
+      password,
+      apisecret,
+      apikey,
+      role,
+      standard,
+    } = req.body;
     //new user commmon details
     let user = new User({
+      fullname,
       username,
       email,
       role,
     });
-
     if (role === "teacher") {
       const token = jwt.sign({ aud: null, iss: apikey }, apisecret, {
         algorithm: "HS256",
@@ -113,6 +121,7 @@ router.get("/apply", (req, res) => {
   res.render("teacherApply", { data });
 });
 
+//new teacher apply route
 router.post(
   "/apply",
   upload.single("resume"),

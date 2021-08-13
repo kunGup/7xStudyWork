@@ -5,8 +5,20 @@
       <div class="col-12 col-md-3 mb-2">
         <div class="card shadow">
           <div class="card-body">
-            <h4 class="card-title">Welcome, <%= currentUser.username%></h4>
+            <h4 class="card-title">
+              Welcome, <%= currentUser.fullname.split(' ')[0] %>
+            </h4>
           </div>
+          <ul class="list-group list-group-flush">
+            <li class="list-group-item">
+              <strong>Name: </strong><%= currentUser.fullname%>
+            </li>
+          </ul>
+          <ul class="list-group list-group-flush">
+            <li class="list-group-item">
+              <strong>Username: </strong><%= currentUser.username%>
+            </li>
+          </ul>
           <ul class="list-group list-group-flush">
             <li class="list-group-item">
               <strong>Email: </strong><%= currentUser.email%>
@@ -121,21 +133,22 @@
   }
   function renderClasses(array) {
     clear(tbody);
-    array.forEach((obj) => {
-      var dt = new Date(obj.when);
-      tbody.innerHTML += `<tr>
-        <td><a href="/dashboard/class/${obj._id}">${obj.title}</a></td>
-        <td>${obj.topic ? obj.topic : "NA"}</td>
-        <td><a href="/dashboard/teacher/${obj.teacher._id}">${
-        obj.teacher.username
-      }</a></td>
-        <td>${obj.subject}</td>
-        <td>${obj.class}</td>
-        <td>${obj.duration.hrs} hrs ${obj.duration.mins} mins</td>
-        <td>${format(dt.getHours())}:${format(dt.getMinutes())}</td>
-        <td>${dt.getDate()}/${dt.getMonth() + 1}/${dt.getFullYear()}</td>
-      </tr>`;
-    });
+    if (array.length)
+      array.forEach((obj) => {
+        var dt = new Date(obj.when);
+        tbody.innerHTML += `<tr>
+          <td><a href="/dashboard/class/${obj._id}">${obj.title}</a></td>
+          <td>${obj.topic ? obj.topic : "NA"}</td>
+          <td><a href="/dashboard/teacher/${obj.teacher._id}">${
+          obj.teacher.fullname
+        }</a></td>
+          <td>${obj.subject}</td>
+          <td>${obj.class}</td>
+          <td>${obj.duration.hrs} hrs ${obj.duration.mins} mins</td>
+          <td>${format(dt.getHours())}:${format(dt.getMinutes())}</td>
+          <td>${dt.getDate()}/${dt.getMonth() + 1}/${dt.getFullYear()}</td>
+        </tr>`;
+      });
   }
   function format(num) {
     return num < 10 ? "0" + num : num;
