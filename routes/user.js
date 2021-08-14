@@ -24,8 +24,8 @@ router.post("/login", (req, res, next) => {
 
 router.post(
   "/register",
-  // ensureAuthenticated,
-  // isAdmin,
+  ensureAuthenticated,
+  isAdmin,
   catchAsync(async (req, res) => {
     const {
       fullname,
