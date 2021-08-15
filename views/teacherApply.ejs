@@ -1,0 +1,233 @@
+<style>
+    #custom-button {
+        padding: 5px;
+        font-size: 0.8rem;
+        color: white;
+        background-color: #009578;
+        border: 1px solid #000;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+
+    #custom-button:hover {
+        background-color: #00b28f;
+    }
+
+    #custom-text {
+        margin-left: 10px;
+        font-family: sans-serif;
+        color: #aaa;
+    }
+
+    .th-check {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .price {
+        border: none;
+        outline: none;
+        width: 100%;
+    }
+</style>
+<section>
+    <div class="jumbotron jumbotron-fluid jumbotron-top">
+        <div class="jumbo-text text-center">
+            <h1>Teacher Application</h1>
+        </div>
+    </div>
+</section>
+
+<div class="form-border">
+    <div class="row">
+        <div class="col-md-9 mx-auto">
+            <form action="/user/apply" method="post" enctype="multipart/form-data">
+                <%- include('partials/alerts'); %>
+                    <div class="form-group">
+                        <label for="fullname">Full Name</label>
+                        <input type="text" class="form-control" id="fullname" name="fullname" required />
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email</label>
+                        <input type="email" class="form-control" id="email" name="email" required/>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group col-md-6">
+                            <label for="univ">University / College</label>
+                            <input type="text" class="form-control" id="univ" name="university" required/>
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label for="grades">Grades</label>
+                            <input type="number" min=0 max=10 step=0.1 class="form-control" id="grades" name="grades" required/>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group col-md-6">
+                            <label for="">Highest Qualification</label>
+                            <select class="custom-select custom-select-sm" name="qualification" required>
+                                <option selected disabled value="">Choose...</option>
+                                <% for(let qualification of data.qualifications){ %>
+                                    <option value="<%= qualification %>">
+                                        <%= qualification %>
+                                    </option>
+                                    <% } %>
+                            </select>
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label for="">Years of experience in teaching</label>
+                            <select class="custom-select custom-select-sm" name="experience" required>
+                                <option selected disabled value="">Choose...</option>
+                                <% for(let experience of data.experiences){ %>
+                                    <option value="<%= experience %>">
+                                        <%= experience %>
+                                    </option>
+                                    <% } %>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="">Available Timings</label>
+                        <% for(let i=0; i<data.timeSlots.length; i++){ %>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" value="<%= data.timeSlots[i] %>"
+                                    id="time<%= i %>" name="availableTimings" />
+                                <label class="form-check-label" for="time<%= i %>">
+                                    <%= data.timeSlots[i] %>
+                                </label>
+                            </div>
+                            <% } %>
+                    </div>
+                    <div class="form-group">
+                        <label for="isWeekend">
+                            Is available at weekends?
+                        </label>
+                        <input type="checkbox" name="isAvailableWeekend" value="No" id="isWeekend">
+                    </div>
+                    <div class="form-group">
+                        <label for="">Batches you want to teach?</label>
+                        <table class="table table-bordered table-sm">
+                            <thead>
+                                <tr>
+                                    <th scope="col">Batch</th>
+                                    <th scope="col">Min. Charges in rupees(per class)</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <th scope="row" class="th-check">
+                                        <label for="1to1">1-to-1</label>
+                                        <input type="checkbox" id="1to1" name="batch" value="1to1">
+                                    </th>
+                                    <td>
+                                        <input type="number" min=150 max=1000 value=150 step=10 name="onetooneprice"
+                                            id="1to1price" class="price" disabled>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th scope="row" class="th-check">
+                                        <label for="1to2">1-to-2</label>
+                                        <input type="checkbox" id="1to2" name="batch" value="1to2">
+                                    </th>
+                                    <td>
+                                        <input type="number" min=150 max=1000 value=150 step=10 name="onetotwoprice"
+                                            id="1to2price" class="price" disabled>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th scope="row" class="th-check">
+                                        <label for="short">short batches</label>
+                                        <input type="checkbox" id="short" name="batch" value="short">
+                                    </th>
+                                    <td>
+                                        <input type="number" min=150 max=1000 value=150 step=10 name="shortprice"
+                                            id="shortprice" class="price" disabled>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+
+                    </div>
+                    <div class="form-group">
+                        <label for="real-file">Resume</label>
+                        <div>
+                            <input type="file" id="real-file" hidden="hidden"
+                                accept=".pdf,.doc,.docx,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document"
+                                name="resume" required/>
+                            <button type="button" id="custom-button">CHOOSE A FILE</button>
+                            <span id="custom-text">No file chosen, yet.</span>
+                        </div>
+                    </div>
+                    <button type="submit" class="btn btn-secondary btn-block">Submit</button>
+            </form>
+        </div>
+    </div>
+</div>
+<script>
+    const realFileBtn = document.getElementById("real-file");
+    const customBtn = document.getElementById("custom-button");
+    const customTxt = document.getElementById("custom-text");
+    const oneToOne = document.getElementById("1to1")
+    const oneToOnePrice = document.getElementById("1to1price")
+    const oneToTwo = document.getElementById("1to2")
+    const oneToTwoPrice = document.getElementById("1to2price")
+    const short = document.getElementById("short")
+    const shortPrice = document.getElementById("shortprice")
+    const isWeekend = document.getElementById("isWeekend")
+    const form = document.querySelector("form")
+
+    customBtn.addEventListener("click", function () {
+        realFileBtn.click();
+    });
+
+    realFileBtn.addEventListener("change", function () {
+        if (this.files[0].size > 307200) {
+            alert("File is too big!");
+            this.value = "";
+        }
+        if (realFileBtn.value) {
+            customTxt.innerHTML = realFileBtn.value.match(
+                /[\/\\]([\w\d\s\.\-\(\)]+)$/
+            )[1];
+        } else {
+            customTxt.innerHTML = "No file chosen, yet.";
+        }
+    });
+
+    oneToOne.addEventListener("input", () => {
+        if (oneToOne.checked) {
+            oneToOnePrice.disabled = false
+        }
+        else {
+            oneToOnePrice.disabled = true
+        }
+    })
+    oneToTwo.addEventListener("input", () => {
+        if (oneToTwo.checked) {
+            oneToTwoPrice.disabled = false
+        }
+        else {
+            oneToTwoPrice.disabled = true
+        }
+    })
+    short.addEventListener("input", () => {
+        if (short.checked) {
+            shortPrice.disabled = false
+        }
+        else {
+            shortPrice.disabled = true
+        }
+    })
+
+    isWeekend.addEventListener("input", () => {
+        isWeekend.value = isWeekend.checked ? "Yes" : "No"
+    })
+    form.addEventListener("submit",()=> {
+        var checked = document.querySelectorAll("[name='availableTimings']:checked")
+        if(checked.length === 0){
+            alert("You must check at least one checkbox.");
+            return false;
+        }
+    })
+</script>

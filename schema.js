@@ -4,7 +4,9 @@ module.exports.newClassSchema = Joi.object()
     title: Joi.string().required(),
     subject: Joi.string().required(),
     date: Joi.string().required(),
-    student: Joi.array().required(),
+    endby: Joi.string().required(),
+    student: Joi.alternatives().try(Joi.string(), Joi.array()),
+    wdays: Joi.alternatives().try(Joi.string(), Joi.array()),
   })
   .unknown(true);
 
@@ -39,7 +41,8 @@ module.exports.changeTeacherSchema = Joi.object({
   teacher: Joi.string().required(),
 });
 
-module.exports.reviewSchema = Joi.object({
-  rating: Joi.number().required().min(1).max(5),
-  body: Joi.string(),
-});
+module.exports.reviewSchema = Joi.object()
+  .keys({
+    rating: Joi.number().required().min(1).max(5),
+  })
+  .unknown(true);
