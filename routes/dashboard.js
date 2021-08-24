@@ -111,7 +111,7 @@ router.get(
           path: "student",
         },
       });
-    var dt = new Date(cls.when);
+    var dt = new Date(cls.when.toString());
     let info = {
       date: `${dt.getDate()}/${dt.getMonth() + 1}/${dt.getFullYear()}`,
       time: `${format(dt.getHours())}:${format(dt.getMinutes())}`,
@@ -135,8 +135,8 @@ router.post(
   catchAsync(async (req, res, next) => {
     let { hrs, mins, time, date, A, wdays, endby, students } = req.body;
     var convertedTime = moment(`${time} ${A}`, "hh:mm A").format("HH:mm");
-    var start = new Date(`${date}T${convertedTime}`);
-    var end = new Date(`${endby}T${convertedTime}`);
+    var start = new Date(`${date}T${convertedTime}+05:30`);
+    var end = new Date(`${endby}T${convertedTime}+05:30`);
     let dates = [];
     wdays = [].concat(wdays);
     students = [].concat(students);
