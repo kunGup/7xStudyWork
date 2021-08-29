@@ -69,31 +69,35 @@
                 <strong>Duration: </strong>
                 <%= cls.duration.hrs %> hrs <%= cls.duration.mins %> mins
               </li>
+              <li class="list-group-item details">
+                <strong>Zoom Passcode: </strong>
+                <%= cls.teacher.classroom.pwd %>
+              </li>
               <% if(cls.meetUrl){ %>
                 <li class="list-group-item details">
                   <strong>Google meet link: </strong><a href="<%= cls.meetUrl %>" target="_blank">Join</a>
                 </li>
                 <% } %>
-                <li class="list-group-item">
-                  <strong>Enrolled students: </strong>
-                  <ul class="list-group">
-                    <% for(var i=0;i<cls.students.length;i++){ %>
-                      <li class="list-group-item list-group-student">
-                        <span>
-                          <%= cls.students[i].fullname %>
-                        </span><span>
-                          <%= cls.students[i].email %>
-                        </span>
-                      </li>
-                      <% } %>
-                  </ul>
-                </li>
+                  <li class="list-group-item">
+                    <strong>Enrolled students: </strong>
+                    <ul class="list-group">
+                      <% for(var i=0;i<cls.students.length;i++){ %>
+                        <li class="list-group-item list-group-student">
+                          <span>
+                            <%= cls.students[i].fullname %>
+                          </span><span>
+                            <%= cls.students[i].email %>
+                          </span>
+                        </li>
+                        <% } %>
+                    </ul>
+                  </li>
             </ul>
             <div class="card-footer">
               <a class="btn btn-success btn-sm"
-                href="<%= currentUser.role === 'student' ? cls.teacher.classroom.join_url : cls.teacher.classroom.start_url %>"
+                href="<%= currentUser.role !== 'teacher' ? cls.teacher.classroom.join_url : cls.teacher.classroom.start_url %>"
                 target="_blank" role="button">Join Class</a>
-                <% if(currentUser.role !=='student' ) {%>
+              <% if(currentUser.role !=='student' ) {%>
                 <button class="btn btn-warning btn-sm" href="#" data-bs-toggle="modal"
                   data-bs-target="#changeClassInfo">
                   Change Info
@@ -115,72 +119,21 @@
       </div>
 
       <% if(currentUser.role !=='teacher' ){ %>
-        <div class="row">
-          <div class="col-md-6 offset-md-3">
-            <div class="card shadow">
-              <div class="card-body">
-                <h4 class="card-title">Class Feedback</h4>
-                  <% if(currentUser.role==='student' ) {%>
-                  <form action="/dashboard/class/<%= cls.id %>/review" method="POST" class="mb-3 validated-form"
-                    id="feedback-form">
-                    <h6 class="card-subtitle mb-2 text-muted">Giving feedback is mandatory as it will mark your
-                      attendance.</h6>
-                    <p id="timer"><span id="mins">--</span>:<span id="secs">--</span></p>
-                    <fieldset class="starability-fade">
-                      <input type="radio" id="no-rate" class="input-no-rate" name="rating" value="1" checked
-                        aria-label="No rating." />
-                      <input type="radio" id="first-rate1" name="rating" value="1" />
-                      <label for="first-rate1" title="Terrible">1 star</label>
-                      <input type="radio" id="first-rate2" name="rating" value="2" />
-                      <label for="first-rate2" title="Not good">2 stars</label>
-                      <input type="radio" id="first-rate3" name="rating" value="3" />
-                      <label for="first-rate3" title="Average">3 stars</label>
-                      <input type="radio" id="first-rate4" name="rating" value="4" />
-                      <label for="first-rate4" title="Very good">4 stars</label>
-                      <input type="radio" id="first-rate5" name="rating" value="5" />
-                      <label for="first-rate5" title="Amazing">5 stars</label>
-                    </fieldset>
-                    <div class="mb-3">
-                      <textarea class="form-control" name="body" id="body" rows="2"></textarea>
-                    </div>
-                    <button class="btn btn-sm btn-success">Submit</button>
-                  </form>
-                  <% } %>
-                  <% if(cls.reviews.length) {%> 
-                    <% for(let review of cls.reviews) { %>
-                    <div class="card mb-3">
-                      <div class="card-body">
-                        <h6 class="card-title">
-                          <%= review.student.fullname %>
-                        </h6>
-                        <p class="starability-result" data-rating="<%=review.rating%>">Rated: <%=review.rating%>
-                            stars</p>
-                        <p class="card-text">
-                          <%= review.body %>
-                        </p>
-                      </div>
-                    </div>
-                    <% } %>
-                  <% } else{%>
-                  Currently there are no feedbacks.
-                  <% } %>  
-              </div>
-            </div>
-          </div>
-        </div>
-        <% } %>
+        <%- include('dpartials/classFeedback') %> 
+      <% } %>
+      <%- include('dpartials/teacherFeedback') %>           
   </div>
 </section>
 <% if(currentUser.role==='admin' ) {%>
   <%- include('dpartials/changeTeacher') %>
     <% } %>
 
-        <% if(currentUser.role !=='student' ) {%>
-          <%- include('dpartials/cancelClass') %>
-            <%- include('dpartials/changeClassInfo') %>
-              <%- include('dpartials/rescheduleClass') %>
-                <% } %>
-                  <script>
+      <% if(currentUser.role !=='student' ) {%>
+        <%- include('dpartials/cancelClass') %>
+          <%- include('dpartials/changeClassInfo') %>
+            <%- include('dpartials/rescheduleClass') %>
+              <% } %>
+                <script>
                     function ConfirmDelete() {
                       return confirm("Are you sure you want to delete?");
                     }

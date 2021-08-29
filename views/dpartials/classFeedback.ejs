@@ -1,0 +1,98 @@
+<div class="row">
+    <div class="col-md-6 offset-md-3">
+        <div class="card shadow">
+            <div class="card-body">
+                <h4 class="card-title">Class Feedback</h4>
+                <% if(currentUser.role==='student' ) {%>
+                    <form action="/dashboard/class/<%= cls.id %>/review" method="POST" class="mb-3 validated-form"
+                        id="feedback-form">
+                        <h6 class="card-subtitle mb-2 text-muted">Giving feedback is mandatory as it will mark your
+                            attendance.</h6>
+                        <p id="timer"><span id="mins">--</span>:<span id="secs">--</span></p>
+                        <fieldset class="starability-fade">
+                            <input type="radio" id="no-rate" class="input-no-rate" name="rating" value="1" checked
+                                aria-label="No rating." />
+                            <input type="radio" id="first-rate1" name="rating" value="1" />
+                            <label for="first-rate1" title="Terrible">1 star</label>
+                            <input type="radio" id="first-rate2" name="rating" value="2" />
+                            <label for="first-rate2" title="Not good">2 stars</label>
+                            <input type="radio" id="first-rate3" name="rating" value="3" />
+                            <label for="first-rate3" title="Average">3 stars</label>
+                            <input type="radio" id="first-rate4" name="rating" value="4" />
+                            <label for="first-rate4" title="Very good">4 stars</label>
+                            <input type="radio" id="first-rate5" name="rating" value="5" />
+                            <label for="first-rate5" title="Amazing">5 stars</label>
+                        </fieldset>
+                        <div class="mb-3">
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" name="feedbackChecked"
+                                    value="Teacher behavior was good." id="feedback-option1">
+                                <label class="form-check-label" for="feedback-option1">
+                                    Teacher behavior was good.
+                                </label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" name="feedbackChecked"
+                                    value="Teacher video on." id="feedback-option2">
+                                <label class="form-check-label" for="feedback-option2">
+                                    Is teacher video on?
+                                </label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" name="feedbackChecked"
+                                    value="Class started on time." id="feedback-option3">
+                                <label class="form-check-label" for="feedback-option3">
+                                    Class started on time?
+                                </label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" name="feedbackChecked"
+                                    value="Voice quality was good." id="feedback-option4">
+                                <label class="form-check-label" for="feedback-option4">
+                                    Voice quality was good?
+                                </label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" name="feedbackChecked"
+                                    value="Teacher used mobile." id="feedback-option5">
+                                <label class="form-check-label" for="feedback-option5">
+                                    Teacher used mobile?
+                                </label>
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <textarea class="form-control" name="body" id="body" rows="2"></textarea>
+                        </div>
+                        <button class="btn btn-sm btn-success">Submit</button>
+                    </form>
+                    <% } %>
+                        <% if(cls.reviews.length) {%>
+                            <% for(let review of cls.reviews) { %>
+                                <div class="card mb-3">
+                                    <div class="card-body">
+                                        <h6 class="card-title">
+                                            <%= review.student.fullname %>
+                                        </h6>
+                                        <p class="starability-result" data-rating="<%=review.rating%>">Rated:
+                                            <%=review.rating%>
+                                                stars</p>
+                                        <div>
+                                            <% for(let i=0; i<review.feedbackChecked.length; i++){ %>
+                                                <p>
+                                                    <%= review.feedbackChecked[i] %>
+                                                </p>
+                                                <% } %>
+                                        </div>
+                                        <p class="card-text">
+                                            <%= review.body %>
+                                        </p>
+                                    </div>
+                                </div>
+                                <% } %>
+                                    <% } else{%>
+                                        Currently there are no feedbacks.
+                                        <% } %>
+            </div>
+        </div>
+    </div>
+</div>

@@ -26,6 +26,7 @@ router.post(
   "/register",
   ensureAuthenticated,
   isAdmin,
+  validateUser,
   catchAsync(async (req, res) => {
     const {
       fullname,
@@ -62,7 +63,8 @@ router.post(
             in_meeting: false,
             mute_upon_entry: true,
             audio: "voip",
-            waiting_room: true,
+            join_before_host: false,
+            alternative_hosts: "kumar.laltesh@gmail.com",
           },
         },
         headers: { Authorization: `Bearer ${token}` },
@@ -194,5 +196,13 @@ router.put(
     }
   })
 );
+
+router.use((err, req, res, next) => {
+  const { statusCode = 500 } = err;
+  console.log(err);
+  if (!err.message) err.message = "Oh No, Something Went Wrong!";
+  req.flash("error_alert", err.message);
+  res.redirect("back");
+});
 
 module.exports = router;

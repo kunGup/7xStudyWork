@@ -4,6 +4,7 @@ const {
   userSchema,
   changeTeacherSchema,
   reviewSchema,
+  teacherFeedbackSchema,
 } = require("./schema");
 const ExpressError = require("./utils/ExpressError");
 
@@ -53,6 +54,17 @@ module.exports.validateChangeTeacher = (req, res, next) => {
 
 module.exports.validateReview = (req, res, next) => {
   const { error } = reviewSchema.validate(req.body);
+  console.log(req.body);
+  if (error) {
+    const msg = error.details.map((el) => el.message).join(",");
+    throw new ExpressError(msg, 400);
+  } else {
+    next();
+  }
+};
+
+module.exports.validateTeacherFeedback = (req, res, next) => {
+  const { error } = teacherFeedbackSchema.validate(req.body);
   console.log(req.body);
   if (error) {
     const msg = error.details.map((el) => el.message).join(",");

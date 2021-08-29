@@ -4,6 +4,7 @@ const axios = require("axios");
 const User = require("../models/user");
 const Class = require("../models/class");
 const Review = require("../models/review");
+const TeacherFeedback = require("../models/teacherFeedback");
 const catchAsync = require("../utils/catchAsync");
 const ExpressError = require("../utils/ExpressError");
 const nodemailer = require("nodemailer");
@@ -15,6 +16,7 @@ const {
   validateClassUpdate,
   validateChangeTeacher,
   validateReview,
+  validateTeacherFeedback,
   isAdmin,
   isTeacher,
   isNotStudent,
@@ -51,34 +53,6 @@ router.get(
   })
 );
 
-//get student info
-// router.get(
-//   "/student/:studentId",
-//   ensureAuthenticated,
-//   catchAsync(async (req, res) => {
-//     let student = await User.findById(req.params.studentId);
-//     res.render("student", { layout: "dlayout", student });
-//   })
-// );
-
-//get classes of student
-// router.get(
-//   "/student/:studentId/classes",
-//   ensureAuthenticated,
-//   catchAsync(async (req, res) => {
-//     let classes = await Class.find({ student: req.params.studentId });
-//     res.json({ classes });
-//   })
-// );
-
-// router.get(
-//   "/user",
-//   ensureAuthenticated,
-//   catchAsync(async (req, res) => {
-//     res.render("user", { layout: "dlayout" });
-//   })
-// );
-
 //get classes
 router.get(
   "/classes",
@@ -107,6 +81,12 @@ router.get(
       .populate("teacher")
       .populate({
         path: "reviews",
+        populate: {
+          path: "student",
+        },
+      })
+      .populate({
+        path: "teacherFeedbacks",
         populate: {
           path: "student",
         },
@@ -181,6 +161,7 @@ router.post(
 router.put(
   "/class/:classId",
   ensureAuthenticated,
+  validateClassUpdate,
   catchAsync(async (req, res, next) => {
     const { classId } = req.params;
     await Class.findByIdAndUpdate(classId, req.body);
@@ -290,16 +271,18 @@ router.post(
   ensureAuthenticated,
   isWithinTime,
   isAlreadySubmitted,
+  validateReview,
   catchAsync(async (req, res) => {
     const cls = await Class.findById(req.params.classId);
-    const { rating, body } = req.body;
-    const review = new Review({ rating, body });
+    let { rating, body, feedbackChecked } = req.body;
+    feedbackChecked = [].concat(feedbackChecked);
+    const review = new Review({ rating, body, feedbackChecked });
     review.student = req.user._id;
     cls.reviews.push(review);
     await review.save();
     await cls.save();
-    req.flash("success", "Created new review!");
-    res.redirect(`/dashboard/class/${cls._id}`);
+    req.flash("success", "Created new feedback!");
+    res.redirect("back");
   })
 );
 async function isWithinTime(req, res, next) {
@@ -343,6 +326,28 @@ async function isAlreadySubmitted(req, res, next) {
   }
 }
 
+//post teacher feedback
+router.post(
+  "/class/:classId/teacherFeedback",
+  ensureAuthenticated,
+  validateTeacherFeedback,
+  catchAsync(async (req, res) => {
+    const cls = await Class.findById(req.params.classId);
+    let { rating, body, feedbackChecked, student } = req.body;
+    feedbackChecked = [].concat(feedbackChecked);
+    const review = new TeacherFeedback({
+      rating,
+      body,
+      feedbackChecked,
+      student,
+    });
+    cls.teacherFeedbacks.push(review);
+    await review.save();
+    await cls.save();
+    req.flash("success", "Created new feedback!");
+    res.redirect("back");
+  })
+);
 //class meeting room[deprecated because now we are using join and start urls]
 router.get(
   "/classroom/:classId",

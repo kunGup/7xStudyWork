@@ -18,6 +18,7 @@ var userRoute = require("./routes/user");
 var dashboardRoute = require("./routes/dashboard");
 // var adminRoute = require("./routes/admin");
 
+console.log(new Date().toString());
 //mongoose
 const mongouri = require("./utils/mongoUri");
 mongoose

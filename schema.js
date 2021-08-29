@@ -5,20 +5,29 @@ module.exports.newClassSchema = Joi.object()
     subject: Joi.string().required(),
     date: Joi.string().required(),
     endby: Joi.string().required(),
-    student: Joi.alternatives().try(Joi.string(), Joi.array()),
-    wdays: Joi.alternatives().try(Joi.string(), Joi.array()),
+    class: Joi.string().required(),
+    students: Joi.alternatives()
+      .try(Joi.string(), Joi.array().items(Joi.string()))
+      .required(),
+    wdays: Joi.alternatives()
+      .try(Joi.string(), Joi.array().items(Joi.string()))
+      .required(),
   })
   .unknown(true);
 
 module.exports.updateClassSchema = Joi.object()
   .keys({
     title: Joi.string().required(),
+    topic: Joi.string().required(),
     subject: Joi.string().required(),
-    date: Joi.string().required(),
   })
   .unknown(true);
 
 module.exports.userSchema = Joi.object({
+  fullname: Joi.string().required(),
+  username: Joi.string().required(),
+  email: Joi.string().required(),
+  password: Joi.string().required(),
   role: Joi.string().required().valid("teacher", "student"),
   apikey: Joi.alternatives().conditional("role", {
     is: "teacher",
@@ -44,5 +53,12 @@ module.exports.changeTeacherSchema = Joi.object({
 module.exports.reviewSchema = Joi.object()
   .keys({
     rating: Joi.number().required().min(1).max(5),
+  })
+  .unknown(true);
+
+module.exports.teacherFeedbackSchema = Joi.object()
+  .keys({
+    rating: Joi.number().required().min(1).max(5),
+    student: Joi.string().required(),
   })
   .unknown(true);

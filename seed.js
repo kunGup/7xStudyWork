@@ -86,7 +86,7 @@ const seedDB = async () => {
             in_meeting: false,
             mute_upon_entry: true,
             audio: "voip",
-            waiting_room: true,
+            join_before_host: false,
           },
         },
         headers: { Authorization: `Bearer ${token}` },

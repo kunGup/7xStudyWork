@@ -1,0 +1,92 @@
+<div class="row">
+    <div class="col-md-6 offset-md-3">
+        <div class="card shadow">
+            <div class="card-body">
+                <h4 class="card-title">Teacher Feedback</h4>
+                <% if(currentUser.role==='teacher' ) {%>
+                    <form action="/dashboard/class/<%= cls.id %>/teacherFeedback" method="POST"
+                        class="mb-3 validated-form" id="feedback-form">
+                        <p id="timer"><span id="mins">--</span>:<span id="secs">--</span></p>
+                        <fieldset class="starability-fade">
+                            <input type="radio" id="no-rate" class="input-no-rate" name="rating" value="1" checked
+                                aria-label="No rating." />
+                            <input type="radio" id="rate1" name="rating" value="1" />
+                            <label for="rate1" title="Terrible">1 star</label>
+                            <input type="radio" id="rate2" name="rating" value="2" />
+                            <label for="rate2" title="Not good">2 stars</label>
+                            <input type="radio" id="rate3" name="rating" value="3" />
+                            <label for="rate3" title="Average">3 stars</label>
+                            <input type="radio" id="rate4" name="rating" value="4" />
+                            <label for="rate4" title="Very good">4 stars</label>
+                            <input type="radio" id="rate5" name="rating" value="5" />
+                            <label for="rate5" title="Amazing">5 stars</label>
+                        </fieldset>
+                        <div class="mb-3">
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" name="feedbackChecked"
+                                    value="Student behavior was good." id="feedback-option1">
+                                <label class="form-check-label" for="feedback-option1">
+                                    Student behavior was good.
+                                </label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" name="feedbackChecked"
+                                    value="Student video on." id="feedback-option2">
+                                <label class="form-check-label" for="feedback-option2">
+                                    Is student video on?
+                                </label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" name="feedbackChecked"
+                                    value="Student used mobile." id="feedback-option3">
+                                <label class="form-check-label" for="feedback-option3">
+                                    Student used mobile?
+                                </label>
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <textarea class="form-control" name="body" id="body" rows="2"></textarea>
+                        </div>
+                        <div class="mb-3">
+                            <select class="form-select form-select-sm" id="select-student" name="student" required>
+                                <option selected disabled>Choose Student</option>
+                                <% for(var i=0;i<cls.students.length;i++){ %>
+                                    <option value="<%= cls.students[i].id %>">
+                                        <%= cls.students[i].fullname %>
+                                    </option>
+                                    <% } %>
+                            </select>
+                        </div>
+                        <button class="btn btn-sm btn-success">Submit</button>
+                    </form>
+                    <% } %>
+                        <% if(cls.teacherFeedbacks.length) {%>
+                            <% for(let review of cls.teacherFeedbacks) { %>
+                                <div class="card mb-3">
+                                    <div class="card-body">
+                                        for<h6 class="card-title">
+                                            <%= review.student.fullname %>
+                                        </h6>
+                                        <p class="starability-result" data-rating="<%=review.rating%>">Rated:
+                                            <%=review.rating%>
+                                                stars</p>
+                                        <div>
+                                            <% for(let i=0; i<review.feedbackChecked.length; i++){ %>
+                                                <p>
+                                                    <%= review.feedbackChecked[i] %>
+                                                </p>
+                                                <% } %>
+                                        </div>
+                                        <p class="card-text">
+                                            <%= review.body %>
+                                        </p>
+                                    </div>
+                                </div>
+                                <% } %>
+                                    <% } else{%>
+                                        Currently there are no teacher feedbacks.
+                                        <% } %>
+            </div>
+        </div>
+    </div>
+</div>

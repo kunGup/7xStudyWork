@@ -25,6 +25,9 @@ const classSchema = new mongoose.Schema({
     ref: "User",
   },
   reviews: [{ type: mongoose.Schema.Types.ObjectId, ref: "Review" }],
+  teacherFeedbacks: [
+    { type: mongoose.Schema.Types.ObjectId, ref: "TeacherFeedback" },
+  ],
 });
 const Class = mongoose.model("Class", classSchema);
 module.exports = Class;
