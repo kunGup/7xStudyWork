@@ -84,7 +84,7 @@
                       <% for(var i=0;i<cls.students.length;i++){ %>
                         <li class="list-group-item list-group-student">
                           <span>
-                            <%= cls.students[i].fullname %>
+                            <a href="/dashboard/student/<%= cls.students[i].id %>"><%= cls.students[i].fullname %></a>
                           </span><span>
                             <%= cls.students[i].email %>
                           </span>

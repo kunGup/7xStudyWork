@@ -53,6 +53,28 @@ router.get(
   })
 );
 
+//get student info
+router.get(
+  "/student/:studentId",
+  ensureAuthenticated,
+  catchAsync(async (req, res) => {
+    let student = await User.findById(req.params.studentId);
+    res.render("student", { layout: "dlayout", student });
+  })
+);
+
+//get classes of student
+router.get(
+  "/student/:studentId/classes",
+  ensureAuthenticated,
+  catchAsync(async (req, res) => {
+    let classes = await Class.find({ students: req.params.studentId }).populate(
+      "teacher"
+    );
+    res.json({ classes });
+  })
+);
+
 //get classes
 router.get(
   "/classes",
