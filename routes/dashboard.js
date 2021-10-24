@@ -1,12 +1,10 @@
 var express = require("express");
 var router = express.Router();
-const axios = require("axios");
 const User = require("../models/user");
 const Class = require("../models/class");
 const Review = require("../models/review");
 const TeacherFeedback = require("../models/teacherFeedback");
 const catchAsync = require("../utils/catchAsync");
-const ExpressError = require("../utils/ExpressError");
 const nodemailer = require("nodemailer");
 var smtpTransport = require("nodemailer-smtp-transport");
 var moment = require("moment");
@@ -24,13 +22,9 @@ const {
 } = require("../middleware");
 
 //show dashboard
-router.get(
-  "/",
-  ensureAuthenticated,
-  catchAsync(async (req, res) => {
-    res.render("dashboard", { layout: "dlayout" });
-  })
-);
+router.get("/", ensureAuthenticated, (req, res) => {
+  res.render("dashboard", { layout: "dlayout" });
+});
 
 //get teacher info
 router.get(
@@ -133,6 +127,7 @@ router.get(
 router.post(
   "/class",
   ensureAuthenticated,
+  isTeacher,
   validateClass,
   catchAsync(async (req, res, next) => {
     let { hrs, mins, time, date, A, wdays, endby, students } = req.body;
@@ -183,6 +178,7 @@ router.post(
 router.put(
   "/class/:classId",
   ensureAuthenticated,
+  isNotStudent,
   validateClassUpdate,
   catchAsync(async (req, res, next) => {
     const { classId } = req.params;
@@ -196,6 +192,7 @@ router.put(
 router.put(
   "/class/:classId/reschedule",
   ensureAuthenticated,
+  isNotStudent,
   catchAsync(async (req, res, next) => {
     const { classId } = req.params;
     const { hrs, mins, time, date, A } = req.body;
@@ -239,6 +236,7 @@ router.put(
 router.delete(
   "/class/:classId",
   ensureAuthenticated,
+  isNotStudent,
   catchAsync(async (req, res, next) => {
     const { classId } = req.params;
     const cls = await Class.findByIdAndRemove(classId)
@@ -246,6 +244,9 @@ router.delete(
       .populate("teacher");
     cls.reviews.forEach(async (review) => {
       await Review.findByIdAndDelete(review._id);
+    });
+    cls.teacherFeedbacks.forEach(async (review) => {
+      await TeacherFeedback.findByIdAndDelete(review._id);
     });
     const emails = cls.students.map(function (student) {
       return student.email;
@@ -278,6 +279,7 @@ router.delete(
 router.put(
   "/class/:classId/changeTeacher",
   ensureAuthenticated,
+  isAdmin,
   validateChangeTeacher,
   catchAsync(async (req, res) => {
     const { classId } = req.params;
@@ -352,6 +354,7 @@ async function isAlreadySubmitted(req, res, next) {
 router.post(
   "/class/:classId/teacherFeedback",
   ensureAuthenticated,
+  isTeacher,
   validateTeacherFeedback,
   catchAsync(async (req, res) => {
     const cls = await Class.findById(req.params.classId);

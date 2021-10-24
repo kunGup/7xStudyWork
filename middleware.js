@@ -93,9 +93,7 @@ module.exports.isAdmin = (req, res, next) => {
 module.exports.isNotStudent = (req, res, next) => {
   if (req.user.role === "student") {
     req.flash("error_alert", "Not allowed");
-    const redirectUrl = req.session.returnTo || "/dashboard";
-    delete req.session.returnTo;
-    return res.redirect(redirectUrl);
+    return res.redirect("/dashboard");
   }
   next();
 };

@@ -7,7 +7,6 @@ const catchAsync = require("../utils/catchAsync");
 const jwt = require("jsonwebtoken");
 const axios = require("axios");
 const multer = require("multer");
-var generatePassword = require("password-generator");
 const { validateUser, isAdmin, ensureAuthenticated } = require("../middleware");
 
 router.get("/login", (req, res) => {
@@ -64,7 +63,6 @@ router.post(
             mute_upon_entry: true,
             audio: "voip",
             join_before_host: false,
-            alternative_hosts: "kumar.laltesh@gmail.com",
           },
         },
         headers: { Authorization: `Bearer ${token}` },

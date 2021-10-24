@@ -314,21 +314,6 @@
     }
   }
 
-  function toggleRec() {
-    // Get the checkbox
-    var checkBox = document.getElementById("isRecurring");
-    // Get the output text
-    var text = document.getElementById("recurring-group");
-
-    // If the checkbox is checked, display the output text
-    if (checkBox.checked == true) {
-      text.classList.add("d-flex");
-      checkBox.value = "true";
-    } else {
-      text.classList.remove("d-flex");
-      checkBox.value = "false";
-    }
-  }
   function populateDate() {
     var today = new Date();
     document.getElementById("date").value = today.toISOString().split("T")[0];

@@ -45,14 +45,14 @@ const users = [
   {
     fullname: "student1 name",
     username: "student1",
-    email: "goodkunal723@gmail.com",
+    email: "student1@gmail.com",
     role: "student",
     class: "12",
   },
   {
     fullname: "student2 name",
     username: "student2",
-    email: "greatkunal49@gmail.com",
+    email: "student2@gmail.com",
     role: "student",
     class: "12",
   },
