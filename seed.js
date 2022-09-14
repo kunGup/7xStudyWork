@@ -4,7 +4,8 @@ const Class = require("./models/class");
 const Review = require("./models/review");
 const jwt = require("jsonwebtoken");
 const axios = require("axios");
-const mongoUri = require("./utils/mongoUri");
+const mongouri =
+  process.env.MONGO_URI || "mongodb://localhost:27017/test-7xstudy";
 
 mongoose.connect(mongoUri, {
   useNewUrlParser: true,

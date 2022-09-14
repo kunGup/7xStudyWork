@@ -20,7 +20,7 @@ var dashboardRoute = require("./routes/dashboard");
 
 console.log(new Date().toString());
 //mongoose
-const mongouri = require("./utils/mongoUri");
+const mongouri = process.env.MONGO_URI || "mongodb://localhost:27017/test-7xstudy";
 mongoose
   .connect(mongouri, {
     useNewUrlParser: true,
@@ -31,7 +31,7 @@ mongoose
   .catch((err) => console.log(err));
 
 const app = express();
-const port = 3002;
+const port = process.env.PORT || 3002;
 
 //Removed BODY-PARSER because deprecated
 app.use(express.urlencoded({ extended: false }));
@@ -40,10 +40,12 @@ app.use(express.json());
 //to use put and delete endpoints
 app.use(methodOverride("_method"));
 
+const secret = process.env.SECRET || "thisshouldbeabettersecret!";
 //mongo session store
 var store = new MongoDBStore({
   uri: mongouri,
   collection: "Session",
+  secret,
 });
 
 store.on("error", function (e) {
@@ -53,7 +55,7 @@ store.on("error", function (e) {
 //express session
 app.use(
   session({
-    secret: "secret",
+    secret,
     resave: true,
     saveUninitialized: true,
     store: store,
