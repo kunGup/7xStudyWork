@@ -1,3 +1,6 @@
+if (process.env.NODE_ENV !== "production") {
+  require("dotenv").config();
+}
 const express = require("express");
 const mongoose = require("mongoose");
 const flash = require("connect-flash");
@@ -20,7 +23,8 @@ var dashboardRoute = require("./routes/dashboard");
 
 console.log(new Date().toString());
 //mongoose
-const mongouri = process.env.MONGO_URI || "mongodb://localhost:27017/test-7xstudy";
+const mongouri =
+  process.env.MONGO_URI || "mongodb://localhost:27017/test-7xstudy";
 mongoose
   .connect(mongouri, {
     useNewUrlParser: true,
@@ -124,5 +128,5 @@ app.use((err, req, res, next) => {
 
 //SETTING UP PORT
 app.listen(port, () =>
-  console.log(`Example app listening at http://localhost:${port}`)
+  console.log(`Example app listening at ${port}`)
 );

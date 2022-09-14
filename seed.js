@@ -1,10 +1,13 @@
+if (process.env.NODE_ENV !== "production") {
+  require("dotenv").config();
+}
 const mongoose = require("mongoose");
 const User = require("./models/user");
 const Class = require("./models/class");
 const Review = require("./models/review");
 const jwt = require("jsonwebtoken");
 const axios = require("axios");
-const mongouri =
+const mongoUri =
   process.env.MONGO_URI || "mongodb://localhost:27017/test-7xstudy";
 
 mongoose.connect(mongoUri, {
