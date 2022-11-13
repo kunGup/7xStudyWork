@@ -135,6 +135,8 @@
     clear(tbody);
     if (array.length)
       array.forEach((obj) => {
+        var dt  = new Date(obj.when)
+        console.log(obj.dt);
         tbody.innerHTML += `<tr>
           <td><a href="/dashboard/class/${obj._id}">${obj.title}</a></td>
           <td>${obj.topic ? obj.topic : "NA"}</td>
@@ -144,8 +146,8 @@
           <td>${obj.subject}</td>
           <td>${obj.class}</td>
           <td>${obj.duration.hrs} hrs ${obj.duration.mins} mins</td>
-          <td>${format(obj.dt.getHours())}:${format(obj.dt.getMinutes())}</td>
-          <td>${obj.dt.getDate()}/${obj.dt.getMonth() + 1}/${obj.dt.getFullYear()}</td>
+          <td>${format(dt.getHours())}:${format(dt.getMinutes())}</td>
+          <td>${dt.getDate()}/${dt.getMonth() + 1}/${dt.getFullYear()}</td>
         </tr>`;
       });
   }
