@@ -197,7 +197,7 @@ router.put(
     const { classId } = req.params;
     const { hrs, mins, time, date, A } = req.body;
     var convertedTime = moment(`${time} ${A}`, "hh:mm A").format("HH:mm");
-    var when = new Date(`${date}T${convertedTime}`);
+    var when = new Date(`${date}T${convertedTime}+05:30`);
     const cls = await Class.findByIdAndUpdate(classId, {
       duration: { hrs, mins },
       when,
