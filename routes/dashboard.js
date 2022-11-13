@@ -107,7 +107,7 @@ router.get(
           path: "student",
         },
       });
-    var dt = new Date(cls.when.toString().split("+")[0] + "+05:30");
+    var dt = new Date(cls.when);
     let info = {
       date: `${dt.getDate()}/${dt.getMonth() + 1}/${dt.getFullYear()}`,
       time: `${format(dt.getHours())}:${format(dt.getMinutes())}`,
