@@ -82,6 +82,9 @@ router.get(
     } else {
       classes = await Class.find({}).populate("teacher");
     }
+    classes.forEach(function(cls){
+      cls.dt = new Date(cls.when)
+    })
     res.json({ classes });
   })
 );
